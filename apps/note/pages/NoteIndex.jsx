@@ -1,4 +1,5 @@
 import { NoteList } from "../cmps/NoteList.jsx"
+import { NoteAdd } from "../cmps/NoteAdd.jsx"
 import { noteService } from "../services/note.service.js"
 
 const { useEffect, useState } = React
@@ -13,10 +14,14 @@ export function NoteIndex() {
             })
     }, [])
     if (!notes) return 'Loading..'
-
+    
+    function onSetNote(savedNote) {
+        setNotes(prevNotes => [...prevNotes, savedNote])
+    }
     return (
         <section className="notes-app">
             <h1>Note Index</h1>
+            <NoteAdd onSetNote={onSetNote} />
             <NoteList notes={notes} />
         </section>
     )
