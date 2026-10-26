@@ -10,7 +10,62 @@ export const noteService = {
 }
 
 const NOTE_KEY = 'noteDB'
-
+const demoNotes = [
+    {
+        id: 'n101',
+        createdAt: 1112222,
+        type: 'NoteTxt',
+        isPinned: true,
+        style: {
+            backgroundColor: '#00d'
+        },
+        info: {
+            txt: 'Fullstack Me Baby!'
+        }
+    },
+    {
+        id: 'n102',
+        createdAt: 1112223,
+        type: 'NoteImg',
+        isPinned: false,
+        info: {
+            url: 'https://picsum.photos/300/200',
+            title: 'Bobi and Me'
+        },
+        style: {
+            backgroundColor: '#00d'
+        }
+    },
+       {
+        id: 'n103',
+        createdAt: Date.now(),
+        type: 'NoteVideo',
+        isPinned: false,
+        info: {
+            url: 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4',
+            title: 'My Video'
+        },
+        style: {
+            backgroundColor: '#00d'
+        }
+    },
+    {
+        id: 'n104',
+        createdAt: 1112224,
+        type: 'NoteTodos',
+        isPinned: false,
+        info: {
+            title: 'Get my stuff together',
+            todos: [
+                {
+                    txt: 'Driving license'
+                    , doneAt: null
+                },
+                { txt: 'Coding power', doneAt: 187111111 }
+            ]
+        }
+    }
+]
 _createNotes()
 
 function query(filterBy = {}) {
@@ -47,9 +102,7 @@ function save(note) {
 function _createNotes() {
     let notes = loadFromStorage(NOTE_KEY)
     if (!notes || !notes.length) {
-        notes = [
-            _createNote('firstnote')
-        ]
+        notes = demoNotes
         saveToStorage(NOTE_KEY, notes)
     }
 }
@@ -60,7 +113,7 @@ function _createNote(txt) {
     return note
 }
 
-function getEmptyNote(txt) {
+function getEmptyNote(txt = '') {
     return {
         id: '',
         createdAt: Date.now(),
@@ -74,46 +127,3 @@ function getEmptyNote(txt) {
         }
     }
 }
-const notes = [
-    {
-        id: 'n101',
-        createdAt: 1112222,
-        type: 'NoteTxt',
-        isPinned: true,
-        style: {
-            backgroundColor: '#00d'
-        },
-        info: {
-            txt: 'Fullstack Me Baby!'
-        }
-    },
-    {
-        id: 'n102',
-        createdAt: 1112223,
-        type: 'NoteImg',
-        isPinned: false,
-        info: {
-            url: 'http://some-img/me',
-            title: 'Bobi and Me'
-        },
-        style: {
-            backgroundColor: '#00d'
-        }
-    },
-    {
-        id: 'n103',
-        createdAt: 1112224,
-        type: 'NoteTodos',
-        isPinned: false,
-        info: {
-            title: 'Get my stuff together',
-            todos: [
-                {
-                    txt: 'Driving license'
-                    , doneAt: null
-                },
-                { txt: 'Coding power', doneAt: 187111111 }
-            ]
-        }
-    }
-]
