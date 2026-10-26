@@ -14,15 +14,25 @@ export function NoteIndex() {
             })
     }, [])
     if (!notes) return 'Loading..'
-    
+
     function onSetNote(savedNote) {
         setNotes(prevNotes => [...prevNotes, savedNote])
     }
+    
+  function onRemoveNote(noteId) {
+    noteService.remove(noteId)
+        .then(() => {
+            setNotes(notes =>
+                notes.filter(note => note.id !== noteId)
+            )
+        })
+}
+
     return (
         <section className="notes-app">
             <h1>Note Index</h1>
-            <NoteAdd onSetNote={onSetNote} />
-            <NoteList notes={notes} />
+            <NoteAdd onSetNote={onSetNote}  />
+            <NoteList notes={notes} onRemoveNote={onRemoveNote} />
         </section>
     )
 }
