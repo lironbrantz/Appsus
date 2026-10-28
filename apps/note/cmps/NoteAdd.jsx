@@ -1,35 +1,30 @@
-import { noteService } from "../services/note.service.js";
-
-const { useState, useEffect } = React
+import { noteService } from "../services/note.service.js"
+const { useState } = React
 
 export function NoteAdd({ onSetNote }) {
-    const [note, setNote] = useState(noteService.getEmptyNote)
+    const [note, setNote] = useState(noteService.getEmptyNote())
 
-    function onSubmitNote(ev) {
+    function onSubmitForm(ev) {
         ev.preventDefault()
-        onSaveNote(note)
+         noteService.save(note)
+         .then(savedNote => {
+              onSetNote(savedNote)
+              setNote(noteService.getEmptyNote())
+         })
+
     }
 
-    function onSaveNote(note) {
-        noteService.save(note)
-            .then(savedNote => {
-                onSetNote(savedNote)
-                setNote(noteService.getEmptyNote())
-            })
+    function onHandleChange({target}) {
+         const { value } = target
+         setNote(prevNote => ({ ...prevNote, info: { ...prevNote.info, txt: value } }))
     }
-    function handleChange({ target }) {
 
-        const { value } = target
-
-        setNote(prevNote => ({ ...prevNote, info: { ...prevNote.info, txt: value } }))
-    }
     return (
-        <section className="note-add">
-            <h2>Add Notes</h2>
-            <form onSubmit={onSubmitNote}>
-                <label htmlFor="txt">Note:</label>
-                <input value={note.info.txt} onChange={handleChange} type="text" id='txt' name="txt" />
-                <button type="submit">Add Note</button>
+        <section className="add-note">
+            <form className="note-add-form" onSubmit={onSubmitForm}>
+                <label htmlFor="txt">Note</label>
+                <input onChange={onHandleChange} value={note.info.txt} type="text" id="txt" />
+                <button>save</button>
             </form>
         </section>
     )

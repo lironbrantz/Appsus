@@ -18,21 +18,28 @@ export function NoteIndex() {
     function onSetNote(savedNote) {
         setNotes(prevNotes => [...prevNotes, savedNote])
     }
-    
-  function onRemoveNote(noteId) {
-    noteService.remove(noteId)
-        .then(() => {
-            setNotes(notes =>
-                notes.filter(note => note.id !== noteId)
+    function onUpdateNote(savedNote) {
+        setNotes(prevNotes =>
+            prevNotes.map(note =>
+                note.id === savedNote.id ? savedNote : note
             )
-        })
-}
+        )
+    }
+
+    function onRemoveNote(noteId) {
+        noteService.remove(noteId)
+            .then(() => {
+                setNotes(notes =>
+                    notes.filter(note => note.id !== noteId)
+                )
+            })
+    }
 
     return (
         <section className="notes-app">
             <h1>Note Index</h1>
-            <NoteAdd onSetNote={onSetNote}  />
-            <NoteList notes={notes} onRemoveNote={onRemoveNote} />
+            <NoteAdd onSetNote={onSetNote} />
+            <NoteList notes={notes} onRemoveNote={onRemoveNote} onUpdateNote={onUpdateNote} />
         </section>
     )
 }
