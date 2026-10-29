@@ -1,6 +1,172 @@
- /* note list */
 
- .color-picker-wrapper {
+/* Notes grid */
+
+.note-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    align-items: start;
+    gap: 16px;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0;
+    list-style: none;
+}
+
+.note-list > li {
+    min-width: 0;
+    list-style: none;
+}
+
+
+/* Note card */
+
+.note-preview {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-height: 110px;
+    box-sizing: border-box;
+    padding: 14px;
+    background-color: #fff;
+    border: 1px solid #dadce0;
+    border-radius: 10px;
+    color: #202124;
+    overflow-wrap: anywhere;
+    transition: box-shadow 0.2s, border-color 0.2s;
+}
+
+.note-preview:hover,
+.note-preview:focus-within {
+    z-index: 2;
+    border-color: #9aa0a6;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
+}
+
+
+/* Note content */
+
+.note-preview h4 {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+.note-preview p {
+    margin: 6px 0;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.note-text,
+.note-img,
+.note-video,
+.note-todos {
+    width: 100%;
+}
+
+.note-preview img,
+.note-preview video {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin-top: 8px;
+    border-radius: 6px;
+}
+
+.note-img img,
+.note-text img {
+    width: 100%;
+    object-fit: cover;
+}
+
+.note-preview video {
+    width: 100%;
+}
+
+.note-todos ul {
+    margin: 8px 0;
+    padding-left: 22px;
+}
+
+.note-todos li {
+    margin-bottom: 6px;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+
+/* Note actions */
+
+.note-preview > section:last-child {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 4px;
+    min-height: 36px;
+    margin-top: auto;
+    padding-top: 12px;
+    opacity: 0;
+    transition: opacity 0.15s;
+}
+
+.note-preview:hover > section:last-child,
+.note-preview:focus-within > section:last-child {
+    opacity: 1;
+}
+
+.note-preview button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 32px;
+    height: 32px;
+    padding: 0 6px;
+    background: transparent;
+    border: none;
+    border-radius: 50%;
+    color: #3c4043;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background-color 0.15s;
+}
+
+.note-preview button:hover {
+    background-color: rgba(0, 0, 0, 0.08);
+}
+
+
+/* Edit form */
+
+.note-edit-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+}
+
+.note-edit-form input,
+.note-edit-form textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 8px 0;
+    border: none;
+    outline: none;
+    resize: vertical;
+    background: transparent;
+    color: #202124;
+    font: 14px/1.5 Arial, sans-serif;
+}
+
+.note-edit-form button {
+    align-self: flex-end;
+    border-radius: 6px;
+}
+
+
+/* Color picker */
+
+.color-picker-wrapper {
     position: relative;
     display: inline-block;
 }
@@ -9,18 +175,65 @@
     position: absolute;
     top: 100%;
     left: 0;
+    z-index: 10;
     display: flex;
+    align-items: center;
     gap: 8px;
     padding: 12px;
-    background-color: white;
+    background-color: #fff;
+    border: 1px solid #dadce0;
     border-radius: 12px;
-    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.2);
-    z-index: 10;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
 }
 
-.color-options button {
-    border: none;
-    background: transparent;
+.color-options .color-option {
+    width: 28px;
+    height: 28px;
+    min-width: 28px;
+    padding: 0;
+    border: 1px solid #dadce0;
+    border-radius: 50%;
     cursor: pointer;
-    font-size: 20px;
+}
+
+.color-options .color-option:hover {
+    outline: 2px solid #5f6368;
+    outline-offset: 2px;
+}
+
+
+/* Tablet */
+
+@media (max-width: 900px) {
+    .note-list {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 12px;
+    }
+}
+
+
+/* Mobile */
+
+@media (max-width: 600px) {
+    .note-list {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 10px;
+    }
+
+    .note-preview {
+        padding: 12px;
+    }
+
+    .note-preview > section:last-child {
+        opacity: 1;
+    }
+}
+
+
+/* Touch devices */
+
+@media (hover: none) {
+    .note-preview > section:last-child {
+        opacity: 1;
+    }
 }

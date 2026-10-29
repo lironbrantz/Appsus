@@ -7,6 +7,7 @@ export const noteService = {
     remove,
     save,
     getEmptyNote,
+    getEmptyImageNote,
 }
 
 const NOTE_KEY = 'noteDB'
@@ -113,6 +114,22 @@ function _createNote(txt) {
     const note = getEmptyNote(txt)
     note.id = makeId()
     return note
+}
+function getEmptyImageNote() {
+    return {
+        id: '',
+        createdAt: Date.now(),
+        type: 'NoteImg',
+        isPinned: false,
+
+        info: {
+            url: '',
+            title: ''
+        },
+        style: {
+            backgroundColor: '#fff'
+        }
+    }
 }
 
 function getEmptyNote(txt = '') {
