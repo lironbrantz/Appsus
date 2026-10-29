@@ -36,7 +36,7 @@ const demoNotes = [
             backgroundColor: '#00d'
         }
     },
-       {
+    {
         id: 'n103',
         createdAt: Date.now(),
         type: 'NoteVideo',
@@ -78,13 +78,15 @@ function query(filterBy = {}) {
             if (filterBy.search) {
                 const search = filterBy.search.toLowerCase()
                 notes = notes.filter(note =>
-                    (note.info.txt || '').toLowerCase().includes(search)
+                    (note.info.txt || '').toLowerCase().includes(search) ||
+                    (note.info.title || '').toLowerCase().includes(search)
                 )
             }
 
             return notes
         })
 }
+
 function get(noteId) {
     return storageService.get(NOTE_KEY, noteId)
 }

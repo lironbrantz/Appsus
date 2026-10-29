@@ -1,23 +1,37 @@
 import { NoteList } from "../cmps/NoteList.jsx"
 import { NoteAdd } from "../cmps/NoteAdd.jsx"
 import { noteService } from "../services/note.service.js"
+import { NoteFilter } from "../cmps/NoteFilter.jsx"
 
 const { useEffect, useState } = React
 
 export function NoteIndex() {
     const [notes, setNotes] = useState(null)
 
+    const [filterBy, setFilterBy] = useState({ search: '', type: '' })
+
     useEffect(() => {
-        noteService.query()
+        loadNotes()
+    }, [filterBy])
+
+    function loadNotes() {
+        noteService.query(filterBy)
             .then(notes => {
                 setNotes(notes)
             })
-    }, [])
+    }
+
+
     if (!notes) return 'Loading..'
 
     function onSetNote(savedNote) {
         setNotes(prevNotes => [...prevNotes, savedNote])
     }
+
+    function onsetFilterBy(filterByToEdit) {
+        setFilterBy(filterByToEdit)
+    }
+
     function onUpdateNote(savedNote) {
         setNotes(prevNotes =>
             prevNotes.map(note =>
@@ -38,6 +52,7 @@ export function NoteIndex() {
     return (
         <section className="notes-app">
             <h1>Note Index</h1>
+            <NoteFilter filterBy={filterBy} onSetFilterBy={onsetFilterBy} />
             <NoteAdd onSetNote={onSetNote} />
             <NoteList notes={notes} onRemoveNote={onRemoveNote} onUpdateNote={onUpdateNote} />
         </section>
