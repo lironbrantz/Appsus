@@ -1,0 +1,228 @@
+
+/* Notes page */
+
+.notes-app {
+    min-height: 100vh;
+    padding: 32px 24px;
+    background: #fff;
+    color: #202124;
+}
+
+.notes-app h1,
+.notes-app h2 {
+    display: none;
+}
+
+
+/* Add note */
+
+.add-note {
+    width: 100%;
+    max-width: 480px;
+    margin: 0 auto 48px;
+}
+
+.note-add-form {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 12px 14px;
+    background: #fff;
+    border: 1px solid #dadce0;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.note-add-form textarea {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 2px 0;
+    border: none;
+    outline: none;
+    resize: none;
+    background: transparent;
+    color: #202124;
+    font: 15px/1.5 Arial, sans-serif;
+}
+
+.note-add-form textarea::placeholder {
+    color: #5f6368;
+}
+
+.note-add-form button {
+    align-self: flex-end;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    background: transparent;
+    color: #202124;
+    cursor: pointer;
+}
+
+.note-add-form button:hover {
+    background: #f1f3f4;
+}
+
+
+/* Notes grid */
+
+.note-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 16px;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0;
+    list-style: none;
+}
+
+.note-list > li {
+    min-width: 0;
+}
+
+/* Note card */
+
+.note-preview {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-height: 110px;
+    padding: 14px;
+    color: #202124;
+    border: 1px solid #dadce0;
+    border-radius: 8px;
+    overflow-wrap: anywhere;
+    transition: box-shadow .2s;
+}
+
+.note-preview:hover,
+.note-preview:focus-within {
+    z-index: 2;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, .15);
+}
+
+.note-preview h4 {
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+.note-preview img,
+.note-preview video {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+/* Note actions */
+
+.note-preview > section:last-child {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: auto;
+    padding-top: 16px;
+    opacity: 0;
+    transition: opacity .15s;
+}
+
+.note-preview:hover > section:last-child,
+.note-preview:focus-within > section:last-child {
+    opacity: 1;
+}
+
+.note-preview button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 32px;
+    height: 32px;
+    border: none;
+    border-radius: 50%;
+    background: transparent;
+    color: #3c4043;
+    cursor: pointer;
+}
+
+.note-preview button:hover {
+    background: rgba(0, 0, 0, .08);
+}
+
+/* Edit form */
+
+.note-edit-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.note-edit-form input {
+    padding: 8px;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: #202124;
+    font: inherit;
+}
+
+.note-edit-form button {
+    align-self: flex-end;
+    border-radius: 5px;
+}
+
+/* Color picker */
+
+.color-picker-wrapper {
+    position: relative;
+}
+
+.color-options {
+    position: absolute;
+    top: 36px;
+    left: 0;
+    z-index: 10;
+    display: flex;
+    gap: 8px;
+    padding: 12px;
+    background: #fff;
+    border: 1px solid #dadce0;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, .18);
+}
+
+.color-options .color-option {
+    width: 28px;
+    height: 28px;
+    min-width: 28px;
+    padding: 0;
+    border: 1px solid #dadce0;
+    border-radius: 50%;
+}
+
+.color-options .color-option:hover {
+    outline: 2px solid #5f6368;
+}
+
+/* Mobile */
+
+@media (max-width: 600px) {
+    .notes-app {
+        padding: 24px 12px;
+    }
+
+    .note-list {
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        gap: 10px;
+    }
+
+    .note-preview > section:last-child {
+        opacity: 1;
+    }
+}
+
+@media (hover: none) {
+    .note-preview > section:last-child {
+        opacity: 1;
+    }
+}
