@@ -26,7 +26,7 @@
     flex-direction: column;
     min-height: 110px;
     box-sizing: border-box;
-    padding: 14px;
+    padding: 14px 14px 8px;
     background-color: #fff;
     border: 1px solid #dadce0;
     border-radius: 10px;
@@ -45,9 +45,16 @@
 
 /* Note content */
 
+.note-preview h3 {
+    margin: 0 0 6px;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.5;
+}
+
 .note-preview h4 {
     margin: 0;
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 400;
     line-height: 1.5;
 }
@@ -64,6 +71,9 @@
 .note-todos {
     width: 100%;
 }
+
+
+/* Images and videos */
 
 .note-preview img,
 .note-preview video {
@@ -84,6 +94,9 @@
     width: 100%;
 }
 
+
+/* Todos */
+
 .note-todos ul {
     margin: 8px 0;
     padding-left: 22px;
@@ -99,6 +112,7 @@
 /* Note actions */
 
 .note-preview > section:last-child {
+    position: relative;
     display: flex;
     align-items: center;
     flex-wrap: wrap;
@@ -121,18 +135,82 @@
     justify-content: center;
     min-width: 32px;
     height: 32px;
-    padding: 0 6px;
+    padding: 0 8px;
     background: transparent;
     border: none;
-    border-radius: 50%;
+    border-radius: 6px;
     color: #3c4043;
-    font-size: 13px;
+    font-size: 12px;
     cursor: pointer;
     transition: background-color 0.15s;
 }
 
 .note-preview button:hover {
     background-color: rgba(0, 0, 0, 0.08);
+}
+
+
+/* Color picker popup */
+
+.note-preview .color-picker {
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 0;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px;
+    background-color: #fff;
+    border: 1px solid #dadce0;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+
+/* Color circles */
+
+.note-preview .color-picker button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 30px;
+    height: 30px;
+    min-width: 30px;
+    padding: 0;
+    border: 1px solid #dadce0;
+    border-radius: 50%;
+    color: transparent;
+    font-size: 0;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.note-preview .color-picker button:nth-child(1) {
+    background-color: #ffffff;
+}
+
+.note-preview .color-picker button:nth-child(2) {
+    background-color: #fff475;
+}
+
+.note-preview .color-picker button:nth-child(3) {
+    background-color: #3300ff;
+}
+
+.note-preview .color-picker button:nth-child(4) {
+    background-color: #ff0000;
+}
+
+.note-preview .color-picker button:hover {
+    transform: scale(1.12);
+    box-shadow: 0 0 0 2px #9aa0a6;
+}
+
+.note-preview .color-picker button:focus-visible {
+    outline: 2px solid #1a73e8;
+    outline-offset: 3px;
 }
 
 
@@ -164,44 +242,6 @@
 }
 
 
-/* Color picker */
-
-.color-picker-wrapper {
-    position: relative;
-    display: inline-block;
-}
-
-.color-options {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    z-index: 10;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 12px;
-    background-color: #fff;
-    border: 1px solid #dadce0;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
-}
-
-.color-options .color-option {
-    width: 28px;
-    height: 28px;
-    min-width: 28px;
-    padding: 0;
-    border: 1px solid #dadce0;
-    border-radius: 50%;
-    cursor: pointer;
-}
-
-.color-options .color-option:hover {
-    outline: 2px solid #5f6368;
-    outline-offset: 2px;
-}
-
-
 /* Tablet */
 
 @media (max-width: 900px) {
@@ -221,11 +261,16 @@
     }
 
     .note-preview {
-        padding: 12px;
+        padding: 12px 12px 8px;
     }
 
     .note-preview > section:last-child {
         opacity: 1;
+    }
+
+    .note-preview .color-picker {
+        gap: 8px;
+        padding: 10px;
     }
 }
 

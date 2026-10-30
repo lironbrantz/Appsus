@@ -1,72 +1,60 @@
 import { noteService } from "../services/note.service.js"
+import { ColorPicker } from "./ColorPicker.jsx"
+
 const { useState } = React
 
-export function NoteAdd({ onSetNote }) {
+export function NoteAdd({ onAddNote }) {
     const [note, setNote] = useState(noteService.getEmptyNote())
-    const [isExpanded, setIsExpanded] = useState(false)
+
+    const [isColorPickerOpen, setIsColorPickerOpen] = useState(false)
+
 
     function onSubmitForm(ev) {
         ev.preventDefault()
+
         noteService.save(note)
             .then(savedNote => {
-                onSetNote(savedNote)
+                onAddNote(savedNote)
                 setNote(noteService.getEmptyNote())
-                setIsExpanded(false)
+                setIsColorPickerOpen(false)
             })
-
     }
+
+
+    function onSetBgColor(color) {
+        setNote(prevNote => ({
+            ...prevNote,
+            style: {
+                backgroundColor: color
+            }
+
+        }))
+        setIsColorPickerOpen(false)
+    }
+
 
     function onHandleChange({ target }) {
-        const { value } = target
-        setNote(prevNote => ({ ...prevNote, info: { ...prevNote.info, txt: value } }))
+        const { name, value } = target
+
+        setNote(prevNote => ({
+            ...prevNote,
+            info: {
+                ...prevNote.info,
+                [name]: value
+            }
+        }))
     }
-    function onImageSelect(ev) {
-        const file = ev.target.files[0]
-        if (!file) return
-
-        const reader = new FileReader()
-
-        reader.onload = () => {
-            setNote(prevNote => ({
-                ...prevNote,
-                type: 'NoteImg',
-                info: {
-                    ...prevNote.info,
-                    url: reader.result
-                }
-            }))
-        }
-
-        reader.readAsDataURL(file)
-    }
-
+    const bgStyle = { backgroundColor: note.style.backgroundColor }
     return (
         <section className="add-note">
-            <form className={`note-add-form ${isExpanded ? 'expanded' : ''}`}
-                onSubmit={onSubmitForm}
-            >
-                <label htmlFor="note-image">📷</label>
-
-                <input
-                    onChange={onImageSelect}
-                    type="file"
-                    id="note-image"
-                    accept="image/*"
-                    style={{ display: 'none' }}
-                />
-
-                <textarea
-                    onFocus={() => setIsExpanded(true)}
-                    placeholder="Take a note..."
-                    onChange={onHandleChange}
-                    value={note.info.txt}
-                    id="txt" />
-                {note.info.url && (
-                    <img src={note.info.url} alt="Note preview" />
-                )}
-                {isExpanded && (
-                    <button>save</button>
-                )}
+            <form className="note-add-form" style={bgStyle} onSubmit={onSubmitForm}>
+                <input type="text" name="title" placeholder="Title" value={note.info.title} onChange={onHandleChange} />
+                <textarea name="txt" onChange={onHandleChange} placeholder="Take a note..." value={note.info.txt} id="txt" />
+                <div className="note-add-toolbar">
+                    <button type="button" onClick={() => setIsColorPickerOpen(!isColorPickerOpen)}>🎨</button>
+                    {isColorPickerOpen && <ColorPicker onSetBgColor={onSetBgColor} />}
+                    <button type="submit">save</button>
+                </div>
             </form>
         </section>
     )
