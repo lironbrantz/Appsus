@@ -1,4 +1,4 @@
-import { noteService } from "../services/note.service.js"
+
 import { DynamicCmp } from "./DynamicCmp.jsx"
 import { NoteEdit } from "./NoteEdit.jsx"
 import { ColorPicker } from "./ColorPicker.jsx"
@@ -14,10 +14,8 @@ export function NotePreview({ note, onRemoveNote, onUpdateNote }) {
             ...note,
             isPinned: !note.isPinned
         }
-        noteService.save(updatedNote)
-            .then(savedNote => {
-                onUpdateNote(savedNote)
-            })
+
+        onUpdateNote(updatedNote)
     }
 
     function onSetBgColor(color) {
@@ -28,14 +26,13 @@ export function NotePreview({ note, onRemoveNote, onUpdateNote }) {
             }
         }
 
-        noteService.save(updatedNote)
-            .then(savedNote => {
-                onUpdateNote(savedNote)
+        onUpdateNote(updatedNote)
+            .then(() => {
+                setIsColorPickerOpen(false)
             })
-        setIsColorPickerOpen(false)
     }
 
-    const bgStyle = { backgroundColor: note.style.backgroundColor }
+    const bgStyle = { backgroundColor: note.style ? note.style.backgroundColor : '#fff' }
     return (
         <section style={bgStyle} className="note-preview">
             {isEditing

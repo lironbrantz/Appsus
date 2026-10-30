@@ -24,21 +24,28 @@ export function NoteIndex() {
 
     if (!notes) return 'Loading..'
 
-    function onSetNote(savedNote) {
-        setNotes(prevNotes => [...prevNotes, savedNote])
+    function onAddNote(note) {
+        noteService.save(note)
+            .then(savedNote => {
+                setNotes(prevNotes => [...prevNotes, savedNote])
+            })
+
     }
 
     function onsetFilterBy(filterByToEdit) {
         setFilterBy(filterByToEdit)
     }
 
-    function onUpdateNote(savedNote) {
-        setNotes(prevNotes =>
-            prevNotes.map(note =>
-                note.id === savedNote.id ? savedNote : note
+function onUpdateNote(note) {
+    return noteService.save(note)
+        .then(savedNote => {
+            setNotes(prevNotes =>
+                prevNotes.map(note =>
+                    note.id === savedNote.id ? savedNote : note
+                )
             )
-        )
-    }
+        })
+}
 
     function onRemoveNote(noteId) {
         noteService.remove(noteId)
@@ -53,7 +60,7 @@ export function NoteIndex() {
         <section className="notes-app">
             <h1>Note Index</h1>
             <NoteFilter filterBy={filterBy} onSetFilterBy={onsetFilterBy} />
-            <NoteAdd onSetNote={onSetNote} />
+            <NoteAdd onAddNote={onAddNote} />
             <NoteList notes={notes} onRemoveNote={onRemoveNote} onUpdateNote={onUpdateNote} />
         </section>
     )

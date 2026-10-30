@@ -117,6 +117,7 @@ function _createNote(txt) {
 }
 function getEmptyImageNote() {
     return {
+        title: '',
         id: '',
         createdAt: Date.now(),
         type: 'NoteImg',
@@ -142,7 +143,8 @@ function getEmptyNote(txt = '') {
             backgroundColor: '#fff'
         },
         info: {
-            txt
+            txt,
+            title: ''
         }
     }
 }

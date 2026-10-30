@@ -1,16 +1,9 @@
-const { useState, useEffect } = React
-
 export function NoteFilter({ filterBy, onSetFilterBy }) {
 
-    const [filterByToEdit, setFilterByToEdit] = useState({ ...filterBy })
-
-    useEffect(() => {
-        onSetFilterBy(filterByToEdit)
-    }, [filterByToEdit])
 
     function onHandleChange(ev) {
         const { value, name } = ev.target
-        setFilterByToEdit(prevFilterByToEdit => ({ ...prevFilterByToEdit, [name]: value }))
+        onSetFilterBy({ ...filterBy, [name]: value })
     }
 
 
@@ -18,12 +11,12 @@ export function NoteFilter({ filterBy, onSetFilterBy }) {
         <section className="note-filter">
             <h2>Filter Notes</h2>
             <form>
-                <input type="text" 
-                id="search" 
-                name="search" 
-                placeholder="Search" 
-                value={filterByToEdit.search} 
-                onChange={onHandleChange} />
+                <input type="text"
+                    id="search"
+                    name="search"
+                    placeholder="Search"
+                    value={filterBy.search}
+                    onChange={onHandleChange} />
             </form>
 
         </section >

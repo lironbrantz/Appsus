@@ -12,9 +12,8 @@ export function NoteAdd({ onAddNote }) {
     function onSubmitForm(ev) {
         ev.preventDefault()
 
-        noteService.save(note)
-            .then(savedNote => {
-                onAddNote(savedNote)
+        onAddNote(note)
+            .then(() => {
                 setNote(noteService.getEmptyNote())
                 setIsColorPickerOpen(false)
             })
