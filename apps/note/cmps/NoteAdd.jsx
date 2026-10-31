@@ -1,5 +1,6 @@
 import { noteService } from "../services/note.service.js"
 import { ColorPicker } from "./ColorPicker.jsx"
+import { showErrorMsg } from "/services/event-bus.service.js"
 
 const { useState } = React
 
@@ -16,6 +17,9 @@ export function NoteAdd({ onAddNote }) {
             .then(() => {
                 setNote(noteService.getEmptyNote())
                 setIsColorPickerOpen(false)
+            })
+            .catch(() => {
+                showErrorMsg('Failed to add note')
             })
     }
 

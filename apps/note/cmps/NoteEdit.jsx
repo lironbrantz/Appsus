@@ -1,5 +1,5 @@
 
-import { noteService } from "../services/note.service.js"
+import { showErrorMsg } from "/services/event-bus.service.js"
 
 const { useState } = React
 
@@ -13,6 +13,9 @@ export function NoteEdit({ note, onUpdateNote, onClose }) {
         onUpdateNote(noteToEdit)
             .then(() => {
                 onClose()
+            })
+            .catch(() => {
+                showErrorMsg('Failed to update note')
             })
     }
 

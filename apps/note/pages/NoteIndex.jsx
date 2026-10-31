@@ -2,6 +2,7 @@ import { NoteList } from "../cmps/NoteList.jsx"
 import { NoteAdd } from "../cmps/NoteAdd.jsx"
 import { noteService } from "../services/note.service.js"
 import { NoteFilter } from "../cmps/NoteFilter.jsx"
+import { showErrorMsg } from "/services/event-bus.service.js"
 
 const { useEffect, useState } = React
 
@@ -19,40 +20,44 @@ export function NoteIndex() {
             .then(notes => {
                 setNotes(notes)
             })
+            .catch(() => {
+                showErrorMsg('Failed to load notes')
+            })
     }
-
 
     if (!notes) return 'Loading..'
 
     function onAddNote(note) {
-        noteService.save(note)
-            .then(savedNote => {
-                setNotes(prevNotes => [...prevNotes, savedNote])
+        return noteService.save(note)
+            .then(() => {
+                loadNotes()
             })
-
     }
 
     function onsetFilterBy(filterByToEdit) {
         setFilterBy(filterByToEdit)
     }
 
-function onUpdateNote(note) {
-    return noteService.save(note)
-        .then(savedNote => {
-            setNotes(prevNotes =>
-                prevNotes.map(note =>
-                    note.id === savedNote.id ? savedNote : note
+    function onUpdateNote(note) {
+        return noteService.save(note)
+            .then(savedNote => {
+                setNotes(prevNotes =>
+                    prevNotes.map(note =>
+                        note.id === savedNote.id ? savedNote : note
+                    )
                 )
-            )
-        })
-}
+            })
+    }
 
     function onRemoveNote(noteId) {
-        noteService.remove(noteId)
+        return noteService.remove(noteId)
             .then(() => {
                 setNotes(notes =>
                     notes.filter(note => note.id !== noteId)
                 )
+            })
+            .catch(() => {
+                showErrorMsg('Failed to remove note')
             })
     }
 

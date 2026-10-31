@@ -2,6 +2,8 @@
 import { DynamicCmp } from "./DynamicCmp.jsx"
 import { NoteEdit } from "./NoteEdit.jsx"
 import { ColorPicker } from "./ColorPicker.jsx"
+import { showErrorMsg } from "/services/event-bus.service.js"
+
 const { useState } = React
 
 export function NotePreview({ note, onRemoveNote, onUpdateNote }) {
@@ -16,6 +18,9 @@ export function NotePreview({ note, onRemoveNote, onUpdateNote }) {
         }
 
         onUpdateNote(updatedNote)
+            .catch(() => {
+                showErrorMsg('Failed to update pin')
+            })
     }
 
     function onSetBgColor(color) {
@@ -29,6 +34,9 @@ export function NotePreview({ note, onRemoveNote, onUpdateNote }) {
         onUpdateNote(updatedNote)
             .then(() => {
                 setIsColorPickerOpen(false)
+            })
+            .catch(() => {
+                showErrorMsg('Failed to update note color')
             })
     }
 
