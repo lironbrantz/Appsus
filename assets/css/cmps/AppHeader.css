@@ -14,3 +14,25 @@ nav a.active {
     font-weight: bold;
     text-decoration: overline;
 }
+
+.app-header {
+    background-color: #ffffff;
+    color: #202124;
+    border-bottom: 1px solid #dadce0;
+    box-shadow: none;
+}
+
+.app-header a {
+    color: #5f6368;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.app-header a:hover {
+    color: #202124;
+}
+
+.app-header a.active {
+    color: #202124;
+    font-weight: 600;
+}
