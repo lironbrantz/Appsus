@@ -1,12 +1,13 @@
 import { noteService } from "../services/note.service.js"
 import { ColorPicker } from "./ColorPicker.jsx"
-import { showErrorMsg } from "/services/event-bus.service.js"
+import { showErrorMsg } from "../../../services/event-bus.service.js"
 
 const { useState } = React
 
 export function NoteAdd({ onAddNote }) {
-    const [note, setNote] = useState(noteService.getEmptyNote())
 
+    const [note, setNote] = useState(noteService.getEmptyNote())
+    const [isVideoInputOpen, setIsVideoInputOpen] = useState(false)
     const [isColorPickerOpen, setIsColorPickerOpen] = useState(false)
 
 
@@ -18,8 +19,9 @@ export function NoteAdd({ onAddNote }) {
                 setNote(noteService.getEmptyNote())
                 setIsColorPickerOpen(false)
             })
-            .catch(() => {
-                showErrorMsg('Failed to add note')
+            setIsVideoInputOpen(false)
+            .catch(err => {
+                showErrorMsg('Failed to add note', err)
             })
     }
 
@@ -37,7 +39,39 @@ export function NoteAdd({ onAddNote }) {
 
 
     function onHandleChange({ target }) {
-        const { name, value } = target
+        let { name, value, files } = target
+        if (name === 'url') {
+            setNote(prevNote => ({
+                ...prevNote,
+                type: 'NoteVideo',
+                info: {
+                    ...prevNote.info,
+                    url: value
+                }
+            }))
+            return
+        }
+
+        if (name === 'image') {
+            const imageFile = files[0]
+            if (!imageFile) return
+
+            const reader = new FileReader()
+
+            reader.onload = () => {
+                setNote(prevNote => ({
+                    ...prevNote,
+                    type: 'NoteImg',
+                    info: {
+                        ...prevNote.info,
+                        url: reader.result
+                    }
+                }))
+            }
+
+            reader.readAsDataURL(imageFile)
+            return
+        }
 
         setNote(prevNote => ({
             ...prevNote,
@@ -47,15 +81,37 @@ export function NoteAdd({ onAddNote }) {
             }
         }))
     }
+
     const bgStyle = { backgroundColor: note.style.backgroundColor }
     return (
         <section className="add-note">
             <form className="note-add-form" style={bgStyle} onSubmit={onSubmitForm}>
+
                 <input type="text" name="title" placeholder="Title" value={note.info.title} onChange={onHandleChange} />
                 <textarea name="txt" onChange={onHandleChange} placeholder="Take a note..." value={note.info.txt} id="txt" />
+                {note.info.url && <img src={note.info.url} alt="Note image" />}
+
                 <div className="note-add-toolbar">
+
                     <button type="button" onClick={() => setIsColorPickerOpen(!isColorPickerOpen)}>🎨</button>
                     {isColorPickerOpen && <ColorPicker onSetBgColor={onSetBgColor} />}
+
+                    <label htmlFor="note-image">🖼️</label>
+                    <input name="image" type="file" onChange={onHandleChange} id="note-image" accept="image/*" hidden />
+
+                    <button type="button" onClick={() => setIsVideoInputOpen(!isVideoInputOpen)}>📹</button>
+                    {isVideoInputOpen && (
+                        <input
+                        name="url"
+                        type="url"
+                        onChange={onHandleChange}
+                        id="note-video"
+                        placeholder="Paste video URL"
+                    />
+                    )}
+                    <label htmlFor="note-todos">📝</label>
+                    <input name="todos" type="text" onChange={onHandleChange} id="note-todos" placeholder="Enter todos separated by commas" hidden />
+
                     <button type="submit">save</button>
                 </div>
             </form>

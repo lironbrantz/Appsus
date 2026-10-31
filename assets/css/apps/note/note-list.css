@@ -1,4 +1,3 @@
-
 /* Notes grid */
 
 .note-list {
@@ -12,7 +11,7 @@
     list-style: none;
 }
 
-.note-list > li {
+.note-list>li {
     min-width: 0;
     list-style: none;
 }
@@ -111,7 +110,7 @@
 
 /* Note actions */
 
-.note-preview > section:last-child {
+.note-preview>section:last-child {
     position: relative;
     display: flex;
     align-items: center;
@@ -124,8 +123,8 @@
     transition: opacity 0.15s;
 }
 
-.note-preview:hover > section:last-child,
-.note-preview:focus-within > section:last-child {
+.note-preview:hover>section:last-child,
+.note-preview:focus-within>section:last-child {
     opacity: 1;
 }
 
@@ -187,6 +186,7 @@
     transition: transform 0.15s, box-shadow 0.15s;
 }
 
+
 .note-preview .color-picker button:nth-child(1) {
     background-color: #ffffff;
 }
@@ -196,12 +196,21 @@
 }
 
 .note-preview .color-picker button:nth-child(3) {
-    background-color: #3300ff;
+    background-color: #d7aefb;
 }
 
 .note-preview .color-picker button:nth-child(4) {
-    background-color: #ff0000;
+    background-color: #aecbfa;
 }
+
+.note-preview .color-picker button:nth-child(5) {
+    background-color: #fdcfe8;
+}
+
+.note-preview .color-picker button:nth-child(6) {
+    background-color: #e6c9a8;
+}
+
 
 .note-preview .color-picker button:hover {
     transform: scale(1.12);
@@ -264,7 +273,7 @@
         padding: 12px 12px 8px;
     }
 
-    .note-preview > section:last-child {
+    .note-preview>section:last-child {
         opacity: 1;
     }
 
@@ -278,7 +287,37 @@
 /* Touch devices */
 
 @media (hover: none) {
-    .note-preview > section:last-child {
+    .note-preview>section:last-child {
         opacity: 1;
     }
+}
+
+/* Note cards */
+
+.note-preview {
+    border-radius: 8px;
+    padding: 12px 14px 8px;
+}
+
+.note-preview:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.16);
+}
+
+/* Note media */
+
+.note-preview img,
+.note-preview video,
+.note-preview iframe {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    margin-top: 8px;
+    border: none;
+    border-radius: 6px;
+}
+
+.note-preview iframe {
+    aspect-ratio: 16 / 9;
+    height: auto;
 }

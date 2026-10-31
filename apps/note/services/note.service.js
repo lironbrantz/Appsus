@@ -1,5 +1,6 @@
 import { storageService } from '../../../services/async-storage.service.js'
 import { utilService } from '../../../services/util.service.js'
+
 const { loadFromStorage, saveToStorage, makeId } = utilService
 export const noteService = {
     query,
@@ -7,7 +8,6 @@ export const noteService = {
     remove,
     save,
     getEmptyNote,
-    getEmptyImageNote,
 }
 
 const NOTE_KEY = 'noteDB'
@@ -21,6 +21,7 @@ const demoNotes = [
             backgroundColor: '#00d'
         },
         info: {
+            title: '',
             txt: 'Fullstack Me Baby!'
         }
     },
@@ -31,7 +32,8 @@ const demoNotes = [
         isPinned: false,
         info: {
             url: 'https://picsum.photos/300/200',
-            title: 'Bobi and Me'
+            title: 'Bobi and Me',
+            txt: ''
         },
         style: {
             backgroundColor: '#00d'
@@ -44,7 +46,8 @@ const demoNotes = [
         isPinned: false,
         info: {
             url: 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4',
-            title: 'My Video'
+            title: 'My Video',
+            txt: ''
         },
         style: {
             backgroundColor: '#00d'
@@ -55,6 +58,9 @@ const demoNotes = [
         createdAt: 1112224,
         type: 'NoteTodos',
         isPinned: false,
+        style: {
+            backgroundColor: '#fff'
+        },
         info: {
             title: 'Get my stuff together',
             todos: [
@@ -62,6 +68,7 @@ const demoNotes = [
                     txt: 'Driving license'
                     , doneAt: null
                 },
+
                 { txt: 'Coding power', doneAt: 187111111 }
             ]
         }
@@ -115,36 +122,22 @@ function _createNote(txt) {
     note.id = makeId()
     return note
 }
-function getEmptyImageNote() {
+
+
+function getEmptyNote(type = 'NoteTxt') {
     return {
-        title: '',
         id: '',
         createdAt: Date.now(),
-        type: 'NoteImg',
+        type,
         isPinned: false,
-
+        style: {
+            backgroundColor: '#fff'
+        },
         info: {
+            title: '',
+            txt: '',
             url: '',
-            title: ''
-        },
-        style: {
-            backgroundColor: '#fff'
-        }
-    }
-}
-
-function getEmptyNote(txt = '') {
-    return {
-        id: '',
-        createdAt: Date.now(),
-        type: 'NoteTxt',
-        isPinned: false,
-        style: {
-            backgroundColor: '#fff'
-        },
-        info: {
-            txt,
-            title: ''
+            todos: []
         }
     }
 }

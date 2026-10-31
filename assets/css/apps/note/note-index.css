@@ -223,6 +223,7 @@
     transition: transform 0.15s, box-shadow 0.15s;
 }
 
+
 .notes-app .color-picker button:nth-child(1) {
     background-color: #ffffff;
 }
@@ -232,11 +233,11 @@
 }
 
 .notes-app .color-picker button:nth-child(3) {
-    background-color: #3300ff;
+    background-color: #d7aefb;
 }
 
 .notes-app .color-picker button:nth-child(4) {
-    background-color: #ff0000;
+    background-color: #aecbfa;
 }
 
 .notes-app .color-picker button:nth-child(5) {
@@ -355,3 +356,59 @@
     }
 }
 
+/* Google Keep form */
+
+.add-note {
+    max-width: 600px;
+    margin-bottom: 40px;
+}
+
+.note-add-form {
+    padding: 12px 16px 8px;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+}
+
+.note-add-form:focus-within {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.24);
+}
+
+/* Toolbar */
+
+.note-add-toolbar {
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-top: 4px;
+}
+
+.note-add-toolbar > input[name="url"] {
+    flex: 1 1 170px;
+    min-width: 0;
+    height: 34px;
+    padding: 0 10px;
+    border: 1px solid #dadce0;
+    border-radius: 6px;
+    outline: none;
+    background-color: transparent;
+    color: #202124;
+    font-size: 13px;
+}
+
+.note-add-toolbar > input[name="url"]:focus {
+    border-color: #1a73e8;
+}
+
+.note-add-toolbar label[for="note-todos"] {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.note-add-toolbar label[for="note-todos"]:hover {
+    background-color: rgba(60, 64, 67, 0.1);
+}

@@ -2,7 +2,7 @@
 import { DynamicCmp } from "./DynamicCmp.jsx"
 import { NoteEdit } from "./NoteEdit.jsx"
 import { ColorPicker } from "./ColorPicker.jsx"
-import { showErrorMsg } from "/services/event-bus.service.js"
+import { showErrorMsg } from "../../../services/event-bus.service.js"
 
 const { useState } = React
 
