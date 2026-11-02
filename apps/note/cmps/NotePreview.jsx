@@ -3,6 +3,7 @@ import { DynamicCmp } from "./DynamicCmp.jsx"
 import { NoteEdit } from "./NoteEdit.jsx"
 import { ColorPicker } from "./ColorPicker.jsx"
 import { showErrorMsg } from "../../../services/event-bus.service.js"
+import { NoteTodos } from "./NoteTodos.jsx"
 
 const { useState } = React
 
@@ -21,6 +22,21 @@ export function NotePreview({ note, onRemoveNote, onUpdateNote }) {
             .catch(() => {
                 showErrorMsg('Failed to update pin')
             })
+    }
+    function onToggleTodo(todoIdx) {
+        const updatedNote = {
+            ...note,
+            info: {
+                ...note.info,
+                todos: note.info.todos.map((todo, idx) =>
+                    idx === todoIdx
+                        ? { ...todo, doneAt: todo.doneAt ? null : Date.now() }
+                        : todo
+                )
+            }
+        }
+
+        onUpdateNote(updatedNote)
     }
 
     function onSetBgColor(color) {
@@ -46,7 +62,7 @@ export function NotePreview({ note, onRemoveNote, onUpdateNote }) {
             {isEditing
                 ? <NoteEdit note={note}
                     onUpdateNote={onUpdateNote} onClose={() => setIsEditing(false)} />
-                : <DynamicCmp note={note} />
+                : <DynamicCmp note={note} onUpdateNote={onUpdateNote} onToggleTodo={onToggleTodo} />
             }
             <section>
                 <button onClick={() => onRemoveNote(note.id)}>X</button>

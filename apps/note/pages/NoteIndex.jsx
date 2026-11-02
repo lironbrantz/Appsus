@@ -7,6 +7,7 @@ import { showErrorMsg } from "../../../services/event-bus.service.js"
 const { useEffect, useState } = React
 
 export function NoteIndex() {
+
     const [notes, setNotes] = useState(null)
 
     const [filterBy, setFilterBy] = useState({ search: '', type: '' })
@@ -67,6 +68,7 @@ export function NoteIndex() {
             <NoteFilter filterBy={filterBy} onSetFilterBy={onsetFilterBy} />
             <NoteAdd onAddNote={onAddNote} />
             <NoteList notes={notes} onRemoveNote={onRemoveNote} onUpdateNote={onUpdateNote} />
+
         </section>
     )
 }

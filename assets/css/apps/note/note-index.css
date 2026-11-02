@@ -5,7 +5,8 @@
     padding: 32px 24px 60px;
     background-color: #fff;
     color: #202124;
-    font-family: Arial, sans-serif;
+    font-family: 'Google Sans Flex', Arial, sans-serif;
+    font-optical-sizing: auto;
 }
 
 .notes-app h1,
@@ -37,7 +38,9 @@
     border-radius: 8px;
     outline: none;
     color: #202124;
-    font: 15px Arial, sans-serif;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 400;
     transition: background-color 0.2s, box-shadow 0.2s;
 }
 
@@ -66,9 +69,10 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 6px;
     box-sizing: border-box;
     width: 100%;
+    min-height: 130px;
     padding: 12px 16px 8px;
     background-color: #fff;
     border: 1px solid #e0e0e0;
@@ -87,6 +91,7 @@
 .note-add-form input[name="title"] {
     display: block;
     width: 100%;
+    min-height: 32px;
     box-sizing: border-box;
     padding: 4px 0;
     margin: 0;
@@ -94,11 +99,14 @@
     outline: none;
     background: transparent;
     color: #202124;
-    font: 500 16px/1.5 Arial, sans-serif;
+    font-family: 'Google Sans Flex', Arial, sans-serif;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1.4;
 }
 
 .note-add-form input[name="title"]::placeholder {
-    color: #5f6368;
+    color: #777;
     opacity: 1;
 }
 
@@ -108,7 +116,7 @@
 .note-add-form textarea {
     display: block;
     width: 100%;
-    min-height: 40px;
+    min-height: 36px;
     box-sizing: border-box;
     padding: 2px 0;
     margin: 0;
@@ -117,7 +125,10 @@
     resize: none;
     background: transparent;
     color: #202124;
-    font: 14px/1.5 Arial, sans-serif;
+    font-family: 'Google Sans Flex', Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.5;
 }
 
 .note-add-form textarea::placeholder {
@@ -133,7 +144,7 @@
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    gap: 6px;
+    gap: 12px;
     width: 100%;
     min-height: 40px;
     margin-top: 4px;
@@ -147,20 +158,43 @@
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    width: 34px;
-    height: 34px;
+    width: 36px;
+    height: 36px;
     padding: 0;
     border: none;
     border-radius: 50%;
     background: transparent;
-    color: #3c4043;
-    font: 15px Arial, sans-serif;
+    color: #5f6368;
+    font-family: inherit;
+    font-size: 14px;
     cursor: pointer;
     transition: background-color 0.15s;
 }
 
 .note-add-toolbar > button:hover {
-    background-color: rgba(60, 64, 67, 0.1);
+    background-color: rgba(95, 99, 104, 0.12);
+}
+
+
+/* Material icons */
+
+.note-add-toolbar > button.material-symbols-outlined,
+.note-add-toolbar > label.material-symbols-outlined {
+    font-family: 'Material Symbols Outlined';
+    font-size: 20px;
+    font-weight: normal;
+    line-height: 1;
+    color: #5f6368;
+    font-style: normal;
+    letter-spacing: normal;
+    text-transform: none;
+    white-space: nowrap;
+    font-feature-settings: 'liga';
+    font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24;
 }
 
 
@@ -172,18 +206,17 @@
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    width: 34px;
-    height: 34px;
+    width: 36px;
+    height: 36px;
     padding: 0;
     border-radius: 50%;
     cursor: pointer;
-    font-size: 18px;
     transition: background-color 0.15s;
 }
 
 .note-add-toolbar label[for="note-image"]:hover,
 .note-add-toolbar label[for="note-todos"]:hover {
-    background-color: rgba(60, 64, 67, 0.1);
+    background-color: rgba(95, 99, 104, 0.12);
 }
 
 
@@ -200,7 +233,8 @@
     outline: none;
     background-color: transparent;
     color: #202124;
-    font: 13px Arial, sans-serif;
+    font-family: 'Google Sans Flex', Arial, sans-serif;
+    font-size: 13px;
 }
 
 .note-add-toolbar > input[name="url"]:focus {
@@ -220,12 +254,14 @@
     margin-left: auto;
     padding: 0 14px;
     border-radius: 6px;
+    color: #202124;
+    font-family: 'Google Sans Flex', Arial, sans-serif;
     font-size: 14px;
     font-weight: 500;
 }
 
 .note-add-toolbar > button[type="submit"]:hover {
-    background-color: rgba(60, 64, 67, 0.1);
+    background-color: rgba(95, 99, 104, 0.1);
 }
 
 
@@ -338,6 +374,14 @@
 }
 
 
+/* Edit form font */
+
+.notes-app .note-edit-form input,
+.notes-app .note-edit-form textarea {
+    font-family: 'Google Sans Flex', Arial, sans-serif;
+}
+
+
 /* Tablet */
 
 @media (max-width: 900px) {
@@ -369,7 +413,7 @@
     }
 
     .note-add-toolbar {
-        gap: 4px;
+        gap: 6px;
     }
 
     .notes-app .note-add-toolbar .color-picker,
@@ -384,4 +428,63 @@
         height: 28px;
         min-width: 28px;
     }
+}
+
+.note-todos .completed {
+    text-decoration: line-through;
+    color: #80868b;
+}
+
+/* Todos - Google Keep style */
+
+.note-todos ul {
+    list-style: none;
+    padding: 0;
+    margin: 8px 0;
+}
+
+.note-todos li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.note-todos .todo-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 32px;
+    padding: 4px 0;
+    cursor: pointer;
+}
+
+.note-todos .todo-item input {
+    position: absolute;
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+}
+
+.note-todos .todo-checkbox {
+    font-family: 'Material Symbols Outlined';
+    font-size: 20px;
+    color: #5f6368;
+    flex-shrink: 0;
+}
+
+.note-todos .todo-item input:focus-visible + .todo-checkbox {
+    outline: 2px solid #1a73e8;
+    outline-offset: 3px;
+    border-radius: 3px;
+}
+
+.note-todos .todo-text {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #202124;
+}
+
+.note-todos .todo-text.completed {
+    text-decoration: line-through;
+    color: #80868b;
 }

@@ -1,30 +1,50 @@
 import { noteService } from "../services/note.service.js"
 import { ColorPicker } from "./ColorPicker.jsx"
 import { showErrorMsg } from "../../../services/event-bus.service.js"
+import { NoteVideo } from './NoteVideo.jsx'
 
 const { useState } = React
 
 export function NoteAdd({ onAddNote }) {
 
     const [note, setNote] = useState(noteService.getEmptyNote())
-    const [isVideoInputOpen, setIsVideoInputOpen] = useState(false)
     const [isColorPickerOpen, setIsColorPickerOpen] = useState(false)
 
+    const bgStyle = { backgroundColor: note.style.backgroundColor }
+    
+    const isImg = note.type === 'NoteImg'
+    const isVideo = note.type === 'NoteVideo'
+    const isTodos = note.type === 'NoteTodos'
 
     function onSubmitForm(ev) {
         ev.preventDefault()
 
-        onAddNote(note)
+        let noteToSave = note
+
+        if (isTodos) {
+            const todos = note.info.txt.split(',')
+                .map(txt => ({ txt: txt.trim(), doneAt: null }))
+                .filter(todo => todo.txt)
+
+            noteToSave = {
+                ...note,
+                info: {
+                    ...note.info,
+                    txt: '',
+                    todos
+                }
+            }
+        }
+
+        onAddNote(noteToSave)
             .then(() => {
                 setNote(noteService.getEmptyNote())
                 setIsColorPickerOpen(false)
             })
-            setIsVideoInputOpen(false)
             .catch(err => {
-                showErrorMsg('Failed to add note', err)
+                showErrorMsg('Failed to add note')
             })
     }
-
 
     function onSetBgColor(color) {
         setNote(prevNote => ({
@@ -32,25 +52,20 @@ export function NoteAdd({ onAddNote }) {
             style: {
                 backgroundColor: color
             }
-
         }))
+
         setIsColorPickerOpen(false)
     }
 
+    function onSetNoteType(type) {
+        setNote(prevNote => ({
+            ...prevNote,
+            type
+        }))
+    }
 
     function onHandleChange({ target }) {
-        let { name, value, files } = target
-        if (name === 'url') {
-            setNote(prevNote => ({
-                ...prevNote,
-                type: 'NoteVideo',
-                info: {
-                    ...prevNote.info,
-                    url: value
-                }
-            }))
-            return
-        }
+        const { name, value, files } = target
 
         if (name === 'image') {
             const imageFile = files[0]
@@ -82,37 +97,104 @@ export function NoteAdd({ onAddNote }) {
         }))
     }
 
-    const bgStyle = { backgroundColor: note.style.backgroundColor }
     return (
         <section className="add-note">
-            <form className="note-add-form" style={bgStyle} onSubmit={onSubmitForm}>
+            <form
+                className="note-add-form"
+                style={bgStyle}
+                onSubmit={onSubmitForm}
+            >
+                <input
+                    type="text"
+                    name="title"
+                    placeholder="Title"
+                    value={note.info.title}
+                    onChange={onHandleChange}
+                />
 
-                <input type="text" name="title" placeholder="Title" value={note.info.title} onChange={onHandleChange} />
-                <textarea name="txt" onChange={onHandleChange} placeholder="Take a note..." value={note.info.txt} id="txt" />
-                {note.info.url && <img src={note.info.url} alt="Note image" />}
+                {isVideo && (
+                    <input
+                        type="text"
+                        name="url"
+                        placeholder="Add video url"
+                        value={note.info.url || ''}
+                        onChange={onHandleChange}
+                    />
+                )}
+
+                {isImg && note.info.url && (
+                    <div className="note-add-preview">
+                        <img
+                            src={note.info.url}
+                            alt="Note image"
+                            style={{ maxWidth: '100%' }}
+                        />
+                    </div>
+                )}
+
+                {isVideo && note.info.url && URL.canParse(note.info.url) && (
+                    <div className="note-add-preview">
+                        <NoteVideo info={note.info} />
+                    </div>
+                )}
+
+                <textarea
+                    name="txt"
+                    value={note.info.txt}
+                    onChange={onHandleChange}
+                    placeholder={
+                        isTodos
+                            ? "Enter tasks separated by commas..."
+                            : "Take a note..."
+                    }
+                />
 
                 <div className="note-add-toolbar">
+                    <button
+                        type="button"
+                        className="material-symbols-outlined"
+                        onClick={() => setIsColorPickerOpen(!isColorPickerOpen)}
+                    >
+                        palette
+                    </button>
 
-                    <button type="button" onClick={() => setIsColorPickerOpen(!isColorPickerOpen)}>🎨</button>
-                    {isColorPickerOpen && <ColorPicker onSetBgColor={onSetBgColor} />}
-
-                    <label htmlFor="note-image">🖼️</label>
-                    <input name="image" type="file" onChange={onHandleChange} id="note-image" accept="image/*" hidden />
-
-                    <button type="button" onClick={() => setIsVideoInputOpen(!isVideoInputOpen)}>📹</button>
-                    {isVideoInputOpen && (
-                        <input
-                        name="url"
-                        type="url"
-                        onChange={onHandleChange}
-                        id="note-video"
-                        placeholder="Paste video URL"
-                    />
+                    {isColorPickerOpen && (
+                        <ColorPicker onSetBgColor={onSetBgColor} />
                     )}
-                    <label htmlFor="note-todos">📝</label>
-                    <input name="todos" type="text" onChange={onHandleChange} id="note-todos" placeholder="Enter todos separated by commas" hidden />
 
-                    <button type="submit">save</button>
+                    <label
+                        htmlFor="note-image"
+                        className="material-symbols-outlined"
+                    >
+                        image
+                    </label>
+
+                    <input
+                        name="image"
+                        type="file"
+                        id="note-image"
+                        accept="image/*"
+                        onChange={onHandleChange}
+                        hidden
+                    />
+
+                    <button
+                        type="button"
+                        className="material-symbols-outlined"
+                        style={{ fontFamily: 'Material Symbols Outlined' }}
+                        onClick={() => onSetNoteType('NoteVideo')}
+                    >
+                        videocam
+                    </button>
+                    <button
+                        type="button"
+                        className="material-symbols-outlined"
+                        onClick={() => onSetNoteType('NoteTodos')}
+                    >
+                        check_box
+                    </button>
+
+                    <button type="submit">Save</button>
                 </div>
             </form>
         </section>

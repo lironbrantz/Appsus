@@ -28,15 +28,40 @@ export function NoteEdit({ note, onUpdateNote, onClose }) {
         }))
     }
 
-    return (
-        <section className="edit-note">
-            <form className="note-edit-form" onSubmit={onSubmitForm}>
-                {noteToEdit.type === 'NoteImg' && noteToEdit.info.url && <img src={noteToEdit.info.url} alt="Note image" />}
-                {noteToEdit.type === 'NoteVideo' && noteToEdit.info.url &&  <NoteVideo info={noteToEdit.info} />}
-                <input name="title" type="text" id="title" value={noteToEdit.info.title} placeholder="Title" onChange={onHandleChange} />
-                <input name="txt" type="text" id="txt" value={noteToEdit.info.txt} placeholder="Take a note..." onChange={onHandleChange} />
-                <button type="submit">Save</button>
-            </form>
-        </section>
-    )
+return (
+    <section className="edit-note">
+        <form className="note-edit-form" onSubmit={onSubmitForm}>
+            {noteToEdit.type === 'NoteImg' && noteToEdit.info.url && (
+                <img src={noteToEdit.info.url} alt="Note image" />
+            )}
+
+            {noteToEdit.type === 'NoteVideo' && noteToEdit.info.url && (
+                <iframe
+                    src={`https://www.youtube.com/embed/${new URL(noteToEdit.info.url).searchParams.get('v')}`}
+                    title="Note video"
+                />
+            )}
+
+            <input
+                name="title"
+                type="text"
+                id="title"
+                value={noteToEdit.info.title}
+                placeholder="Title"
+                onChange={onHandleChange}
+            />
+
+            <input
+                name="txt"
+                type="text"
+                id="txt"
+                value={noteToEdit.info.txt}
+                placeholder="Take a note..."
+                onChange={onHandleChange}
+            />
+
+            <button type="submit">Save</button>
+        </form>
+    </section>
+)
 }
