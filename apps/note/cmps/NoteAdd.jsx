@@ -11,7 +11,7 @@ export function NoteAdd({ onAddNote }) {
     const [isColorPickerOpen, setIsColorPickerOpen] = useState(false)
 
     const bgStyle = { backgroundColor: note.style.backgroundColor }
-    
+
     const isImg = note.type === 'NoteImg'
     const isVideo = note.type === 'NoteVideo'
     const isTodos = note.type === 'NoteTodos'
@@ -61,6 +61,17 @@ export function NoteAdd({ onAddNote }) {
         setNote(prevNote => ({
             ...prevNote,
             type
+        }))
+    }
+    function onRemoveMedia() {
+
+        setNote(prevNote => ({
+            ...prevNote,
+            type: 'NoteTxt',
+            info: {
+                ...prevNote.info,
+                url: ''
+            }
         }))
     }
 
@@ -124,17 +135,33 @@ export function NoteAdd({ onAddNote }) {
 
                 {isImg && note.info.url && (
                     <div className="note-add-preview">
-                        <img
-                            src={note.info.url}
-                            alt="Note image"
-                            style={{ maxWidth: '100%' }}
-                        />
+                        <img src={note.info.url} alt="Note image" />
+
+                        <button
+                            type="button"
+                            className="material-symbols-outlined remove-image-btn"
+                            onClick={onRemoveMedia}
+                            title="Remove image"
+                            aria-label="Remove image"
+                        >
+                            delete
+                        </button>
                     </div>
                 )}
 
                 {isVideo && note.info.url && URL.canParse(note.info.url) && (
                     <div className="note-add-preview">
                         <NoteVideo info={note.info} />
+
+                        <button
+                            type="button"
+                            className="material-symbols-outlined remove-image-btn"
+                            onClick={onRemoveMedia}
+                            title="Remove video"
+                            aria-label="Remove video"
+                        >
+                            delete
+                        </button>
                     </div>
                 )}
 
