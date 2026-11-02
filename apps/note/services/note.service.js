@@ -11,69 +11,157 @@ export const noteService = {
 }
 
 const NOTE_KEY = 'noteDB'
+
 const demoNotes = [
     {
-        id: 'n101',
-        createdAt: 1112222,
+        id: 'n201',
+        createdAt: Date.now() - 100000,
         type: 'NoteTxt',
         isPinned: true,
-        style: {
-            backgroundColor: '#00d'
-        },
+        style: { backgroundColor: '#d3e3fd' },
         info: {
-            title: '',
-            txt: 'Fullstack Me Baby!'
+            title: 'Meeting notes',
+            txt: 'Monday, 10:30 AM\n\nReview the latest designs\nDiscuss the project timeline\nFinalize the remaining tasks\n\nNext meeting: Thursday',
+            url: '',
+            todos: []
         }
     },
     {
-        id: 'n102',
-        createdAt: 1112223,
+        id: 'n202',
+        createdAt: Date.now() - 90000,
+        type: 'NoteTodos',
+        isPinned: true,
+        style: { backgroundColor: '#fff475' },
+        info: {
+            title: 'Shopping list',
+            txt: '',
+            url: '',
+            todos: [
+                { txt: 'Milk', doneAt: Date.now() },
+                { txt: 'Eggs', doneAt: Date.now() },
+                { txt: 'Fresh bread', doneAt: null },
+                { txt: 'Cherry tomatoes', doneAt: null },
+                { txt: 'Olive oil', doneAt: null },
+                { txt: 'Coffee', doneAt: null }
+            ]
+        }
+    },
+    {
+        id: 'n203',
+        createdAt: Date.now() - 80000,
         type: 'NoteImg',
         isPinned: false,
+        style: { backgroundColor: '#ffffff' },
         info: {
-            url: 'https://picsum.photos/300/200',
-            title: 'Bobi and Me',
-            txt: ''
-        },
-        style: {
-            backgroundColor: '#00d'
+            title: 'The mountains',
+            txt: 'Northern Italy, September 2025',
+            url: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800',
+            todos: []
         }
     },
     {
-        id: 'n103',
-        createdAt: Date.now(),
-        type: 'NoteVideo',
+        id: 'n204',
+        createdAt: Date.now() - 70000,
+        type: 'NoteTxt',
         isPinned: false,
+        style: { backgroundColor: '#e4c1f9' },
         info: {
-            url: 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4',
-            title: 'My Video',
-            txt: ''
-        },
-        style: {
-            backgroundColor: '#00d'
+            title: 'Pasta recipe',
+            txt: '200g pasta\n2 cloves garlic\nOlive oil\nCherry tomatoes\nFresh basil\nParmesan\n\nCook pasta until al dente. Sauté garlic and tomatoes in olive oil. Add pasta water, mix everything together and finish with fresh basil.',
+            url: '',
+            todos: []
         }
     },
     {
-        id: 'n104',
-        createdAt: 1112224,
+        id: 'n205',
+        createdAt: Date.now() - 60000,
+        type: 'NoteImg',
+        isPinned: false,
+        style: { backgroundColor: '#ffffff' },
+        info: {
+            title: 'Coffee',
+            txt: 'Medium roast, 18g in / 36g out',
+            url: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800',
+            todos: []
+        }
+    },
+    {
+        id: 'n206',
+        createdAt: Date.now() - 50000,
         type: 'NoteTodos',
         isPinned: false,
-        style: {
-            backgroundColor: '#fff'
-        },
+        style: { backgroundColor: '#ccff90' },
         info: {
-            title: 'Get my stuff together',
+            title: 'Things to do',
+            txt: '',
+            url: '',
             todos: [
-                {
-                    txt: 'Driving license'
-                    , doneAt: null
-                },
-
-                { txt: 'Coding power', doneAt: 187111111 }
+                { txt: 'Pick up a package', doneAt: Date.now() },
+                { txt: 'Book a dentist appointment', doneAt: null },
+                { txt: 'Return library books', doneAt: null },
+                { txt: 'Buy a birthday card', doneAt: null }
+            ]
+        }
+    },
+    {
+        id: 'n207',
+        createdAt: Date.now() - 40000,
+        type: 'NoteVideo',
+        isPinned: false,
+        style: { backgroundColor: '#e8eaed' },
+        info: {
+            title: 'Flowers',
+            txt: '',
+            url: 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4',
+            todos: []
+        }
+    },
+    {
+        id: 'n208',
+        createdAt: Date.now() - 30000,
+        type: 'NoteImg',
+        isPinned: false,
+        style: { backgroundColor: '#ffffff' },
+        info: {
+            title: 'Lake house',
+            txt: '',
+            url: 'https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=800',
+            todos: []
+        }
+    },
+    {
+        id: 'n209',
+        createdAt: Date.now() - 20000,
+        type: 'NoteTxt',
+        isPinned: false,
+        style: { backgroundColor: '#fce8e6' },
+        info: {
+            title: 'Wi-Fi',
+            txt: 'Guest network\n\nNetwork: Guest_WiFi\nPassword: welcome2025\n\nRouter is in the living room.',
+            url: '',
+            todos: []
+        }
+    },
+    {
+        id: 'n210',
+        createdAt: Date.now() - 10000,
+        type: 'NoteTodos',
+        isPinned: false,
+        style: { backgroundColor: '#c8e6c9' },
+        info: {
+            title: 'Weekend plans',
+            txt: '',
+            url: '',
+            todos: [
+                { txt: 'Farmers market', doneAt: Date.now() },
+                { txt: 'Lunch with friends', doneAt: null },
+                { txt: 'Go to the cinema', doneAt: null },
+                { txt: 'Laundry', doneAt: null }
             ]
         }
     }
 ]
+
 _createNotes()
 
 function query(filterBy = {}) {
