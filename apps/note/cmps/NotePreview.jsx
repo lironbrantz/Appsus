@@ -1,14 +1,11 @@
-
 import { DynamicCmp } from "./DynamicCmp.jsx"
 import { NoteEdit } from "./NoteEdit.jsx"
 import { ColorPicker } from "./ColorPicker.jsx"
 import { showErrorMsg } from "../../../services/event-bus.service.js"
-import { NoteTodos } from "./NoteTodos.jsx"
 
 const { useState } = React
 
-export function NotePreview({ note, onRemoveNote, onUpdateNote }) {
-
+export function NotePreview({ note, onRemoveNote, onUpdateNote, onAddNote }) {
     const [isEditing, setIsEditing] = useState(false)
     const [isColorPickerOpen, setIsColorPickerOpen] = useState(false)
 
@@ -23,6 +20,7 @@ export function NotePreview({ note, onRemoveNote, onUpdateNote }) {
                 showErrorMsg('Failed to update pin')
             })
     }
+
     function onToggleTodo(todoIdx) {
         const updatedNote = {
             ...note,
@@ -37,12 +35,16 @@ export function NotePreview({ note, onRemoveNote, onUpdateNote }) {
         }
 
         onUpdateNote(updatedNote)
+            .catch(() => {
+                showErrorMsg('Failed to update todo')
+            })
     }
 
     function onSetBgColor(color) {
         const updatedNote = {
             ...note,
             style: {
+                ...note.style,
                 backgroundColor: color
             }
         }
@@ -56,20 +58,93 @@ export function NotePreview({ note, onRemoveNote, onUpdateNote }) {
             })
     }
 
-    const bgStyle = { backgroundColor: note.style ? note.style.backgroundColor : '#fff' }
+    function onDuplicateNote(note) {
+        const duplicatedNote = {
+            ...note,
+            id: null
+        }
+
+        onAddNote(duplicatedNote)
+            .catch((err) => {
+                console.error(err)
+                showErrorMsg('Failed to duplicate note')
+            })
+    }
+
+    const bgStyle = {
+        backgroundColor: note.style && note.style.backgroundColor
+            ? note.style.backgroundColor
+            : '#fff'
+    }
+
     return (
         <section style={bgStyle} className="note-preview">
-            {isEditing
-                ? <NoteEdit note={note}
-                    onUpdateNote={onUpdateNote} onClose={() => setIsEditing(false)} />
-                : <DynamicCmp note={note} onUpdateNote={onUpdateNote} onToggleTodo={onToggleTodo} />
-            }
-            <section>
-                <button onClick={() => onRemoveNote(note.id)}>X</button>
-                <button onClick={() => setIsEditing(true)}>Edit</button>
-                <button type="button" onClick={() => setIsColorPickerOpen(!isColorPickerOpen)}>🎨</button>
-                {isColorPickerOpen && <ColorPicker onSetBgColor={onSetBgColor} />}
-                <button onClick={() => onTogglePin()}> {note.isPinned ? 'Unpin' : 'Pin'} </button>
+
+            <button
+                type="button"
+                className={`material-symbols-outlined note-pin-btn ${note.isPinned ? 'pinned' : ''}`}
+                onClick={onTogglePin}
+                title={note.isPinned ? 'Unpin note' : 'Pin note'}
+                aria-label={note.isPinned ? 'Unpin note' : 'Pin note'}
+            >
+                push_pin
+            </button>
+
+            {isEditing ? (
+                <NoteEdit
+                    note={note}
+                    onUpdateNote={onUpdateNote}
+                    onClose={() => setIsEditing(false)}
+                />
+            ) : (
+                <DynamicCmp
+                    note={note}
+                    onToggleTodo={onToggleTodo}
+                />
+            )}
+
+            <section className="note-preview-toolbar">
+                <button
+                    type="button"
+                    className="material-symbols-outlined note-action-btn"
+                    onClick={() => setIsColorPickerOpen(!isColorPickerOpen)}
+                    title="Change color"
+                    aria-label="Change color"
+                >
+                    palette
+                </button>
+
+                {isColorPickerOpen && (
+                    <ColorPicker onSetBgColor={onSetBgColor} />
+                )}
+
+                <button
+                    type="button"
+                    className="material-symbols-outlined note-action-btn"
+                    onClick={() => setIsEditing(true)}
+                    title="Edit note"
+                    aria-label="Edit note"
+                >
+                    edit
+                </button>
+                <button
+                    type="button"
+                    className="material-symbols-outlined duplicate-note-btn"
+                    onClick={() => onDuplicateNote(note)}
+                    title="Duplicate note"
+                >
+                    content_copy
+                </button>
+
+                <button
+                    type="button"
+                    className="material-symbols-outlined note-action-btn delete-note-btn"
+                    onClick={() => onRemoveNote(note.id)}
+                    title="Delete note"
+                    aria-label="Delete note"
+                >
+                    delete
+                </button>
             </section>
         </section>
     )
