@@ -475,32 +475,6 @@
     transition: transform 0.15s, box-shadow 0.15s;
 }
 
-/* Available colors */
-
-.notes-app .color-picker > button:nth-child(1) {
-    background: #ffffff;
-}
-
-.notes-app .color-picker > button:nth-child(2) {
-    background: #fff475;
-}
-
-.notes-app .color-picker > button:nth-child(3) {
-    background: #d7aefb;
-}
-
-.notes-app .color-picker > button:nth-child(4) {
-    background: #aecbfa;
-}
-
-.notes-app .color-picker > button:nth-child(5) {
-    background: #fdcfe8;
-}
-
-.notes-app .color-picker > button:nth-child(6) {
-    background: #e6c9a8;
-}
-
 /* Hover effect */
 
 .notes-app .color-picker > button:hover {

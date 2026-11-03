@@ -5,10 +5,10 @@
 @import './basics/layout.css';
 
 @import './cmps/home.css';
-@import './cmps/UserMsg.css';
-@import './cmps/AppHeader.css';
+@import './cmps/user-msg.css';
+@import './cmps/app-header.css';
 
 @import './apps/note/note-index.css';
 @import './apps/note/note-list.css';
-@import './apps/mail/MailIndex.css';
-@import './apps/mail/MailList.css';
+@import './apps/mail/mail-index.css';
+@import './apps/mail/mail-list.css';
