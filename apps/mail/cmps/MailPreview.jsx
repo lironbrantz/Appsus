@@ -1,14 +1,16 @@
-const { useState } = React
+import { LongTxt } from '../../../cmps/LongTxt.jsx'
 
 export function MailPreview({ mail }) {
 
-    const [isRead, setIsRead] = useState(mail.isRead)
 
+    const mailStyle = { backgroundColor: mail.isRead ? '#f0f0f0' : '#fff', fontWeight: mail.isRead ? 'normal' : 'bold' }
     return (
-        <div className="mail-preview">
-            <h3>{mail.subject}</h3>
-            <p>{mail.body}</p>
+        <section style={mailStyle} className="mail-preview">
             <p>{mail.from}</p>
-        </div>
+            <LongTxt txt={mail.subject} length={45} />
+            {' – '}
+            <LongTxt txt={mail.body} length={21} />
+            <p>{new Date(mail.sentAt).toLocaleString()}</p>
+        </section>
     )
 }
