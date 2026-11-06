@@ -20,7 +20,8 @@ export const mailService = {
     markAsRead,
     getEmptyMail,
     getDefaultFilter,
-    getLoggedinUser
+    getLoggedinUser,
+    getFilterFromSearchParams
 }
 
 const demoMails = [
@@ -136,6 +137,13 @@ function query(filterBy = {}) {
 
 function get(mailId) {
     return storageService.get(MAIL_KEY, mailId)
+}
+
+function getFilterFromSearchParams(searchParams) {
+
+    const status = searchParams.get('status') || 'inbox'
+
+    return { status }
 }
 
 function remove(mailId) {

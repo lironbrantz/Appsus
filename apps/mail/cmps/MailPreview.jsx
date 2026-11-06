@@ -11,6 +11,7 @@ export function MailPreview({ mail }) {
             {' – '}
             <LongTxt txt={mail.body} length={21} />
             <p>{new Date(mail.sentAt).toLocaleString()}</p>
+            <button> delete </button>
         </section>
     )
-}
+} 

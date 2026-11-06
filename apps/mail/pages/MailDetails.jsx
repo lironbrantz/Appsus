@@ -15,28 +15,29 @@ export function MailDetails() {
         loadMail()
     }, [mailId])
 
- function loadMail() {
-    mailService.get(mailId)
-        .then(mail => {
-            setMail(mail)
-            return mailService.markAsRead(mailId)
-        })
-        .catch(err => {
-            console.error(err)
-            showErrorMsg('Cannot load or mark mail')
-            navigate('/mail')
-        })
-}
+    function loadMail() {
+        mailService.get(mailId)
+            .then(mail => {
+                setMail(mail)
+                return mailService.markAsRead(mailId)
+            })
+            .catch(err => {
+                console.error(err)
+                showErrorMsg('Cannot load or mark mail')
+                navigate('/mail')
+            })
+    }
 
-function onRemoveMail() {
-    mailService.remove(mailId)
-        .then(() => {
-            navigate('/mail')
-        })
-        .catch(err => {
-            console.error(err)
-            showErrorMsg('Cannot remove mail')
-        })}
+    function onRemoveMail() {
+        mailService.remove(mailId)
+            .then(() => {
+                navigate('/mail')
+            })
+            .catch(err => {
+                console.error(err)
+                showErrorMsg('Cannot remove mail')
+            })
+    }
 
     if (!mail) return <div>Loading...</div>
     return (
@@ -50,3 +51,5 @@ function onRemoveMail() {
         </section>
     )
 }
+
+
