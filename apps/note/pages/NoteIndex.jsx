@@ -9,7 +9,7 @@ const { useEffect, useState } = React
 export function NoteIndex() {
 
     const [notes, setNotes] = useState(null)
-
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false)
     const [filterBy, setFilterBy] = useState({ search: '', type: '' })
 
     useEffect(() => {
@@ -62,13 +62,73 @@ export function NoteIndex() {
             })
     }
 
-    return (
-        <section className="notes-app">
-            <h1>Note Index</h1>
-            <NoteFilter filterBy={filterBy} onSetFilterBy={onsetFilterBy} />
-            <NoteAdd onAddNote={onAddNote} />
-            <NoteList notes={notes} onRemoveNote={onRemoveNote} onUpdateNote={onUpdateNote} onAddNote={onAddNote} />
 
+    return (
+        <section className={`notes-app ${isSidebarOpen ? 'sidebar-expanded' : ''}`}>
+            <header className="notes-header">
+                <div className="notes-brand">
+                    <button
+                        type="button"
+                        className="notes-menu-btn"
+                        onClick={() => setIsSidebarOpen(prev => !prev)}
+                        aria-label="Toggle sidebar"
+                        aria-expanded={isSidebarOpen}
+                    >
+                        <span className="material-symbols-outlined">menu</span>
+                    </button>
+                    <span className="material-symbols-outlined keep-logo">lightbulb</span>
+                    <span>Keep</span>
+                </div>
+
+                <NoteFilter
+                    filterBy={filterBy}
+                    onSetFilterBy={onsetFilterBy}
+                />
+            </header>
+
+
+            <aside
+                className="notes-sidebar"
+                onMouseEnter={() => setIsSidebarOpen(true)}
+                onMouseLeave={() => setIsSidebarOpen(false)}
+            >
+                <button
+                    type="button"
+                    className="notes-sidebar-active"
+                    onClick={() => setFilterBy({ search: '', type: '' })}
+                >
+                    <span className="material-symbols-outlined">lightbulb</span>
+                    <span className="sidebar-label">Notes</span>
+                </button>
+
+                <button type="button" disabled>
+                    <span className="material-symbols-outlined">notifications</span>
+                    <span className="sidebar-label">Reminders</span>
+                </button>
+
+                <button type="button" disabled>
+                    <span className="material-symbols-outlined">archive</span>
+                    <span className="sidebar-label">Archive</span>
+                </button>
+
+                <button type="button" disabled>
+                    <span className="material-symbols-outlined">delete</span>
+                    <span className="sidebar-label">Trash</span>
+                </button>
+            </aside>
+
+
+            <NoteAdd onAddNote={onAddNote} />
+
+            <div className="notes-results">
+                <NoteList
+                    notes={notes}
+                    onRemoveNote={onRemoveNote}
+                    onUpdateNote={onUpdateNote}
+                    onAddNote={onAddNote}
+                />
+            </div>
         </section>
     )
+
 }

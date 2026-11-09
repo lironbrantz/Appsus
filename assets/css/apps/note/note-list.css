@@ -1,21 +1,26 @@
-/* Notes list */
+/* Masonry notes grid */
 
 .note-list {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 16px;
+    display: block;
+    column-count: 4;
+    column-gap: 16px;
     width: 100%;
-    max-width: 600px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 0;
     list-style: none;
 }
 
 .note-list > li {
+    display: inline-block;
+    vertical-align: top;
+    box-sizing: border-box;
+    width: 100%;
     min-width: 0;
+    margin: 0 0 16px;
+    break-inside: avoid;
     list-style: none;
 }
-
 
 /* Note card */
 
@@ -199,20 +204,29 @@
 }
 
 
-/* Tablet */
+/* Responsive columns */
 
-@media (max-width: 900px) {
+@media (max-width: 1100px) {
     .note-list {
-        gap: 12px;
+        column-count: 3;
     }
 }
 
+@media (max-width: 800px) {
+    .note-list {
+        column-count: 2;
+    }
+}
 
-/* Mobile */
+@media (max-width: 500px) {
+    .note-list {
+        column-count: 1;
+    }
+}
 
 @media (max-width: 600px) {
-    .note-list {
-        gap: 10px;
+    .note-list > li {
+        margin-bottom: 12px;
     }
 
     .note-preview {
@@ -223,9 +237,6 @@
         opacity: 1;
     }
 }
-
-
-/* Touch devices */
 
 @media (hover: none) {
     .note-preview > section:last-child {

@@ -460,3 +460,11 @@
 .compose-footer button[type="button"]:hover {
     background-color: #e3e7eb;
 }
+
+.mail-folder-list button {
+    gap: 16px;
+}
+
+.mail-folder-list .material-symbols-outlined {
+    font-size: 20px;
+}

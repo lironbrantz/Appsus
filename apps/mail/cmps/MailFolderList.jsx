@@ -1,8 +1,9 @@
+
 const folders = [
-    { id: 'inbox', label: 'Inbox' },
-    { id: 'sent', label: 'Sent' },
-    { id: 'draft', label: 'Drafts' },
-    { id: 'trash', label: 'Trash' }
+    { id: 'inbox', label: 'Inbox', icon: 'inbox' },
+    { id: 'sent', label: 'Sent', icon: 'send' },
+    { id: 'draft', label: 'Drafts', icon: 'draft' },
+    { id: 'trash', label: 'Trash', icon: 'delete' }
 ]
 
 const activeStyle = {
@@ -21,6 +22,9 @@ export function MailFolderList({ onSetFolder, activeFolder }) {
                     onClick={() => onSetFolder(folder.id)}
                     style={activeFolder === folder.id ? activeStyle : undefined}
                 >
+                    <span className="material-symbols-outlined">
+                        {folder.icon}
+                    </span>
                     {folder.label}
                 </button>
             ))}

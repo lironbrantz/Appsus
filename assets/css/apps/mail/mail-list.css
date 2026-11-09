@@ -174,3 +174,84 @@
         font-size: 11px;
     }
 }
+
+/* Mail Row Refinements */
+
+.mail-preview {
+    gap: 10px;
+    font-size: 13px;
+}
+
+.mail-preview p:first-child {
+    flex-basis: 180px;
+}
+
+.mail-preview .mail-date {
+    min-width: 60px;
+    margin-left: auto;
+
+    color: #5f6368;
+    font-size: 12px;
+    text-align: right;
+    white-space: nowrap;
+}
+
+.mail-list li:has(.mail-delete-btn:hover),
+.mail-list li:has(.mail-restore-btn:hover) {
+    box-shadow: none;
+}
+
+/* Final Mail List Styling */
+
+.mail-preview {
+    gap: 10px;
+    font-size: 13px;
+}
+
+.mail-preview p:first-child {
+    flex-basis: 180px;
+}
+
+/* Subject */
+
+.mail-preview .long-txt:first-of-type {
+    font-weight: inherit;
+    color: #202124;
+}
+
+/* Body Preview */
+
+.mail-preview .long-txt:last-of-type {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    font-weight: 400;
+    color: #5f6368;
+}
+
+/* Date */
+
+.mail-preview .mail-date {
+    min-width: 55px;
+    margin-left: auto;
+
+    font-size: 12px;
+    font-weight: 400;
+    color: #5f6368;
+    text-align: right;
+}
+
+/* Hover */
+
+.mail-list li:hover {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+
+/* Action Icons */
+
+.mail-delete-btn .material-symbols-outlined,
+.mail-restore-btn .material-symbols-outlined {
+    font-size: 19px;
+}
