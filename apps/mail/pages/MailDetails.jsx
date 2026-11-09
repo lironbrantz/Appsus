@@ -40,16 +40,57 @@ export function MailDetails() {
     }
 
     if (!mail) return <div>Loading...</div>
+
     return (
         <section className="mail-details">
-            <Link to="/mail" className="back-btn">Back</Link>
-            <button className="remove-btn" onClick={onRemoveMail}>Delete</button>
-            <h2>subject: {mail.subject}</h2>
-            <p>From: {mail.from}</p>
-            <p>To: {mail.to}</p>
-            <p>{mail.body}</p>
+            <div className="mail-details-toolbar">
+                <Link to="/mail" className="details-action-btn" title="Back">
+                    <span className="material-symbols-outlined">
+                        arrow_back
+                    </span>
+                </Link>
+
+                <button
+                    type="button"
+                    className="details-action-btn"
+                    onClick={onRemoveMail}
+                    title="Delete"
+                >
+                    <span className="material-symbols-outlined">
+                        delete
+                    </span>
+                </button>
+            </div>
+
+            <div className="mail-message">
+                <h2>{mail.subject}</h2>
+
+                <div className="mail-message-info">
+                    <div className="mail-avatar">
+                        {mail.from.charAt(0).toUpperCase()}
+                    </div>
+
+                    <div className="mail-addresses">
+                        <div className="mail-sender">
+                            {mail.from}
+                        </div>
+                        <div className="mail-recipient">
+                            to {mail.to}
+                        </div>
+                    </div>
+
+                    <time>
+                        {new Date(mail.sentAt || mail.createdAt).toLocaleDateString()}
+                    </time>
+                </div>
+
+                <div className="mail-body">
+                    {mail.body}
+                </div>
+            </div>
         </section>
     )
+
 }
 
 

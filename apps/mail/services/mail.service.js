@@ -24,49 +24,168 @@ export const mailService = {
     getFilterFromSearchParams
 }
 
+
 const demoMails = [
+    // Inbox
     {
-        from: 'team@codingacademy.com',
+        from: 'emma@northstarstudio.co',
         to: 'user@appsus.com',
-        subject: 'Welcome to Appsus! 🚀',
-        body: 'Welcome aboard!\n\nWe are excited to see what you build. Keep learning, experimenting, and creating great things.\n\nHappy coding!',
+        subject: 'Updated design files',
+        body: 'Hi,\n\nThe latest designs are ready for review. I made a few adjustments to the layout and updated the mobile screens.\n\nEverything is in the shared folder.\n\nEmma',
         isRead: false
     },
     {
-        from: 'maya@designstudio.com',
+        from: 'tickets@theglasshouse.co',
         to: 'user@appsus.com',
-        subject: 'New design files are ready',
-        body: 'Hey!\n\nI just finished the latest interface designs. Take a look when you have a chance and let me know what you think.\n\nThanks,\nMaya',
+        subject: 'Your tickets are confirmed',
+        body: 'Your booking is confirmed!\n\nEvent: The Glasshouse Sessions\nDate: Friday, November 20\nDoors open: 7:30 PM\n\nYour tickets will be available at the entrance.\n\nSee you there!',
         isRead: false
     },
     {
-        from: 'daniel@workspace.io',
+        from: 'hello@theweeklyedit.co',
         to: 'user@appsus.com',
-        subject: 'Project meeting tomorrow',
-        body: 'Hi,\n\nJust a reminder about our meeting tomorrow at 10:30 AM.\n\nWe will review the project progress and discuss the next steps.\n\nSee you there!',
+        subject: 'The Weekly Edit — Issue 042',
+        body: 'Good morning,\n\nThis week we are looking at the little details that make good products feel effortless.\n\nInside this issue:\n\n• A closer look at thoughtful interface design\n• Five websites worth exploring\n• A conversation with an independent designer\n\nEnjoy the read,\nThe Weekly Edit',
+        isRead: false
+    },
+    {
+        from: 'alex@formandfunction.co',
+        to: 'user@appsus.com',
+        subject: 'A quick question about the mockups',
+        body: 'Hey,\n\nJust had a look at the mockups. Everything looks good overall.\n\nOne small thing: could we try a version with a little more spacing between the sections?\n\nNo rush. Thanks!\nAlex',
         isRead: true
     },
     {
-        from: 'notifications@github.com',
+        from: 'events@designassembly.co',
         to: 'user@appsus.com',
-        subject: 'Your repository is looking great!',
-        body: 'Your latest changes have been successfully pushed.\n\nKeep up the great work on your project!',
+        subject: 'Workshop details for Thursday',
+        body: 'Hello,\n\nA quick reminder about Thursday’s workshop.\n\nTopic: Designing Better Digital Experiences\nTime: 6:00 PM\nLocation: The Assembly Space\n\nPlease arrive 10 minutes early for registration.\n\nLooking forward to seeing you!',
+        isRead: true
+    },
+    {
+        from: 'updates@workboard.co',
+        to: 'user@appsus.com',
+        subject: '3 new updates on your board',
+        body: 'There has been some activity on your workspace.\n\n• 2 tasks were completed\n• 1 new comment was added\n• The project timeline was updated\n\nOpen your board to see the latest changes.',
+        isRead: true
+    },
+    {
+        from: 'studio@objectsandthings.co',
+        to: 'user@appsus.com',
+        subject: 'A first look at our new collection',
+        body: 'Hello there,\n\nOur latest collection has arrived.\n\nClean shapes, warm materials, and pieces designed to last. We put together a small selection of our favorites for the season.\n\nTake a look whenever you have a moment.\n\nObjects & Things',
+        isRead: true
+    },
+    {
+        from: 'billing@cloudline.co',
+        to: 'user@appsus.com',
+        subject: 'Your November invoice is ready',
+        body: 'Hello,\n\nYour invoice for November is now available.\n\nInvoice: INV-2026-1142\nBilling period: November 2026\nStatus: Paid\n\nYou can view your billing history from your account dashboard.\n\nThank you,\nCloudline Billing',
+        isRead: true
+    },
+
+    {
+        from: 'sophie@atelierworks.co',
+        to: 'user@appsus.com',
+        subject: 'Thursday works',
+        body: 'Thursday at 4 works for me. See you!',
+        isRead: false
+    },
+    {
+        from: 'orders@commonstore.co',
+        to: 'user@appsus.com',
+        subject: 'Your order has shipped',
+        body: 'Good news! Your order is on its way.\n\nYou can track the delivery using the link in your account. We will send another update once it arrives.\n\nThanks for shopping with us!',
+        isRead: true
+    },
+    {
+        from: 'julia@northstarstudio.co',
+        to: 'user@appsus.com',
+        subject: 'One last change',
+        body: 'Can we use the first version instead?',
+        isRead: false
+    },
+    {
+        from: 'hello@framecinema.co',
+        to: 'user@appsus.com',
+        subject: 'Your reservation is confirmed',
+        body: 'Your reservation is confirmed for Saturday evening.\n\nFilm: The Last Stop\nTime: 8:15 PM\nSeats: F12, F13\n\nPlease have your confirmation ready at the entrance.\n\nEnjoy the film!',
+        isRead: true
+    },
+    {
+        from: 'michael@formandfunction.co',
+        to: 'user@appsus.com',
+        subject: 'Looks good to me',
+        body: 'Approved. You can go ahead with it.',
+        isRead: true
+    },
+    {
+        from: 'support@parcelpoint.co',
+        to: 'user@appsus.com',
+        subject: 'Package delivered',
+        body: 'Your package was delivered today.',
+        isRead: true
+    },
+
+    // Sent
+    {
+        from: 'user@appsus.com',
+        to: 'emma@northstarstudio.co',
+        subject: 'Re: Updated design files',
+        body: 'Hi Emma,\n\nThanks for sending everything over. I will go through the latest version and send any feedback in one message.\n\nThanks!',
         isRead: true
     },
     {
         from: 'user@appsus.com',
-        to: 'maya@designstudio.com',
-        subject: 'Re: New design files',
-        body: 'Hi Maya,\n\nThanks for sending the designs! They look fantastic.\n\nI will review everything and get back to you soon.',
+        to: 'alex@formandfunction.co',
+        subject: 'Re: A quick question about the mockups',
+        body: 'Hey Alex,\n\nSure, that makes sense. I will put together another version with more spacing so we can compare the two.\n\nTalk soon!',
         isRead: true
     },
     {
         from: 'user@appsus.com',
-        to: 'daniel@workspace.io',
-        subject: 'Project progress update',
-        body: 'Hi Daniel,\n\nThe main functionality is coming together nicely.\n\nI will have another update ready for our next meeting.',
+        to: 'hello@designassembly.co',
+        subject: 'Workshop registration',
+        body: 'Hello,\n\nThanks for the information. Just confirming that the registration is complete and everything is set for Thursday.\n\nBest regards',
         isRead: true
+    },
+
+    // Drafts
+    {
+        from: 'user@appsus.com',
+        to: 'team@northstarstudio.co',
+        subject: 'Feedback on the latest layout',
+        body: 'Hi team,\n\nI went through the updated screens and noted a few things worth discussing.\n\n1. Header spacing\n2. Mobile navigation\n3. Button styles\n\n',
+        isRead: true,
+        sentAt: null
+    },
+    {
+        from: 'user@appsus.com',
+        to: 'hello@theweeklyedit.co',
+        subject: 'Question about your next issue',
+        body: 'Hi,\n\nI really enjoyed the latest issue and wanted to ask about',
+        isRead: true,
+        sentAt: null
+    },
+
+    // Trash
+    {
+        from: 'offers@urbanmarket.co',
+        to: 'user@appsus.com',
+        subject: 'Last chance: weekend offers',
+        body: 'Our weekend offers are coming to an end.\n\nExplore selected items before the sale closes tonight.\n\nUrban Market',
+        isRead: true,
+        removedAt: Date.now() - 3600000
+    },
+    {
+        from: 'newsletter@dailybrief.co',
+        to: 'user@appsus.com',
+        subject: 'Your daily briefing',
+        body: 'Good morning,\n\nHere is a quick roundup of today’s stories, ideas, and interesting reads.\n\nThe Daily Brief',
+        isRead: true,
+        removedAt: Date.now() - 7200000
     }
+
 ].map((mail, idx) => {
     const date = Date.now() - (idx + 1) * 3600000
 
@@ -78,6 +197,7 @@ const demoMails = [
         ...mail
     }
 })
+
 
 _createMails()
 
@@ -219,7 +339,7 @@ function getFilterFromSearchParams(searchParams) {
 
     filterBy.isRead =
         isRead === 'true' ? true :
-        isRead === 'false' ? false : null
+            isRead === 'false' ? false : null
     return filterBy
 }
 

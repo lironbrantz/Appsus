@@ -12,7 +12,7 @@
 .mail-content {
     display: grid;
     grid-template-columns: 240px minmax(0, 1fr);
-    grid-template-rows: 84px 64px minmax(400px, 1fr);
+    grid-template-rows: 84px minmax(480px, 1fr);
     column-gap: 16px;
 
     min-height: calc(100vh - 64px);
@@ -26,6 +26,7 @@
 .mail-filter {
     grid-column: 2;
     grid-row: 1;
+
     display: flex;
     align-items: center;
     min-width: 0;
@@ -92,7 +93,6 @@
     background: transparent;
 
     color: #444746;
-    font-size: 22px;
     cursor: pointer;
 }
 
@@ -101,7 +101,7 @@
 }
 
 
-/* Read / Unread Dropdown */
+/* Read / Unread Filter */
 
 .read-filter-options {
     position: absolute;
@@ -111,7 +111,6 @@
 
     width: 200px;
     padding: 12px;
-    box-sizing: border-box;
 
     background-color: #fff;
     border: 1px solid #e8eaed;
@@ -139,7 +138,7 @@
 
 .mail-folder-list {
     grid-column: 1;
-    grid-row: 2 / 4;
+    grid-row: 2;
 
     display: flex;
     flex-direction: column;
@@ -173,46 +172,35 @@
 }
 
 
-/* Folder Title */
+/* Main Mail Panel */
 
-.mail-content > h1 {
+.mail-panel {
     grid-column: 2;
     grid-row: 2;
 
+    min-width: 0;
+    background-color: #fff;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.mail-list-page > h1 {
     display: flex;
     align-items: center;
 
+    min-height: 52px;
     margin: 0;
     padding: 0 24px;
 
-    background-color: #fff;
     border-bottom: 1px solid #e8eaed;
-    border-radius: 16px 16px 0 0;
 
     font-size: 20px;
     font-weight: 400;
-}
-
-
-/* Mail List */
-
-.mail-content > :last-child {
-    grid-column: 2;
-    grid-row: 3;
-    min-width: 0;
-    margin-top: 0;
-
-    background-color: #fff;
-    border-radius: 0 0 16px 16px;
-    overflow: hidden;
+    text-transform: capitalize;
 }
 
 
 /* Compose Button */
-
-.add-mail > span {
-    display: none;
-}
 
 .add-mail > button {
     position: absolute;
@@ -229,11 +217,11 @@
     height: 56px;
     padding: 0 22px;
 
-    background-color: #c2e7ff;
-    color: #001d35;
     border: none;
     border-radius: 16px;
+    background-color: #c2e7ff;
 
+    color: #001d35;
     font: inherit;
     font-size: 14px;
     font-weight: 500;
@@ -242,10 +230,6 @@
 
 .add-mail > button:hover {
     background-color: #b3dcf7;
-}
-
-.add-mail > button .material-symbols-outlined {
-    font-size: 22px;
 }
 
 
@@ -282,7 +266,6 @@
 
     height: 44px;
     padding: 0 16px;
-
     background-color: #f2f6fc;
 }
 
@@ -299,8 +282,8 @@
 
     width: 28px;
     height: 28px;
-
     padding: 0;
+
     border: none;
     border-radius: 4px;
     background: transparent;
@@ -373,7 +356,7 @@
     border-radius: 20px;
     background-color: #0b57d0;
 
-    color: white;
+    color: #fff;
     font: inherit;
     font-size: 14px;
     font-weight: 600;
@@ -397,7 +380,7 @@
 @media (max-width: 600px) {
     .mail-content {
         grid-template-columns: minmax(0, 1fr);
-        grid-template-rows: auto auto auto minmax(300px, 1fr);
+        grid-template-rows: auto auto minmax(300px, 1fr);
         gap: 8px;
         padding: 8px;
     }
@@ -411,16 +394,10 @@
         max-width: none;
     }
 
-    .mail-content > h1 {
-        grid-column: 1;
-        grid-row: 2;
-        min-height: 50px;
-        border-radius: 12px;
-    }
-
     .mail-folder-list {
         grid-column: 1;
-        grid-row: 3;
+        grid-row: 2;
+
         flex-direction: row;
         overflow-x: auto;
         padding: 4px 0;
@@ -428,14 +405,14 @@
 
     .mail-folder-list button {
         width: auto;
-        white-space: nowrap;
         padding: 0 16px;
         border-radius: 20px;
+        white-space: nowrap;
     }
 
-    .mail-content > :last-child {
+    .mail-panel {
         grid-column: 1;
-        grid-row: 4;
+        grid-row: 3;
         border-radius: 12px;
     }
 

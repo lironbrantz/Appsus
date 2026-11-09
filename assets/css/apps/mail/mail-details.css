@@ -1,0 +1,154 @@
+
+/* Mail Details */
+
+.mail-details {
+    min-height: 100%;
+    background-color: #fff;
+    color: #202124;
+    font-family: Arial, sans-serif;
+}
+
+
+/* Toolbar */
+
+.mail-details-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    height: 56px;
+    padding: 0 24px;
+    border-bottom: 1px solid #f1f3f4;
+}
+
+.details-action-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 36px;
+    height: 36px;
+    padding: 0;
+
+    border: none;
+    border-radius: 50%;
+    background: transparent;
+    color: #5f6368;
+
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.details-action-btn:hover {
+    background-color: #f1f3f4;
+}
+
+.details-action-btn .material-symbols-outlined {
+    font-size: 21px;
+}
+
+
+/* Message */
+
+.mail-message {
+    padding: 24px 48px 48px;
+}
+
+.mail-message h2 {
+    margin: 0 0 28px;
+
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 1.4;
+}
+
+
+/* Sender Information */
+
+.mail-message-info {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.mail-avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    width: 36px;
+    height: 36px;
+
+    border-radius: 50%;
+    background-color: #00897b;
+    color: #fff;
+
+    font-size: 17px;
+    font-weight: 500;
+}
+
+.mail-addresses {
+    flex: 1;
+    min-width: 0;
+}
+
+.mail-sender {
+    font-size: 14px;
+    font-weight: 600;
+    overflow-wrap: anywhere;
+}
+
+.mail-recipient {
+    margin-top: 4px;
+    color: #5f6368;
+    font-size: 12px;
+    overflow-wrap: anywhere;
+}
+
+.mail-message-info time {
+    flex-shrink: 0;
+    color: #5f6368;
+    font-size: 12px;
+}
+
+
+/* Message Body */
+
+.mail-body {
+    margin: 32px 0 0 48px;
+
+    font-size: 14px;
+    line-height: 1.7;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+
+/* Responsive */
+
+@media (max-width: 600px) {
+    .mail-details-toolbar {
+        padding: 0 12px;
+    }
+
+    .mail-message {
+        padding: 20px 16px 32px;
+    }
+
+    .mail-message h2 {
+        font-size: 20px;
+    }
+
+    .mail-message-info {
+        flex-wrap: wrap;
+    }
+
+    .mail-message-info time {
+        margin-left: 48px;
+    }
+
+    .mail-body {
+        margin-left: 0;
+    }
+}

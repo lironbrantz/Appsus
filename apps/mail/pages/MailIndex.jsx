@@ -4,13 +4,14 @@ import { MailList } from "../cmps/MailList.jsx"
 import { MailFolderList } from "../cmps/MailFolderList.jsx"
 import { MailFilter } from '../cmps/MailFilter.jsx'
 import { MailCompose } from '../cmps/MailCompose.jsx'
+import { MailDetails } from './MailDetails.jsx'
 
 
 const { useEffect, useState } = React
-const { useSearchParams } = ReactRouterDOM
+const { useSearchParams, useParams } = ReactRouterDOM
 
 export function MailIndex() {
-
+    const { mailId } = useParams()
     const [mails, setMails] = useState()
     const [searchParams, setSearchParams] = useSearchParams()
     const [filterBy, setFilterBy] = useState(mailService.getFilterFromSearchParams(searchParams))
@@ -50,10 +51,26 @@ export function MailIndex() {
         <section className="mail-index">
 
             <div className="mail-content">
-                <h1 style={{ textTransform: 'capitalize' }}>{folder}</h1>
-                <MailFilter filterBy={filterBy} onSetFilterBy={onSetFilterBy} />
-                <MailFolderList onSetFolder={onSetFolder} activeFolder={folder} />
-                <MailList mails={mails} />
+                <MailFilter
+                    filterBy={filterBy}
+                    onSetFilterBy={onSetFilterBy}
+                />
+
+                <MailFolderList
+                    onSetFolder={onSetFolder}
+                    activeFolder={folder}
+                />
+
+                <main className="mail-panel">
+                    {mailId ? (
+                        <MailDetails />
+                    ) : (
+                        <section className="mail-list-page">
+                            <h1>{folder}</h1>
+                            <MailList mails={mails} />
+                        </section>
+                    )}
+                </main>
             </div>
             <MailCompose onAddMail={onAddMail} />
         </section>
