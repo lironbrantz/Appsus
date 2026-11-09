@@ -8,9 +8,10 @@ import { MailDetails } from './MailDetails.jsx'
 
 
 const { useEffect, useState } = React
-const { useSearchParams, useParams } = ReactRouterDOM
+const { useSearchParams, useParams, useNavigate } = ReactRouterDOM
 
 export function MailIndex() {
+    const navigate = useNavigate()
     const { mailId } = useParams()
     const [mails, setMails] = useState()
     const [searchParams, setSearchParams] = useSearchParams()
@@ -20,6 +21,20 @@ export function MailIndex() {
 
     function onSetFolder(folderId) {
         setFilterBy(prev => ({ ...prev, status: folderId }))
+        navigate('/mail')
+
+    }
+
+    function onRemoveMail(mailId) {
+        mailService.remove(mailId)
+            .then(() => loadMails())
+            .catch(() => showErrorMsg('Failed to remove mail'))
+    }
+
+    function onRestoreMail(mailId) {
+        mailService.restore(mailId)
+            .then(() => loadMails())
+            .catch(() => showErrorMsg('Failed to restore mail'))
     }
 
     function onSetFilterBy(filterByToEdit) {
@@ -67,7 +82,7 @@ export function MailIndex() {
                     ) : (
                         <section className="mail-list-page">
                             <h1>{folder}</h1>
-                            <MailList mails={mails} />
+                            <MailList mails={mails} onRemoveMail={onRemoveMail} onRestoreMail={onRestoreMail} />
                         </section>
                     )}
                 </main>

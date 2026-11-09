@@ -15,13 +15,15 @@ export const mailService = {
     query,
     get,
     remove,
+    restore,
     save,
     send,
     markAsRead,
     getEmptyMail,
     getDefaultFilter,
     getLoggedinUser,
-    getFilterFromSearchParams
+    getFilterFromSearchParams,
+    
 }
 
 
@@ -272,7 +274,15 @@ function remove(mailId) {
             })
         })
 }
-
+function restore(mailId) {
+    return get(mailId)
+        .then(mail => {
+            return save({
+                ...mail,
+                removedAt: null
+            })
+        })
+}
 function save(mail) {
     if (mail.id) {
         return storageService.put(MAIL_KEY, mail)

@@ -1,3 +1,6 @@
+
+/* Mail List */
+
 .mail-list {
     list-style: none;
     margin: 0;
@@ -6,13 +9,13 @@
 }
 
 .mail-list li {
+    position: relative;
     display: flex;
     align-items: center;
     min-height: 44px;
 
     margin: 0;
     border-bottom: 1px solid #e8eaed;
-
     transition: box-shadow 0.15s ease;
 }
 
@@ -30,6 +33,9 @@
     text-decoration: none;
 }
 
+
+/* Mail Preview */
+
 .mail-preview {
     display: flex;
     align-items: center;
@@ -38,7 +44,6 @@
     min-height: 44px;
     padding: 0 16px;
 
-    font-family: Arial, sans-serif;
     font-size: 14px;
     color: #202124;
 
@@ -77,30 +82,70 @@
     text-align: right;
 }
 
-/* Delete button */
 
-.mail-list li > button,
-.mail-list li .remove-btn {
-    flex-shrink: 0;
-    margin-right: 12px;
-    padding: 6px 10px;
+/* Delete and Restore Buttons */
 
-    background: transparent;
+.mail-delete-btn,
+.mail-restore-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    margin: 0;
+
     border: none;
     border-radius: 50%;
-
+    background: transparent;
     color: #5f6368;
-    font-family: inherit;
-    font-size: 13px;
 
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
     cursor: pointer;
 }
 
-.mail-list li > button:hover,
-.mail-list li .remove-btn:hover {
+.mail-delete-btn {
+    right: 12px;
+}
+
+.mail-restore-btn {
+    right: 52px;
+}
+
+
+/* Show Actions on Hover */
+
+.mail-list li:hover .mail-delete-btn,
+.mail-list li:hover .mail-restore-btn,
+.mail-list li:focus-within .mail-delete-btn,
+.mail-list li:focus-within .mail-restore-btn {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.mail-delete-btn:hover,
+.mail-restore-btn:hover {
     background-color: #e8eaed;
     color: #202124;
 }
+
+
+/* Hide Date on Hover */
+
+.mail-list li:hover .mail-date,
+.mail-list li:focus-within .mail-date {
+    visibility: hidden;
+}
+
 
 /* Responsive */
 
