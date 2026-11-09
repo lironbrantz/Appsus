@@ -2,9 +2,9 @@
 import { mailService } from '../services/mail.service.js'
 import { showErrorMsg } from '../../../services/event-bus.service.js'
 
-const { useState } = React
+const { useState, useEffect } = React
 
-export function MailCompose({ onAddMail }) {
+export function MailCompose({ onAddMail, onSaveDraft, selectedDraft }) {
     const [newMail, setNewMail] = useState(mailService.getEmptyMail())
     const [isMailComposeOpen, setIsMailComposeOpen] = useState(false)
 
@@ -20,12 +20,25 @@ export function MailCompose({ onAddMail }) {
                 showErrorMsg('Failed to send mail')
             })
     }
+    useEffect(() => {
+        if (!selectedDraft) return
+
+        setNewMail(selectedDraft)
+        setIsMailComposeOpen(true)
+    }, [selectedDraft])
 
     function handleChange({ target }) {
         const { name, value } = target
         setNewMail(prev => ({ ...prev, [name]: value }))
     }
-
+    function onSaveDraftClick() {
+        onSaveDraft(newMail)
+            .then(() => {
+                setNewMail(mailService.getEmptyMail())
+                setIsMailComposeOpen(false)
+            })
+            .catch(() => showErrorMsg('Failed to save draft'))
+    }
     return (
         <section className="add-mail">
             <button
@@ -83,6 +96,9 @@ export function MailCompose({ onAddMail }) {
                     <footer className="compose-footer">
                         <button type="submit" className="send-btn">
                             Send
+                        </button>
+                        <button type="button" onClick={onSaveDraftClick}>
+                            Save Draft
                         </button>
                     </footer>
                 </form>

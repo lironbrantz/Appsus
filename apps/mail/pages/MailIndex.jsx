@@ -7,15 +7,19 @@ import { MailCompose } from '../cmps/MailCompose.jsx'
 import { MailDetails } from './MailDetails.jsx'
 
 
-const { useEffect, useState } = React
-const { useSearchParams, useParams, useNavigate } = ReactRouterDOM
+const { useState, useEffect } = React
+const { useParams, useSearchParams, useNavigate } = ReactRouterDOM
+
+
 
 export function MailIndex() {
+
     const navigate = useNavigate()
     const { mailId } = useParams()
     const [mails, setMails] = useState()
     const [searchParams, setSearchParams] = useSearchParams()
     const [filterBy, setFilterBy] = useState(mailService.getFilterFromSearchParams(searchParams))
+    const [selectedDraft, setSelectedDraft] = useState(null)
 
     const folder = filterBy.status
 
@@ -60,6 +64,10 @@ export function MailIndex() {
         return mailService.send(mail)
             .then(() => loadMails())
     }
+    function onSaveDraft(mail) {
+        return mailService.save(mail)
+            .then(() => loadMails())
+    }
 
     if (!mails) return <div>Loading...</div>
     return (
@@ -82,12 +90,19 @@ export function MailIndex() {
                     ) : (
                         <section className="mail-list-page">
                             <h1>{folder}</h1>
-                            <MailList mails={mails} onRemoveMail={onRemoveMail} onRestoreMail={onRestoreMail} />
+                            <MailList mails={mails} 
+                            onRemoveMail={onRemoveMail} 
+                            onRestoreMail={onRestoreMail}
+                            setSelectedDraft={setSelectedDraft}
+                            />
                         </section>
                     )}
                 </main>
             </div>
-            <MailCompose onAddMail={onAddMail} />
+            <MailCompose onAddMail={onAddMail} 
+            onSaveDraft={onSaveDraft} 
+            selectedDraft={selectedDraft} 
+            />
         </section>
     )
 }

@@ -3,13 +3,21 @@ import { MailPreview } from './MailPreview.jsx'
 
 const { Link } = ReactRouterDOM
 
-export function MailList({ mails, onRemoveMail, onRestoreMail }) {
+export function MailList({ mails, onRemoveMail, onRestoreMail, setSelectedDraft }) {
     return (
         <section>
             <ul className="mail-list">
                 {mails.map(mail => (
                     <li key={mail.id}>
-                        <Link to={`/mail/${mail.id}`}>
+                        <Link
+                            to={`/mail/${mail.id}`}
+                            onClick={ev => {
+                                if (mail.sentAt === null && !mail.removedAt) {
+                                    ev.preventDefault()
+                                    setSelectedDraft(mail)
+                                }
+                            }}
+                        >
                             <MailPreview mail={mail} />
                         </Link>
 

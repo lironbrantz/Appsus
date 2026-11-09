@@ -436,3 +436,27 @@
         max-height: none;
     }
 }
+
+.compose-footer {
+    gap: 10px;
+}
+
+.compose-footer button[type="button"] {
+    height: 36px;
+    padding: 0 16px;
+
+    background-color: #f1f3f4;
+    color: #444746;
+
+    border: none;
+    border-radius: 20px;
+
+    font: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.compose-footer button[type="button"]:hover {
+    background-color: #e3e7eb;
+}
