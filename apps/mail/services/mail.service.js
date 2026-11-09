@@ -139,13 +139,6 @@ function get(mailId) {
     return storageService.get(MAIL_KEY, mailId)
 }
 
-function getFilterFromSearchParams(searchParams) {
-
-    const status = searchParams.get('status') || 'inbox'
-
-    return { status }
-}
-
 function remove(mailId) {
     return get(mailId)
         .then(mail => {
@@ -214,6 +207,20 @@ function getDefaultFilter() {
         isRead: null,
         sortBy: 'date'
     }
+}
+
+function getFilterFromSearchParams(searchParams) {
+    const filterBy = getDefaultFilter()
+
+    filterBy.status = searchParams.get('status') || 'inbox'
+    filterBy.txt = searchParams.get('txt') || ''
+
+    const isRead = searchParams.get('isRead')
+
+    filterBy.isRead =
+        isRead === 'true' ? true :
+        isRead === 'false' ? false : null
+    return filterBy
 }
 
 function getLoggedinUser() {
