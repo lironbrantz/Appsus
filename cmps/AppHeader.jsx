@@ -1,5 +1,4 @@
 
-
 const { NavLink } = ReactRouterDOM
 const { useState } = React
 
@@ -16,8 +15,6 @@ export function AppHeader() {
 
     return (
         <header className="app-header">
-            <h3>Appsus</h3>
-
             <div className="app-launcher">
                 <button
                     type="button"
