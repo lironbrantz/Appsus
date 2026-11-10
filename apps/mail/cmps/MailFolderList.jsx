@@ -1,12 +1,15 @@
 
 import { utilService } from '../../../services/util.service.js'
 
+
 const folders = [
     { id: 'inbox', label: 'Inbox', icon: 'inbox' },
+    { id: 'starred', label: 'Starred', icon: 'star' },
     { id: 'sent', label: 'Sent', icon: 'send' },
     { id: 'draft', label: 'Drafts', icon: 'draft' },
     { id: 'trash', label: 'Trash', icon: 'delete' }
 ]
+
 
 const activeStyle = {
     backgroundColor: '#d3e3fd',

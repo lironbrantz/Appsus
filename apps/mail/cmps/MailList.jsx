@@ -7,13 +7,27 @@ export function MailList({
     mails,
     onRemoveMail,
     onRestoreMail,
-    setSelectedDraft
+    setSelectedDraft,
+    onToggleStar
 }) {
     return (
         <section>
             <ul className="mail-list">
                 {mails.map(mail => (
                     <li key={mail.id}>
+                        <button
+                            type="button"
+                            className="mail-star-btn"
+                            onClick={() => onToggleStar(mail.id)}
+                            title={mail.isStarred ? 'Unstar' : 'Star'}
+                            aria-label={mail.isStarred ? 'Remove star' : 'Star mail'}
+                            aria-pressed={!!mail.isStarred}
+                        >
+                            <span className="material-symbols-outlined">
+                                {mail.isStarred ? 'star' : 'star_border'}
+                            </span>
+                        </button>
+
                         <Link
                             to={`/mail/${mail.id}`}
                             onClick={ev => {

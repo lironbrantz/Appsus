@@ -19,6 +19,7 @@ export const mailService = {
     save,
     send,
     markAsRead,
+    toggleStar,
     getEmptyMail,
     getDefaultFilter,
     getLoggedinUser,
@@ -228,7 +229,14 @@ function query(filterBy = {}) {
                     mails = mails.filter(mail =>
                         mail.from === loggedinUser.email && !mail.sentAt
                     )
+
+                } else if (status === 'starred') {
+                    mails = mails.filter(mail => mail.isStarred
+                        
+                    )
                 }
+
+
             }
 
             if (txt && txt.trim()) {
@@ -322,6 +330,16 @@ function markAsRead(mailId) {
         })
 }
 
+function toggleStar(mailId) {
+    return get(mailId)
+        .then(mail => {
+            return save({
+                ...mail,
+                isStarred: !mail.isStarred
+            })
+        })
+}
+
 function getEmptyMail() {
     return {
         id: '',
@@ -330,6 +348,7 @@ function getEmptyMail() {
         labels: [],
         body: '',
         isRead: true,
+        isStarred: false,
         sentAt: null,
         removedAt: null,
         from: loggedinUser.email,

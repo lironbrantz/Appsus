@@ -83,6 +83,66 @@
 }
 
 
+/* Star Button
+   Sits on top of the row (absolute), so the row's background
+   (read / unread) runs under it, and starring never moves the text or date. */
+
+.mail-star-btn {
+    position: absolute;
+    top: 50%;
+    left: 8px;
+    z-index: 2;
+    transform: translateY(-50%);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 32px;
+    height: 32px;
+    margin: 0;
+    padding: 0;
+
+    border: none;
+    border-radius: 50%;
+    background: transparent;
+    color: #5f6368;
+
+    cursor: pointer;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.mail-star-btn .material-symbols-outlined {
+    font-size: 20px;
+    line-height: 1;
+    font-variation-settings: 'FILL' 0;
+}
+
+.mail-star-btn:hover {
+    background-color: rgba(32, 33, 36, 0.08);
+    color: #202124;
+}
+
+.mail-star-btn[aria-pressed="true"],
+.mail-star-btn[aria-pressed="true"]:hover {
+    color: #f4b400;
+}
+
+.mail-star-btn[aria-pressed="true"] .material-symbols-outlined {
+    font-variation-settings: 'FILL' 1;
+}
+
+.mail-star-btn:focus-visible {
+    outline: 2px solid #0b57d0;
+    outline-offset: 1px;
+}
+
+/* room for the star at the start of the row */
+.mail-star-btn + a .mail-preview {
+    padding-left: 44px;
+}
+
+
 /* Delete and Restore Buttons */
 
 .mail-delete-btn,
@@ -287,5 +347,18 @@
 @media (max-width: 650px) {
     .mail-preview-labels {
         max-width: 45%;
+    }
+}
+
+@media (max-width: 650px) {
+    /* rows wrap to several lines here: keep the star on the first line */
+    .mail-star-btn {
+        top: 6px;
+        left: 4px;
+        transform: none;
+    }
+
+    .mail-star-btn + a .mail-preview {
+        padding-left: 40px;
     }
 }

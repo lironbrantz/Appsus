@@ -44,6 +44,12 @@ export function MailIndex() {
             .catch(() => showErrorMsg('Failed to remove mail'))
     }
 
+    function onToggleStar(mailId) {
+        mailService.toggleStar(mailId)
+            .then(() => loadMails())
+            .catch(() => showErrorMsg('Failed to update star'))
+    }
+
     function onRestoreMail(mailId) {
         mailService.restore(mailId)
             .then(() => loadMails())
@@ -109,6 +115,7 @@ export function MailIndex() {
                                 onRemoveMail={onRemoveMail}
                                 onRestoreMail={onRestoreMail}
                                 setSelectedDraft={setSelectedDraft}
+                                onToggleStar={onToggleStar}
                             />
                         </section>
                     )}
