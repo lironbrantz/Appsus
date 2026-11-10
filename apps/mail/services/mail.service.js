@@ -23,7 +23,7 @@ export const mailService = {
     getDefaultFilter,
     getLoggedinUser,
     getFilterFromSearchParams,
-    
+
 }
 
 
@@ -206,7 +206,7 @@ _createMails()
 function query(filterBy = {}) {
     return storageService.query(MAIL_KEY)
         .then(mails => {
-            const { status, txt, isRead, sortBy } = {
+            const { status, txt, isRead, sortBy, label } = {
                 ...getDefaultFilter(),
                 ...filterBy
             }
@@ -238,6 +238,12 @@ function query(filterBy = {}) {
                     (mail.subject || '').toLowerCase().includes(search) ||
                     (mail.body || '').toLowerCase().includes(search) ||
                     (mail.from || '').toLowerCase().includes(search)
+                )
+            }
+
+            if (label) {
+                mails = mails.filter(mail =>
+                    (mail.labels || []).includes(label)
                 )
             }
 
@@ -321,6 +327,7 @@ function getEmptyMail() {
         id: '',
         createdAt: Date.now(),
         subject: '',
+        labels: [],
         body: '',
         isRead: true,
         sentAt: null,
@@ -335,7 +342,8 @@ function getDefaultFilter() {
         status: 'inbox',
         txt: '',
         isRead: null,
-        sortBy: 'date'
+        sortBy: 'date',
+        label: ''
     }
 }
 
@@ -344,6 +352,7 @@ function getFilterFromSearchParams(searchParams) {
 
     filterBy.status = searchParams.get('status') || 'inbox'
     filterBy.txt = searchParams.get('txt') || ''
+    filterBy.label = searchParams.get('label') || ''
 
     const isRead = searchParams.get('isRead')
 

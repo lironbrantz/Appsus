@@ -7,7 +7,18 @@ export const utilService = {
     getDayName,
     getMonthName,
     loadFromStorage,
-    saveToStorage
+    saveToStorage,
+    getLabels
+}
+
+function getLabels() {
+    return [
+        'Work',
+        'Personal',
+        'Important',
+        'Social',
+        'Promotions'
+    ]
 }
 
 function saveToStorage(key, val) {

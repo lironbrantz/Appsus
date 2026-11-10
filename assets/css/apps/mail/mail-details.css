@@ -48,6 +48,74 @@
 }
 
 
+/* Label Picker
+   Opens under the Labels button (the third button in the toolbar). */
+
+.mail-details-toolbar {
+    position: relative;
+}
+
+.mail-details-toolbar .label-picker {
+    position: absolute;
+    top: calc(100% - 4px);
+    left: 112px;
+    z-index: 20;
+}
+
+.label-picker {
+    width: 240px;
+    max-width: calc(100vw - 32px);
+    box-sizing: border-box;
+    padding: 8px 0;
+
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 1px 3px rgba(60, 64, 67, .3),
+                0 4px 8px 3px rgba(60, 64, 67, .15);
+}
+
+.label-picker h4 {
+    margin: 0;
+    padding: 6px 16px 8px;
+
+    font-size: 14px;
+    font-weight: 500;
+    color: #202124;
+}
+
+.label-picker ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.label-picker label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    min-height: 36px;
+    padding: 0 16px;
+
+    font-size: 14px;
+    color: #202124;
+    cursor: pointer;
+}
+
+.label-picker label:hover {
+    background-color: #f1f3f4;
+}
+
+.label-picker input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    margin: 0;
+    flex-shrink: 0;
+    accent-color: #0b57d0;
+    cursor: pointer;
+}
+
+
 /* Message */
 
 .mail-message {
@@ -60,6 +128,29 @@
     font-size: 22px;
     font-weight: 400;
     line-height: 1.4;
+}
+
+
+/* Labels under the subject */
+
+.mail-labels {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: -16px 0 24px;
+}
+
+.mail-label {
+    padding: 0 8px;
+
+    border-radius: 4px;
+    background-color: #e8eaed;
+    color: #444746;
+
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 20px;
+    white-space: nowrap;
 }
 
 
@@ -130,6 +221,14 @@
 @media (max-width: 600px) {
     .mail-details-toolbar {
         padding: 0 12px;
+    }
+
+    .mail-details-toolbar .label-picker {
+        left: 12px;
+    }
+
+    .mail-labels {
+        margin-top: -12px;
     }
 
     .mail-message {

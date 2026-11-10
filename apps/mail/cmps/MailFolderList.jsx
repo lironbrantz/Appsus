@@ -1,4 +1,6 @@
 
+import { utilService } from '../../../services/util.service.js'
+
 const folders = [
     { id: 'inbox', label: 'Inbox', icon: 'inbox' },
     { id: 'sent', label: 'Sent', icon: 'send' },
@@ -12,7 +14,14 @@ const activeStyle = {
     fontWeight: 600
 }
 
-export function MailFolderList({ onSetFolder, activeFolder }) {
+export function MailFolderList({
+    onSetFolder,
+    activeFolder,
+    onSetLabel,
+    activeLabel
+}) {
+    const labels = utilService.getLabels()
+
     return (
         <nav className="mail-folder-list">
             {folders.map(folder => (
@@ -20,12 +29,28 @@ export function MailFolderList({ onSetFolder, activeFolder }) {
                     key={folder.id}
                     type="button"
                     onClick={() => onSetFolder(folder.id)}
-                    style={activeFolder === folder.id ? activeStyle : undefined}
+                    style={!activeLabel && activeFolder === folder.id ? activeStyle : undefined}
                 >
                     <span className="material-symbols-outlined">
                         {folder.icon}
                     </span>
                     {folder.label}
+                </button>
+            ))}
+
+            <p className="mail-labels-title">Labels</p>
+
+            {labels.map(label => (
+                <button
+                    key={label}
+                    type="button"
+                    onClick={() => onSetLabel(label)}
+                    style={activeLabel === label ? activeStyle : undefined}
+                >
+                    <span className="material-symbols-outlined">
+                        label
+                    </span>
+                    {label}
                 </button>
             ))}
         </nav>

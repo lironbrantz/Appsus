@@ -3,7 +3,12 @@ import { MailPreview } from './MailPreview.jsx'
 
 const { Link } = ReactRouterDOM
 
-export function MailList({ mails, onRemoveMail, onRestoreMail, setSelectedDraft }) {
+export function MailList({
+    mails,
+    onRemoveMail,
+    onRestoreMail,
+    setSelectedDraft
+}) {
     return (
         <section>
             <ul className="mail-list">

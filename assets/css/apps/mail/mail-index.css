@@ -171,6 +171,17 @@
     background-color: #e8eaed;
 }
 
+/* Labels section in the sidebar */
+
+.mail-labels-title {
+    margin: 16px 0 4px;
+    padding: 0 18px 0 26px;
+
+    font-size: 16px;
+    font-weight: 500;
+    color: #1f1f1f;
+}
+
 
 /* Main Mail Panel */
 
@@ -407,6 +418,21 @@
         width: auto;
         padding: 0 16px;
         border-radius: 20px;
+        white-space: nowrap;
+    }
+
+    /* in the horizontal row the title becomes a small divider */
+    .mail-labels-title {
+        display: flex;
+        align-items: center;
+        flex-shrink: 0;
+
+        margin: 0 4px;
+        padding: 0 0 0 12px;
+        border-left: 1px solid #dadce0;
+
+        font-size: 12px;
+        color: #5f6368;
         white-space: nowrap;
     }
 
