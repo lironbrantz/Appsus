@@ -18,6 +18,7 @@ export function MailIndex() {
     const [searchParams, setSearchParams] = useSearchParams()
     const [filterBy, setFilterBy] = useState(mailService.getFilterFromSearchParams(searchParams))
     const [selectedDraft, setSelectedDraft] = useState(null)
+    const [unreadCount, setUnreadCount] = useState(0)
 
     const folder = filterBy.status
 
@@ -50,6 +51,12 @@ export function MailIndex() {
             .catch(() => showErrorMsg('Failed to update star'))
     }
 
+    function onToggleRead(mailId) {
+        mailService.toggleRead(mailId)
+            .then(() => loadMails())
+            .catch(() => showErrorMsg('Failed to update mail'))
+    }
+
     function onRestoreMail(mailId) {
         mailService.restore(mailId)
             .then(() => loadMails())
@@ -72,6 +79,10 @@ export function MailIndex() {
             })
             .catch(() => {
                 showErrorMsg('Failed to load mails')
+            })
+        mailService.query({ status: 'inbox', isRead: false })
+            .then(mails => {
+                setUnreadCount(mails.length)
             })
     }
 
@@ -101,6 +112,7 @@ export function MailIndex() {
                     activeFolder={folder}
                     onSetLabel={onSetLabel}
                     activeLabel={filterBy.label}
+                    unreadCount={unreadCount}
                 />
 
                 <main className="mail-panel">
@@ -116,6 +128,8 @@ export function MailIndex() {
                                 onRestoreMail={onRestoreMail}
                                 setSelectedDraft={setSelectedDraft}
                                 onToggleStar={onToggleStar}
+                                onToggleRead={onToggleRead}
+
                             />
                         </section>
                     )}

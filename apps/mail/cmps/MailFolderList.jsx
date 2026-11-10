@@ -21,7 +21,8 @@ export function MailFolderList({
     onSetFolder,
     activeFolder,
     onSetLabel,
-    activeLabel
+    activeLabel,
+    unreadCount
 }) {
     const labels = utilService.getLabels()
 
@@ -38,6 +39,13 @@ export function MailFolderList({
                         {folder.icon}
                     </span>
                     {folder.label}
+
+                    {folder.id === 'inbox' && unreadCount > 0 && (
+                        <span className="mail-unread-count">
+                            {unreadCount}
+                        </span>
+                    )}
+
                 </button>
             ))}
 

@@ -8,7 +8,8 @@ export function MailList({
     onRemoveMail,
     onRestoreMail,
     setSelectedDraft,
-    onToggleStar
+    onToggleStar,
+    onToggleRead
 }) {
     return (
         <section>
@@ -39,6 +40,18 @@ export function MailList({
                         >
                             <MailPreview mail={mail} />
                         </Link>
+
+                        <button
+                            type="button"
+                            className="mail-read-btn"
+                            onClick={() => onToggleRead(mail.id)}
+                            title={mail.isRead ? 'Mark as unread' : 'Mark as read'}
+                            aria-label={mail.isRead ? 'Mark as unread' : 'Mark as read'}
+                        >
+                            <span className="material-symbols-outlined">
+                                {mail.isRead ? 'mark_email_unread' : 'mark_email_read'}
+                            </span>
+                        </button>
 
                         <button
                             type="button"

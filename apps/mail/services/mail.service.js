@@ -20,6 +20,7 @@ export const mailService = {
     send,
     markAsRead,
     toggleStar,
+    toggleRead,
     getEmptyMail,
     getDefaultFilter,
     getLoggedinUser,
@@ -232,7 +233,7 @@ function query(filterBy = {}) {
 
                 } else if (status === 'starred') {
                     mails = mails.filter(mail => mail.isStarred
-                        
+
                     )
                 }
 
@@ -326,6 +327,16 @@ function markAsRead(mailId) {
             return save({
                 ...mail,
                 isRead: true
+            })
+        })
+}
+
+function toggleRead(mailId) {
+    return get(mailId)
+        .then(mail => {
+            return save({
+                ...mail,
+                isRead: !mail.isRead
             })
         })
 }

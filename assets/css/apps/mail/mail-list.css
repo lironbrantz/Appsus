@@ -143,8 +143,9 @@
 }
 
 
-/* Delete and Restore Buttons */
+/* Row Action Buttons: read / unread, delete, restore */
 
+.mail-read-btn,
 .mail-delete-btn,
 .mail-restore-btn {
     position: absolute;
@@ -176,15 +177,27 @@
     right: 12px;
 }
 
-.mail-restore-btn {
+.mail-read-btn {
     right: 52px;
+}
+
+.mail-restore-btn {
+    right: 92px;
+}
+
+/* Trash rows show three actions: keep the body text out from under them */
+.mail-list li:has(.mail-restore-btn):hover .mail-preview,
+.mail-list li:has(.mail-restore-btn):focus-within .mail-preview {
+    padding-right: 72px;
 }
 
 
 /* Show Actions on Hover */
 
+.mail-list li:hover .mail-read-btn,
 .mail-list li:hover .mail-delete-btn,
 .mail-list li:hover .mail-restore-btn,
+.mail-list li:focus-within .mail-read-btn,
 .mail-list li:focus-within .mail-delete-btn,
 .mail-list li:focus-within .mail-restore-btn {
     opacity: 1;
@@ -192,6 +205,7 @@
     pointer-events: auto;
 }
 
+.mail-read-btn:hover,
 .mail-delete-btn:hover,
 .mail-restore-btn:hover {
     background-color: #e8eaed;
@@ -256,6 +270,7 @@
     white-space: nowrap;
 }
 
+.mail-list li:has(.mail-read-btn:hover),
 .mail-list li:has(.mail-delete-btn:hover),
 .mail-list li:has(.mail-restore-btn:hover) {
     box-shadow: none;
@@ -340,6 +355,7 @@
 
 /* Action Icons */
 
+.mail-read-btn .material-symbols-outlined,
 .mail-delete-btn .material-symbols-outlined,
 .mail-restore-btn .material-symbols-outlined {
     font-size: 19px;
@@ -361,4 +377,21 @@
     .mail-star-btn + a .mail-preview {
         padding-left: 40px;
     }
+
+    /* actions sit on the last line, where the date is (it hides on hover),
+       instead of on top of the sender */
+    .mail-read-btn,
+    .mail-delete-btn,
+    .mail-restore-btn {
+        top: auto;
+        bottom: 2px;
+        transform: none;
+    }
+}
+
+.mail-read-btn:focus-visible,
+.mail-delete-btn:focus-visible,
+.mail-restore-btn:focus-visible {
+    outline: 2px solid #0b57d0;
+    outline-offset: 1px;
 }
