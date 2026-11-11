@@ -4,10 +4,13 @@ import { showErrorMsg } from "../../../services/event-bus.service.js"
 import { NoteVideo } from './NoteVideo.jsx'
 
 const { useState } = React
+const { Link } = ReactRouterDOM
+export function NoteAdd({ onAddNote, title, txt }) {
+    const emptyNote = noteService.getEmptyNote()
+    emptyNote.info.title = title || ''
+    emptyNote.info.txt = txt || ''
 
-export function NoteAdd({ onAddNote }) {
-
-    const [note, setNote] = useState(noteService.getEmptyNote())
+    const [note, setNote] = useState(emptyNote)
     const [isColorPickerOpen, setIsColorPickerOpen] = useState(false)
 
     const bgStyle = { backgroundColor: note.style.backgroundColor }

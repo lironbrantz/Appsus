@@ -4,6 +4,7 @@ import { ColorPicker } from "./ColorPicker.jsx"
 import { showErrorMsg } from "../../../services/event-bus.service.js"
 
 const { useState } = React
+const { Link } = ReactRouterDOM
 
 export function NotePreview({ note, onRemoveNote, onUpdateNote, onAddNote }) {
     const [isEditing, setIsEditing] = useState(false)
@@ -145,6 +146,21 @@ export function NotePreview({ note, onRemoveNote, onUpdateNote, onAddNote }) {
                 >
                     delete
                 </button>
+
+                <Link
+                    to={`/mail?${new URLSearchParams({
+                        subject: note.info.title,
+                        body: note.info.txt
+                    })}`}
+                    className="note-action-btn"
+                    title="Send as Email"
+                >
+                    <span className="material-symbols-outlined">
+                        mail
+                    </span>
+                </Link>
+
+
             </section>
         </section>
     )

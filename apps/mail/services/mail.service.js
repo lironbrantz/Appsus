@@ -383,6 +383,7 @@ function getFilterFromSearchParams(searchParams) {
     filterBy.status = searchParams.get('status') || 'inbox'
     filterBy.txt = searchParams.get('txt') || ''
     filterBy.label = searchParams.get('label') || ''
+    filterBy.sortBy = searchParams.get('sortBy') || 'date'
 
     const isRead = searchParams.get('isRead')
 

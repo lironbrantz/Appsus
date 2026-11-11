@@ -5,12 +5,18 @@ import { NoteFilter } from "../cmps/NoteFilter.jsx"
 import { showErrorMsg } from "../../../services/event-bus.service.js"
 
 const { useEffect, useState } = React
+const { useSearchParams } = ReactRouterDOM
 
 export function NoteIndex() {
 
     const [notes, setNotes] = useState(null)
     const [isSidebarOpen, setIsSidebarOpen] = useState(false)
     const [filterBy, setFilterBy] = useState({ search: '', type: '' })
+
+    const [searchParams, setSearchParams] = useSearchParams()
+
+    const title = searchParams.get('title')
+    const txt = searchParams.get('txt')
 
     useEffect(() => {
         loadNotes()
@@ -32,6 +38,7 @@ export function NoteIndex() {
         return noteService.save(note)
             .then(() => {
                 loadNotes()
+                setSearchParams()
             })
     }
 
@@ -118,7 +125,7 @@ export function NoteIndex() {
             </aside>
 
 
-            <NoteAdd onAddNote={onAddNote} />
+            <NoteAdd onAddNote={onAddNote} txt={txt} title={title} />
 
             <div className="notes-results">
                 <NoteList

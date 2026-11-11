@@ -72,7 +72,22 @@ export function MailDetails() {
                     <span className="material-symbols-outlined">
                         delete
                     </span>
+
                 </button>
+
+                <Link
+                    to={`/note?${new URLSearchParams({
+                        title: mail.subject,
+                        txt: mail.body
+                    })}`}
+                    className="details-action-btn"
+                    title="Save as Note"
+                >
+                    <span className="material-symbols-outlined">
+                        note_add
+                    </span>
+                </Link>
+
 
                 <button
                     type="button"

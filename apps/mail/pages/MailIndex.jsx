@@ -20,6 +20,11 @@ export function MailIndex() {
     const [selectedDraft, setSelectedDraft] = useState(null)
     const [unreadCount, setUnreadCount] = useState(0)
 
+    const [mailFromNote, setMailFromNote] = useState({
+        subject: searchParams.get('subject') || '',
+        body: searchParams.get('body') || ''
+    })
+
     const folder = filterBy.status
 
     function onSetFolder(folderId) {
@@ -121,6 +126,17 @@ export function MailIndex() {
                     ) : (
                         <section className="mail-list-page">
                             <h1>{folder}</h1>
+                            <select
+                                aria-label="Sort mails"
+                                value={filterBy.sortBy}
+                                onChange={ev => setFilterBy(prev => ({
+                                    ...prev,
+                                    sortBy: ev.target.value
+                                }))}
+                            >
+                                <option value="date">Newest first</option>
+                                <option value="subject">Subject A-Z</option>
+                            </select>
 
                             <MailList
                                 mails={mails}
@@ -140,6 +156,8 @@ export function MailIndex() {
                 onAddMail={onAddMail}
                 onSaveDraft={onSaveDraft}
                 selectedDraft={selectedDraft}
+                subject={mailFromNote.subject}
+                body={mailFromNote.body}
             />
         </section>
     )

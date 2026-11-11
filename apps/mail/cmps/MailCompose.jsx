@@ -4,10 +4,15 @@ import { showErrorMsg } from '../../../services/event-bus.service.js'
 
 const { useState, useEffect } = React
 
-export function MailCompose({ onAddMail, onSaveDraft, selectedDraft }) {
-    const [newMail, setNewMail] = useState(mailService.getEmptyMail())
-    const [isMailComposeOpen, setIsMailComposeOpen] = useState(false)
+export function MailCompose({ onAddMail, onSaveDraft, selectedDraft, subject, body }) {
 
+    const emptyMail = mailService.getEmptyMail()
+    emptyMail.subject = subject || ''
+    emptyMail.body = body || ''
+
+    const [newMail, setNewMail] = useState(emptyMail)
+
+const [isMailComposeOpen, setIsMailComposeOpen] = useState(subject !== '' || body !== '')
     function onSubmitForm(ev) {
         ev.preventDefault()
 
