@@ -1,0 +1,647 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+/* =========================
+   HOME PAGE
+   Everything here is scoped to .home-page so it
+   does not leak into Keep, Mail or Books.
+========================= */
+
+.home-page {
+    --home-ink: #1F1F1F;
+    --home-ink-2: #3C4043;
+    --home-ink-3: #5E5E5E;
+    --home-line: #E6E8EB;
+    --home-line-soft: #F1F3F4;
+    --home-surface-2: #F8FAFD;
+    --home-shadow: 0 1px 3px rgba(60, 64, 67, .08), 0 6px 18px rgba(60, 64, 67, .06);
+    --home-radius: 20px;
+
+    --keep: #FBBC04;
+    --keep-on: #3D2E00;
+    --keep-tint: #FFFBEB;
+    --mail: #C4432B;
+    --mail-on: #FFFFFF;
+    --mail-tint: #FEF4F1;
+    --mail-soft: #FCE8E3;
+    --mail-ink: #B3361F;
+    --books: #6B4BCF;
+    --books-on: #FFFFFF;
+    --books-tint: #F6F2FE;
+    --books-soft: #EEE8FD;
+    --books-ink: #5B3CC4;
+    --keep-soft: #FEEFC3;
+    --keep-ink: #7A5C00;
+
+    min-height: 100vh;
+    background-color: #FFFFFF;
+    color: var(--home-ink);
+    font-family: 'Google Sans', Roboto, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+.home-page *,
+.home-page *::before,
+.home-page *::after {
+    box-sizing: border-box;
+}
+
+.home-page :where(ul) {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.home-page :where(p) {
+    margin: 0;
+}
+
+.home-page .material-symbols-outlined {
+    font-size: 20px;
+    line-height: 1;
+}
+
+.home-page :focus-visible {
+    outline: 2px solid var(--home-ink);
+    outline-offset: 3px;
+}
+
+/* =========================
+   TOP BAR
+   (the apps launcher is the global AppHeader,
+   fixed in the top-right corner)
+========================= */
+
+.home-topbar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    height: 64px;
+    padding: 0 28px;
+    border-bottom: 1px solid #E9EBEE;
+    background-color: #FFFFFF;
+}
+
+.home-logo {
+    font-size: 23px;
+    font-weight: 700;
+    letter-spacing: -0.6px;
+    color: var(--home-ink);
+}
+
+/* Restyle the launcher only while the home page is shown */
+.root-cmp:has(.home-page) .app-header {
+    top: 10px;
+    right: 16px;
+}
+
+.root-cmp:has(.home-page) .app-header .apps-btn {
+    border: 0;
+    border-radius: 50%;
+    background-color: #F1F3F4;
+    color: #444746;
+    box-shadow: none;
+}
+
+.root-cmp:has(.home-page) .app-header .apps-btn:hover {
+    background-color: #E8EAED;
+    transform: none;
+    box-shadow: none;
+}
+
+/* =========================
+   CONTENT
+========================= */
+
+.home-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 32px 48px;
+}
+
+.home-loading {
+    padding: 120px 0;
+    text-align: center;
+    font-size: 16px;
+    color: var(--home-ink-3);
+}
+
+/* =========================
+   SUMMARY CHIPS
+========================= */
+
+.home-summary {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 28px;
+}
+
+.home-summary-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    height: 44px;
+    padding: 0 16px 0 9px;
+    border: 1px solid #E3E3E3;
+    border-radius: 22px;
+    background-color: #FFFFFF;
+    box-shadow: 0 1px 2px rgba(60, 64, 67, .08);
+    font-size: 14px;
+    color: var(--home-ink-2);
+}
+
+.home-summary-item strong {
+    margin-right: -6px;
+    font-weight: 700;
+    color: var(--home-ink);
+}
+
+.home-summary-item .material-symbols-outlined {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    font-size: 16px;
+}
+
+.home-summary-item--mail .material-symbols-outlined {
+    background-color: var(--mail-soft);
+    color: var(--mail-ink);
+}
+
+.home-summary-item--keep .material-symbols-outlined {
+    background-color: var(--keep-soft);
+    color: var(--keep-ink);
+}
+
+.home-summary-item--books .material-symbols-outlined {
+    background-color: var(--books-soft);
+    color: var(--books-ink);
+}
+
+/* =========================
+   APP PANELS (shared)
+========================= */
+
+.home-apps {
+    display: grid;
+    grid-template-columns: minmax(0, 1.12fr) minmax(0, 1fr);
+    gap: 24px;
+    align-items: start;
+}
+
+.home-side-apps {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    min-width: 0;
+}
+
+.home-app {
+    --accent: var(--home-ink);
+    --accent-on: #FFFFFF;
+    --accent-tint: #FFFFFF;
+
+    overflow: hidden;
+    border: 1px solid var(--home-line);
+    border-radius: var(--home-radius);
+    background-color: #FFFFFF;
+    box-shadow: var(--home-shadow);
+}
+
+.home-app--keep {
+    --accent: var(--keep);
+    --accent-on: var(--keep-on);
+    --accent-tint: var(--keep-tint);
+}
+
+.home-app--mail {
+    --accent: var(--mail);
+    --accent-on: var(--mail-on);
+    --accent-tint: var(--mail-tint);
+}
+
+.home-app--books {
+    --accent: var(--books);
+    --accent-on: var(--books-on);
+    --accent-tint: var(--books-tint);
+}
+
+.home-app-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 18px 20px;
+    background-image: linear-gradient(var(--accent-tint), #FFFFFF);
+}
+
+.home-app-heading {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-width: 0;
+}
+
+.home-app-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    background-color: var(--accent);
+    color: var(--accent-on);
+}
+
+.home-page .home-app-icon {
+    font-size: 22px;
+}
+
+.home-app-heading h2 {
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: -0.1px;
+}
+
+.home-app-heading p {
+    margin-top: 2px;
+    font-size: 13px;
+    color: var(--home-ink-3);
+}
+
+.home-app-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    flex: none;
+    height: 36px;
+    margin-left: auto;
+    padding: 0 14px 0 16px;
+    border-radius: 18px;
+    background-color: var(--accent);
+    color: var(--accent-on);
+    font-size: 14px;
+    font-weight: 500;
+    white-space: nowrap;
+    transition: box-shadow .2s ease, filter .2s ease;
+}
+
+.home-app-button:hover {
+    filter: brightness(.95);
+    box-shadow: 0 1px 2px rgba(60, 64, 67, .3), 0 1px 3px 1px rgba(60, 64, 67, .15);
+}
+
+.home-page .home-app-button .material-symbols-outlined {
+    font-size: 18px;
+}
+
+/* =========================
+   KEEP PREVIEW
+========================= */
+
+.home-note-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    padding: 4px 20px 20px;
+}
+
+.home-note {
+    min-width: 0;
+    padding: 13px 15px;
+    border: 1px solid rgba(0, 0, 0, .06);
+    border-radius: 10px;
+    box-shadow: 0 1px 2px rgba(60, 64, 67, .10);
+}
+
+.home-note h3 {
+    margin-bottom: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--home-ink);
+}
+
+.home-note-text {
+    display: -webkit-box;
+    -webkit-line-clamp: 7;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--home-ink-2);
+    white-space: pre-line;
+}
+
+.home-todo-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 7px;
+    padding: 2px 0;
+    font-size: 13px;
+    line-height: 1.4;
+    color: var(--home-ink-2);
+}
+
+.home-todo-list li:nth-child(n + 6) {
+    display: none;
+}
+
+.home-page .home-todo-list .material-symbols-outlined {
+    flex: none;
+    font-size: 17px;
+}
+
+.home-todo-list li.is-done {
+    color: #6B6B6B;
+}
+
+.home-todo-list li.is-done span:last-child {
+    text-decoration: line-through;
+}
+
+/* =========================
+   MAIL PREVIEW
+========================= */
+
+.home-mail-list {
+    margin: 4px 20px 20px;
+    overflow: hidden;
+    border: 1px solid var(--home-line-soft);
+    border-radius: 12px;
+}
+
+.home-mail-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    height: 48px;
+    padding: 0 14px;
+    border-bottom: 1px solid var(--home-line-soft);
+    font-size: 13.5px;
+    color: var(--home-ink-3);
+}
+
+.home-mail-item:last-child {
+    border-bottom: 0;
+}
+
+.home-mail-dot {
+    flex: none;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--mail);
+}
+
+.home-mail-sender {
+    flex: 0 0 160px;
+    overflow: hidden;
+    font-weight: 700;
+    color: var(--home-ink);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.home-mail-message {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.home-mail-message strong {
+    font-weight: 700;
+    color: var(--home-ink);
+}
+
+.home-mail-date {
+    flex: none;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--home-ink);
+}
+
+/* =========================
+   BOOKS PREVIEW
+========================= */
+
+.home-book-list {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 14px;
+    padding: 4px 20px 20px;
+}
+
+.home-book {
+    aspect-ratio: 2 / 3;
+    overflow: hidden;
+    border-radius: 5px;
+    background-color: var(--home-line-soft);
+    box-shadow: 0 1px 2px rgba(60, 64, 67, .3), 0 2px 6px 1px rgba(60, 64, 67, .15);
+}
+
+.home-book img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* =========================
+   ABOUT THE PROJECT
+========================= */
+
+.home-developer {
+    display: flex;
+    align-items: center;
+    gap: 48px;
+    margin-top: 48px;
+    padding: 32px 36px;
+    border: 1px solid var(--home-line);
+    border-radius: var(--home-radius);
+    background-color: #FFFFFF;
+    box-shadow: var(--home-shadow);
+}
+
+.home-developer-content {
+    flex: 1;
+    min-width: 0;
+    max-width: 700px;
+}
+
+.home-developer-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--home-ink-3);
+}
+
+.home-developer h2 {
+    margin: 0;
+    font-size: 26px;
+    font-weight: 500;
+    letter-spacing: -0.3px;
+}
+
+.home-developer-role {
+    margin: 2px 0 12px;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--home-ink-3);
+}
+
+.home-developer-description {
+    margin-bottom: 8px;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.6;
+    color: var(--home-ink);
+}
+
+.home-developer-project {
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--home-ink-2);
+}
+
+.home-developer-stack {
+    margin-top: 14px;
+    font-size: 13.5px;
+    font-weight: 500;
+    color: #444746;
+    word-spacing: 2px;
+}
+
+.home-developer-links {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: none;
+    width: 250px;
+}
+
+.home-developer-links a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    height: 42px;
+    padding: 0 16px;
+    border: 1px solid #C4C7C5;
+    border-radius: 21px;
+    background-color: #FFFFFF;
+    color: var(--home-ink);
+    font-size: 14px;
+    font-weight: 500;
+    transition: background-color .2s ease;
+}
+
+.home-developer-links a::after {
+    content: 'arrow_outward';
+    margin-left: auto;
+    font-family: 'Material Symbols Outlined';
+    font-size: 16px;
+    font-feature-settings: 'liga';
+    opacity: .6;
+}
+
+.home-developer-links a:hover {
+    background-color: #F1F3F4;
+}
+
+.home-developer-links a:first-child {
+    border-color: var(--home-ink);
+    background-color: var(--home-ink);
+    color: #FFFFFF;
+}
+
+.home-developer-links a:first-child:hover {
+    background-color: #3C4043;
+}
+
+.home-developer-links .material-symbols-outlined,
+.home-developer-links i {
+    width: 18px;
+    font-size: 18px;
+    text-align: center;
+}
+
+.home-developer-links .fa-linkedin {
+    color: #0A66C2;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 1080px) {
+    .home-apps {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+@media (max-width: 760px) {
+    .home-content {
+        padding: 28px 16px 40px;
+    }
+
+    .home-developer {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 24px;
+        padding: 24px;
+    }
+
+    .home-developer-links {
+        width: 100%;
+    }
+
+    .home-mail-sender {
+        flex-basis: 110px;
+    }
+}
+
+@media (max-width: 520px) {
+    .home-topbar {
+        padding: 0 16px;
+    }
+
+    .home-summary-item {
+        height: 38px;
+        font-size: 13px;
+    }
+
+    .home-app-header {
+        padding: 16px;
+    }
+
+    .home-app-button {
+        padding: 0 12px;
+        font-size: 13px;
+    }
+
+    .home-note-list {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .home-book-list {
+        gap: 8px;
+        padding: 4px 16px 16px;
+    }
+
+    .home-note-list {
+        padding: 4px 16px 16px;
+    }
+
+    .home-mail-list {
+        margin: 4px 16px 16px;
+    }
+
+    .home-mail-sender {
+        display: none;
+    }
+}
