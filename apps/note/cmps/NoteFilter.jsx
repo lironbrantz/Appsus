@@ -1,24 +1,22 @@
 export function NoteFilter({ filterBy, onSetFilterBy }) {
 
-
     function onHandleChange(ev) {
         const { value, name } = ev.target
         onSetFilterBy({ ...filterBy, [name]: value })
     }
 
-
     return (
-        <section className="note-filter">
-            <h2>Filter Notes</h2>
-            <form>
-                <input type="text"
-                    id="search"
-                    name="search"
-                    placeholder="Search"
-                    value={filterBy.search}
-                    onChange={onHandleChange} />
-            </form>
-
-        </section >
+        <form className="app-search" role="search" onSubmit={ev => ev.preventDefault()}>
+            <span className="material-symbols-outlined" aria-hidden="true">search</span>
+            <input
+                type="search"
+                id="search"
+                name="search"
+                placeholder="Search notes"
+                aria-label="Search notes"
+                value={filterBy.search}
+                onChange={onHandleChange}
+            />
+        </form>
     )
 }

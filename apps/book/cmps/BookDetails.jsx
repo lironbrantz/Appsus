@@ -1,3 +1,4 @@
+import { AppTopbar } from '../../../cmps/AppTopbar.jsx'
 import { bookService } from '../services/book-service.js'
 import { LongTxt } from './LongTxt.jsx'
 import { AddReview } from './AddReview.jsx'
@@ -32,7 +33,7 @@ export function BookDetails() {
     }
     function getReadingLevel() {
         if (book.pageCount > 500) return 'Serious Reading'
-        if (book.pageCount > 200) return 'Descent Reading'
+        if (book.pageCount > 200) return 'Decent Reading'
         if (book.pageCount < 100) return 'Light Reading'
         return ''
     }
@@ -54,7 +55,9 @@ export function BookDetails() {
         return book.listPrice.isOnSale ? 'On Sale' : ''
     }
     return (
-        <section className="book-details">
+        <section className="book-details book-page app--books">
+            <AppTopbar app="books" title="Books" icon="menu_book" />
+
             <Link to="/book" className="back-btn">← Back to Books</Link>
 
             <div className="details-main">

@@ -1,91 +1,145 @@
-
-/* Mail List */
+/* =========================
+   MAIL LIST
+========================= */
 
 .mail-list {
-    list-style: none;
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
+    list-style: none;
 }
 
 .mail-list li {
     position: relative;
     display: flex;
     align-items: center;
-    min-height: 44px;
-
+    min-height: 40px;
     margin: 0;
-    border-bottom: 1px solid #e8eaed;
-    transition: box-shadow 0.15s ease;
+    border-bottom: 1px solid #F1F3F4;
 }
 
 .mail-list li:hover {
-    box-shadow: inset 0 -1px 0 #dadce0,
-                0 1px 3px rgba(0, 0, 0, 0.12);
+    z-index: 1;
+    box-shadow: inset 1px 0 0 #DADCE0, inset -1px 0 0 #DADCE0,
+                0 1px 2px rgba(60, 64, 67, .3), 0 1px 3px 1px rgba(60, 64, 67, .15);
 }
 
 .mail-list li > a {
     display: block;
     flex: 1;
     min-width: 0;
-
-    color: #202124;
+    color: inherit;
     text-decoration: none;
 }
 
+.mail-list li > a:focus-visible {
+    outline: 2px solid #1F1F1F;
+    outline-offset: -2px;
+}
 
-/* Mail Preview */
+/* =========================
+   ROW (MailPreview)
+========================= */
 
 .mail-preview {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
 
-    min-height: 44px;
-    padding: 0 16px;
+    min-height: 40px;
+    /* left padding leaves room for the star */
+    padding: 0 16px 0 44px;
 
     font-size: 14px;
-    color: #202124;
-
+    color: #5E5E5E;
     white-space: nowrap;
     overflow: hidden;
     cursor: pointer;
 }
 
-.mail-preview p {
+.mail-preview.is-unread {
+    background-color: #FFFFFF;
+}
+
+.mail-preview.is-read {
+    background-color: #F8FAFD;
+}
+
+.mail-preview p,
+.mail-preview .long-txt {
     margin: 0;
 }
 
-.mail-preview p:first-child {
-    flex: 0 0 200px;
+/* Sender */
+.mail-preview > p:first-child {
+    flex: 0 0 190px;
     overflow: hidden;
     text-overflow: ellipsis;
+    color: #1F1F1F;
 }
 
-.mail-preview .long-txt {
+/* Subject */
+.mail-preview .long-txt:first-of-type {
+    flex: 0 1 auto;
+    min-width: 0;
     overflow: hidden;
     text-overflow: ellipsis;
+    color: #1F1F1F;
 }
 
+/* Body preview */
 .mail-preview .long-txt:last-of-type {
     flex: 1;
     min-width: 0;
-    color: #5f6368;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #5E5E5E;
 }
 
-.mail-preview p:last-child {
-    margin-left: auto;
+/* Date */
+.mail-preview .mail-date {
     flex-shrink: 0;
-
-    color: #5f6368;
+    min-width: 56px;
+    margin-left: auto;
     font-size: 12px;
     text-align: right;
 }
 
+.mail-preview.is-unread > p:first-child,
+.mail-preview.is-unread .long-txt:first-of-type,
+.mail-preview.is-unread .mail-date {
+    font-weight: 700;
+    color: #1F1F1F;
+}
 
-/* Star Button
-   Sits on top of the row (absolute), so the row's background
-   (read / unread) runs under it, and starring never moves the text or date. */
+/* Labels in the row: labels that don't fit wrap to a hidden
+   second line, so a label is never cut in the middle */
+.mail-preview-labels {
+    display: inline-flex;
+    flex: 0 1 auto;
+    flex-wrap: wrap;
+    gap: 4px;
+    min-width: 0;
+    max-width: 30%;
+    height: 18px;
+    overflow: hidden;
+}
+
+.mail-preview-label {
+    flex-shrink: 0;
+    padding: 0 6px;
+    border-radius: 4px;
+    background-color: #E8EAED;
+    color: #3C4043;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 18px;
+    white-space: nowrap;
+}
+
+/* =========================
+   STAR
+   Sits on top of the row, so starring never moves the text
+========================= */
 
 .mail-star-btn {
     position: absolute;
@@ -100,58 +154,46 @@
 
     width: 32px;
     height: 32px;
-    margin: 0;
     padding: 0;
 
-    border: none;
+    border: 0;
     border-radius: 50%;
     background: transparent;
-    color: #5f6368;
-
+    color: #747775;
     cursor: pointer;
-    transition: background-color 0.15s ease, color 0.15s ease;
 }
 
 .mail-star-btn .material-symbols-outlined {
     font-size: 20px;
-    line-height: 1;
     font-variation-settings: 'FILL' 0;
 }
 
 .mail-star-btn:hover {
-    background-color: rgba(32, 33, 36, 0.08);
-    color: #202124;
+    background-color: rgba(31, 31, 31, .08);
+    color: #1F1F1F;
 }
 
 .mail-star-btn[aria-pressed="true"],
 .mail-star-btn[aria-pressed="true"]:hover {
-    color: #f4b400;
+    color: var(--accent);
 }
 
 .mail-star-btn[aria-pressed="true"] .material-symbols-outlined {
     font-variation-settings: 'FILL' 1;
 }
 
-.mail-star-btn:focus-visible {
-    outline: 2px solid #0b57d0;
-    outline-offset: 1px;
-}
-
-/* room for the star at the start of the row */
-.mail-star-btn + a .mail-preview {
-    padding-left: 44px;
-}
-
-
-/* Row Action Buttons: read / unread, delete, restore */
+/* =========================
+   ROW ACTIONS: read / unread, delete, restore
+   Shown on hover, in place of the date
+========================= */
 
 .mail-read-btn,
 .mail-delete-btn,
 .mail-restore-btn {
     position: absolute;
     top: 50%;
-    transform: translateY(-50%);
     z-index: 2;
+    transform: translateY(-50%);
 
     display: flex;
     align-items: center;
@@ -160,12 +202,11 @@
     width: 32px;
     height: 32px;
     padding: 0;
-    margin: 0;
 
-    border: none;
+    border: 0;
     border-radius: 50%;
     background: transparent;
-    color: #5f6368;
+    color: #444746;
 
     opacity: 0;
     visibility: hidden;
@@ -173,26 +214,15 @@
     cursor: pointer;
 }
 
-.mail-delete-btn {
-    right: 12px;
+.mail-delete-btn { right: 12px; }
+.mail-read-btn { right: 50px; }
+.mail-restore-btn { right: 88px; }
+
+.mail-read-btn .material-symbols-outlined,
+.mail-delete-btn .material-symbols-outlined,
+.mail-restore-btn .material-symbols-outlined {
+    font-size: 19px;
 }
-
-.mail-read-btn {
-    right: 52px;
-}
-
-.mail-restore-btn {
-    right: 92px;
-}
-
-/* Trash rows show three actions: keep the body text out from under them */
-.mail-list li:has(.mail-restore-btn):hover .mail-preview,
-.mail-list li:has(.mail-restore-btn):focus-within .mail-preview {
-    padding-right: 72px;
-}
-
-
-/* Show Actions on Hover */
 
 .mail-list li:hover .mail-read-btn,
 .mail-list li:hover .mail-delete-btn,
@@ -208,178 +238,63 @@
 .mail-read-btn:hover,
 .mail-delete-btn:hover,
 .mail-restore-btn:hover {
-    background-color: #e8eaed;
-    color: #202124;
+    background-color: rgba(31, 31, 31, .08);
+    color: #1F1F1F;
 }
 
+.mail-star-btn:focus-visible,
+.mail-read-btn:focus-visible,
+.mail-delete-btn:focus-visible,
+.mail-restore-btn:focus-visible {
+    outline: 2px solid #1F1F1F;
+    outline-offset: 1px;
+}
 
-/* Hide Date on Hover */
-
+/* the date makes room for the actions */
 .mail-list li:hover .mail-date,
 .mail-list li:focus-within .mail-date {
     visibility: hidden;
 }
 
+/* Trash rows show three actions: keep the body text out from under them */
+.mail-list li:has(.mail-restore-btn):hover .mail-preview,
+.mail-list li:has(.mail-restore-btn):focus-within .mail-preview {
+    padding-right: 72px;
+}
 
-/* Responsive */
+/* =========================
+   RESPONSIVE
+========================= */
 
 @media (max-width: 900px) {
-    .mail-preview p:first-child {
-        flex-basis: 150px;
+    .mail-preview > p:first-child {
+        flex-basis: 140px;
     }
 }
 
 @media (max-width: 650px) {
+    /* rows wrap: sender on its own line, subject and preview below */
     .mail-preview {
-        padding: 8px 12px;
-        gap: 6px;
         flex-wrap: wrap;
+        gap: 4px 6px;
+        padding: 8px 12px 8px 40px;
     }
 
-    .mail-preview p:first-child {
+    .mail-preview > p:first-child {
         flex: 1 1 100%;
     }
 
-    .mail-preview .long-txt:last-of-type {
-        flex: 1;
-    }
-
-    .mail-preview p:last-child {
-        font-size: 11px;
-    }
-}
-
-/* Mail Row Refinements */
-
-.mail-preview {
-    gap: 10px;
-    font-size: 13px;
-}
-
-.mail-preview p:first-child {
-    flex-basis: 180px;
-}
-
-.mail-preview .mail-date {
-    min-width: 60px;
-    margin-left: auto;
-
-    color: #5f6368;
-    font-size: 12px;
-    text-align: right;
-    white-space: nowrap;
-}
-
-.mail-list li:has(.mail-read-btn:hover),
-.mail-list li:has(.mail-delete-btn:hover),
-.mail-list li:has(.mail-restore-btn:hover) {
-    box-shadow: none;
-}
-
-/* Final Mail List Styling */
-
-.mail-preview {
-    gap: 10px;
-    font-size: 13px;
-}
-
-.mail-preview p:first-child {
-    flex-basis: 180px;
-}
-
-/* Subject */
-
-.mail-preview .long-txt:first-of-type {
-    font-weight: inherit;
-    color: #202124;
-}
-
-/* Body Preview */
-
-.mail-preview .long-txt:last-of-type {
-    flex: 1;
-    min-width: 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-
-    font-weight: 400;
-    color: #5f6368;
-}
-
-/* Date */
-
-.mail-preview .mail-date {
-    min-width: 55px;
-    margin-left: auto;
-
-    font-size: 12px;
-    font-weight: 400;
-    color: #5f6368;
-    text-align: right;
-}
-
-/* Hover */
-
-.mail-list li:hover {
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
-}
-
-/* Labels in the mail row */
-
-/* labels that don't fit wrap to a hidden second line,
-   so a label is never cut in the middle */
-.mail-preview-labels {
-    display: inline-flex;
-    flex: 0 1 auto;
-    flex-wrap: wrap;
-    gap: 4px;
-    min-width: 0;
-    max-width: 30%;
-    height: 18px;
-    overflow: hidden;
-}
-
-.mail-preview-label {
-    flex-shrink: 0;
-    padding: 0 6px;
-
-    border-radius: 4px;
-    background-color: #e8eaed;
-    color: #444746;
-
-    font-size: 11px;
-    font-weight: 500;
-    line-height: 18px;
-    white-space: nowrap;
-}
-
-/* Action Icons */
-
-.mail-read-btn .material-symbols-outlined,
-.mail-delete-btn .material-symbols-outlined,
-.mail-restore-btn .material-symbols-outlined {
-    font-size: 19px;
-}
-@media (max-width: 650px) {
     .mail-preview-labels {
         max-width: 45%;
     }
-}
 
-@media (max-width: 650px) {
-    /* rows wrap to several lines here: keep the star on the first line */
     .mail-star-btn {
         top: 6px;
         left: 4px;
         transform: none;
     }
 
-    .mail-star-btn + a .mail-preview {
-        padding-left: 40px;
-    }
-
-    /* actions sit on the last line, where the date is (it hides on hover),
-       instead of on top of the sender */
+    /* actions sit on the last line, where the date is */
     .mail-read-btn,
     .mail-delete-btn,
     .mail-restore-btn {
@@ -389,9 +304,8 @@
     }
 }
 
-.mail-read-btn:focus-visible,
-.mail-delete-btn:focus-visible,
-.mail-restore-btn:focus-visible {
-    outline: 2px solid #0b57d0;
-    outline-offset: 1px;
+@media (hover: none) {
+    .mail-list li:hover .mail-date {
+        visibility: visible;
+    }
 }

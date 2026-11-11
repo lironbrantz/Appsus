@@ -4,7 +4,7 @@ import { showErrorMsg } from "../../../services/event-bus.service.js"
 import { NoteVideo } from './NoteVideo.jsx'
 
 const { useState } = React
-const { Link } = ReactRouterDOM
+
 export function NoteAdd({ onAddNote, title, txt }) {
     const emptyNote = noteService.getEmptyNote()
     emptyNote.info.title = title || ''

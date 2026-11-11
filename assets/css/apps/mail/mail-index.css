@@ -1,121 +1,76 @@
-
-/* Main Layout */
+/* =========================
+   PAGE
+   Top bar, search and side menu items come from app-shell.css
+========================= */
 
 .mail-index {
     position: relative;
-    min-height: calc(100vh - 64px);
-    background-color: #f6f8fc;
-    color: #202124;
-    font-family: Arial, sans-serif;
+    min-height: 100vh;
+    background-color: #F8FAFD;
+    color: #1F1F1F;
+    font-family: 'Google Sans', Roboto, Arial, sans-serif;
 }
 
 .mail-content {
     display: grid;
-    grid-template-columns: 240px minmax(0, 1fr);
-    grid-template-rows: 84px minmax(480px, 1fr);
-    column-gap: 16px;
+    grid-template-columns: 256px minmax(0, 1fr);
+    column-gap: 8px;
 
     min-height: calc(100vh - 64px);
-    padding: 0 16px 16px 0;
+    padding: 8px 16px 16px 0;
     box-sizing: border-box;
 }
 
-
-/* Search */
+/* =========================
+   SEARCH (in the top bar)
+========================= */
 
 .mail-filter {
-    grid-column: 2;
-    grid-row: 1;
-
-    display: flex;
-    align-items: center;
-    min-width: 0;
-}
-
-.mail-filter form {
     position: relative;
-    width: 100%;
-    max-width: 720px;
+    padding-right: 4px;
 }
 
-.mail-filter label {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    clip-path: inset(50%);
-    white-space: nowrap;
-}
-
-.search-container {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-
-    height: 48px;
-    padding: 0 12px 0 20px;
-
-    background-color: #e9eef6;
-    border-radius: 28px;
-}
-
-.search-container:focus-within {
-    background-color: #fff;
-    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
-}
-
-.search-container input {
-    flex: 1;
-    min-width: 0;
-    height: 100%;
-
-    border: none;
-    outline: none;
-    background: transparent;
-
-    font: inherit;
-    font-size: 15px;
-    color: #202124;
-}
-
-.search-container button {
+.mail-filter-toggle {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex: none;
 
-    width: 36px;
-    height: 36px;
-    flex-shrink: 0;
-
+    width: 40px;
+    height: 40px;
     padding: 0;
-    border: none;
+
+    border: 0;
     border-radius: 50%;
     background: transparent;
-
     color: #444746;
     cursor: pointer;
 }
 
-.search-container button:hover {
-    background-color: #d3dce8;
+.mail-filter-toggle:hover {
+    background-color: rgba(68, 71, 70, .08);
 }
 
+.mail-filter-toggle[aria-expanded="true"] {
+    background-color: var(--accent-soft);
+    color: var(--accent-ink);
+}
 
-/* Read / Unread Filter */
+/* Read / unread filter */
 
 .read-filter-options {
     position: absolute;
     top: calc(100% + 8px);
     right: 0;
-    z-index: 20;
+    z-index: 40;
 
     width: 200px;
     padding: 12px;
+    box-sizing: border-box;
 
-    background-color: #fff;
-    border: 1px solid #e8eaed;
     border-radius: 12px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    background-color: #FFFFFF;
+    box-shadow: 0 1px 3px rgba(60, 64, 67, .3), 0 4px 8px 3px rgba(60, 64, 67, .15);
 }
 
 .read-filter-options select {
@@ -123,76 +78,121 @@
     height: 40px;
     padding: 0 10px;
 
-    border: 1px solid #dadce0;
+    border: 1px solid #C4C7C5;
     border-radius: 8px;
-    background-color: #f6f8fc;
+    background-color: #FFFFFF;
 
     font: inherit;
     font-size: 14px;
-    color: #202124;
+    color: #1F1F1F;
     cursor: pointer;
 }
 
-
-/* Folder Navigation */
+/* =========================
+   FOLDERS (side menu)
+========================= */
 
 .mail-folder-list {
     grid-column: 1;
-    grid-row: 2;
-
-    display: flex;
-    flex-direction: column;
     align-self: start;
-    gap: 4px;
-
-    padding: 80px 12px 0 0;
+    /* top padding leaves room for the Compose button */
+    padding-top: 72px;
 }
 
-.mail-folder-list button {
+.mail-folder-list .app-sidebar-item {
+    height: 32px;
+    padding: 0 12px 0 26px;
+    border-radius: 0 16px 16px 0;
+    font-weight: 400;
+}
+
+.mail-folder-list .app-sidebar-item.is-active {
+    font-weight: 700;
+}
+
+.mail-folder-list .app-sidebar-item .material-symbols-outlined {
+    font-size: 20px;
+}
+
+.mail-unread-count {
+    margin-left: auto;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.mail-folder-list .mail-labels-title {
+    margin: 16px 0 4px 26px;
+    font-size: 14px;
+    letter-spacing: 0;
+    text-transform: none;
+    color: #1F1F1F;
+}
+
+/* =========================
+   COMPOSE BUTTON
+   Rendered by MailCompose; placed at the top of the side menu
+========================= */
+
+.add-mail > .compose-trigger {
+    position: absolute;
+    top: 72px;
+    left: 8px;
+    z-index: 10;
+
     display: flex;
     align-items: center;
+    gap: 12px;
 
-    width: 100%;
-    min-height: 38px;
-    padding: 0 18px 0 26px;
+    height: 56px;
+    padding: 0 24px 0 18px;
 
-    border: none;
-    border-radius: 0 20px 20px 0;
-    background: transparent;
+    border: 0;
+    border-radius: 16px;
+    background-color: var(--accent-soft);
+    color: var(--accent-ink);
 
     font: inherit;
     font-size: 14px;
-    color: #444746;
-    text-align: left;
-    cursor: pointer;
-}
-
-.mail-folder-list button:hover {
-    background-color: #e8eaed;
-}
-
-/* Labels section in the sidebar */
-
-.mail-labels-title {
-    margin: 16px 0 4px;
-    padding: 0 18px 0 26px;
-
-    font-size: 16px;
     font-weight: 500;
-    color: #1f1f1f;
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(60, 64, 67, .15), 0 4px 8px 3px rgba(60, 64, 67, .06);
+    transition: box-shadow .2s ease;
 }
 
+.add-mail > .compose-trigger::before {
+    content: 'edit';
+    font-family: 'Material Symbols Outlined';
+    font-size: 22px;
+    font-weight: normal;
+    line-height: 1;
+    font-feature-settings: 'liga';
+}
 
-/* Main Mail Panel */
+.add-mail > .compose-trigger:hover {
+    box-shadow: 0 1px 3px rgba(60, 64, 67, .3), 0 4px 8px 3px rgba(60, 64, 67, .15);
+}
+
+.add-mail > .compose-trigger:focus-visible {
+    outline: 2px solid #1F1F1F;
+    outline-offset: 2px;
+}
+
+/* =========================
+   MAIN PANEL
+========================= */
 
 .mail-panel {
     grid-column: 2;
-    grid-row: 2;
-
     min-width: 0;
-    background-color: #fff;
+    min-height: calc(100vh - 88px);
+
     border-radius: 16px;
+    background-color: #FFFFFF;
     overflow: hidden;
+}
+
+.mail-list-page {
+    position: relative;
 }
 
 .mail-list-page > h1 {
@@ -201,73 +201,75 @@
 
     min-height: 52px;
     margin: 0;
-    padding: 0 24px;
+    /* right padding keeps a long folder name out from under the sort menu */
+    padding: 0 180px 0 20px;
 
-    border-bottom: 1px solid #e8eaed;
+    border-bottom: 1px solid #F1F3F4;
 
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 400;
     text-transform: capitalize;
 }
 
+/* Sort menu, in the folder title row */
 
-/* Compose Button */
-
-.add-mail > button {
+.mail-list-page > select {
     position: absolute;
-    top: 96px;
-    left: 16px;
-    z-index: 10;
+    top: 10px;
+    right: 16px;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
+    height: 32px;
+    padding: 0 32px 0 12px;
 
-    min-width: 145px;
-    height: 56px;
-    padding: 0 22px;
+    border: 1px solid #C4C7C5;
+    border-radius: 8px;
+    background-color: #FFFFFF;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23444746' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 16px;
 
-    border: none;
-    border-radius: 16px;
-    background-color: #c2e7ff;
+    -webkit-appearance: none;
+    appearance: none;
 
-    color: #001d35;
     font: inherit;
-    font-size: 14px;
-    font-weight: 500;
+    font-size: 13px;
+    color: #1F1F1F;
     cursor: pointer;
 }
 
-.add-mail > button:hover {
-    background-color: #b3dcf7;
+.mail-list-page > select:hover {
+    background-color: #F8FAFD;
 }
 
+.mail-list-page > select:focus-visible {
+    outline: 2px solid #1F1F1F;
+    outline-offset: 1px;
+}
 
-/* Compose Window */
+/* =========================
+   COMPOSE WINDOW
+========================= */
 
 .mail-add-form {
     position: fixed;
-    right: 32px;
+    right: 24px;
     bottom: 0;
     z-index: 100;
 
     display: flex;
     flex-direction: column;
 
-    width: 440px;
+    width: 520px;
     max-width: calc(100vw - 32px);
     height: 560px;
     max-height: calc(100dvh - 24px);
 
-    background-color: #fff;
-    border-radius: 12px 12px 0 0;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    border-radius: 16px 16px 0 0;
+    background-color: #FFFFFF;
+    box-shadow: 0 4px 8px 3px rgba(60, 64, 67, .15), 0 1px 3px rgba(60, 64, 67, .3);
     overflow: hidden;
 }
-
-
-/* Compose Header */
 
 .compose-header {
     display: flex;
@@ -276,14 +278,14 @@
     flex-shrink: 0;
 
     height: 44px;
-    padding: 0 16px;
-    background-color: #f2f6fc;
+    padding: 0 12px 0 16px;
+    background-color: #F2F4F7;
 }
 
 .compose-header h2 {
     margin: 0;
     font-size: 14px;
-    font-weight: 600;
+    font-weight: 500;
 }
 
 .compose-close-btn {
@@ -291,191 +293,99 @@
     align-items: center;
     justify-content: center;
 
-    width: 28px;
-    height: 28px;
+    width: 32px;
+    height: 32px;
     padding: 0;
 
-    border: none;
-    border-radius: 4px;
+    border: 0;
+    border-radius: 50%;
     background: transparent;
 
-    color: #5f6368;
-    font-size: 24px;
+    color: #444746;
+    font-size: 22px;
     cursor: pointer;
 }
 
 .compose-close-btn:hover {
-    background-color: #dfe3eb;
+    background-color: #E3E5E8;
 }
 
-
-/* Compose Fields */
-
 .mail-add-form input {
-    height: 44px;
     flex-shrink: 0;
-
+    height: 44px;
     margin: 0 16px;
     padding: 0;
 
-    border: none;
-    border-bottom: 1px solid #e8eaed;
+    border: 0;
+    border-bottom: 1px solid #F1F3F4;
     outline: none;
     background: transparent;
 
     font: inherit;
     font-size: 14px;
-    color: #202124;
+    color: #1F1F1F;
 }
 
 .mail-add-form textarea {
     flex: 1;
     min-height: 0;
-
     margin: 0 16px;
     padding: 14px 0;
 
-    border: none;
+    border: 0;
     outline: none;
     resize: none;
     background: transparent;
 
     font: inherit;
     font-size: 14px;
-    line-height: 1.5;
-    color: #202124;
+    line-height: 1.6;
+    color: #1F1F1F;
 }
 
-
-/* Compose Footer */
+.mail-add-form input::placeholder,
+.mail-add-form textarea::placeholder {
+    color: #5E5E5E;
+}
 
 .compose-footer {
     display: flex;
     align-items: center;
+    gap: 10px;
     flex-shrink: 0;
 
     min-height: 64px;
     padding: 0 16px;
-    border-top: 1px solid #f1f3f4;
 }
 
 .send-btn {
-    height: 36px;
+    height: 40px;
     padding: 0 24px;
 
-    border: none;
+    border: 0;
     border-radius: 20px;
-    background-color: #0b57d0;
+    background-color: var(--accent);
 
-    color: #fff;
+    color: var(--accent-on);
     font: inherit;
     font-size: 14px;
-    font-weight: 600;
+    font-weight: 500;
     cursor: pointer;
 }
 
 .send-btn:hover {
-    background-color: #0842a0;
-}
-
-
-/* Responsive */
-
-@media (max-width: 850px) {
-    .mail-content {
-        grid-template-columns: 180px minmax(0, 1fr);
-        column-gap: 8px;
-    }
-}
-
-@media (max-width: 600px) {
-    .mail-content {
-        grid-template-columns: minmax(0, 1fr);
-        grid-template-rows: auto auto minmax(300px, 1fr);
-        gap: 8px;
-        padding: 8px;
-    }
-
-    .mail-filter {
-        grid-column: 1;
-        grid-row: 1;
-    }
-
-    .mail-filter form {
-        max-width: none;
-    }
-
-    .mail-folder-list {
-        grid-column: 1;
-        grid-row: 2;
-
-        flex-direction: row;
-        overflow-x: auto;
-        padding: 4px 0;
-    }
-
-    .mail-folder-list button {
-        width: auto;
-        padding: 0 16px;
-        border-radius: 20px;
-        white-space: nowrap;
-    }
-
-    /* in the horizontal row the title becomes a small divider */
-    .mail-labels-title {
-        display: flex;
-        align-items: center;
-        flex-shrink: 0;
-
-        margin: 0 4px;
-        padding: 0 0 0 12px;
-        border-left: 1px solid #dadce0;
-
-        font-size: 12px;
-        color: #5f6368;
-        white-space: nowrap;
-    }
-
-    .mail-panel {
-        grid-column: 1;
-        grid-row: 3;
-        border-radius: 12px;
-    }
-
-    .add-mail > button {
-        position: fixed;
-        top: auto;
-        left: auto;
-        right: 16px;
-        bottom: 16px;
-        z-index: 30;
-
-        min-width: 120px;
-        height: 48px;
-    }
-
-    .mail-add-form {
-        right: 0;
-        width: 100%;
-        max-width: none;
-        height: 90dvh;
-        max-height: none;
-    }
-}
-
-.compose-footer {
-    gap: 10px;
+    filter: brightness(.94);
+    box-shadow: 0 1px 2px rgba(60, 64, 67, .3), 0 1px 3px 1px rgba(60, 64, 67, .15);
 }
 
 .compose-footer button[type="button"] {
-    height: 36px;
-    padding: 0 16px;
+    height: 40px;
+    padding: 0 18px;
 
-    background-color: #f1f3f4;
-    color: #444746;
-
-    border: none;
+    border: 1px solid #C4C7C5;
     border-radius: 20px;
+    background-color: #FFFFFF;
+    color: #1F1F1F;
 
     font: inherit;
     font-size: 14px;
@@ -484,24 +394,99 @@
 }
 
 .compose-footer button[type="button"]:hover {
-    background-color: #e3e7eb;
+    background-color: #F1F3F4;
 }
 
-.mail-folder-list button {
-    gap: 16px;
+.mail-add-form button:focus-visible {
+    outline: 2px solid #1F1F1F;
+    outline-offset: 2px;
 }
 
-.mail-folder-list .material-symbols-outlined {
-    font-size: 20px;
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 850px) {
+    .mail-content {
+        grid-template-columns: 200px minmax(0, 1fr);
+    }
+
+    .mail-folder-list .app-sidebar-item {
+        padding-left: 18px;
+    }
 }
 
 @media (max-width: 600px) {
-    .mail-filter {
-        position: sticky;
-        top: 0;
-        z-index: 60;
+    .mail-content {
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-rows: auto minmax(300px, 1fr);
+        gap: 8px;
+        padding: 8px;
+    }
 
-        padding-right: 56px;
-        background: #f6f8fc;
+    /* folders become a horizontal, scrollable row */
+    .mail-folder-list {
+        grid-column: 1;
+        flex-direction: row;
+        gap: 4px;
+        padding: 0;
+        overflow-x: auto;
+    }
+
+    .mail-folder-list .app-sidebar-item {
+        height: 36px;
+        padding: 0 14px;
+        border-radius: 18px;
+        gap: 8px;
+    }
+
+    .mail-folder-list .mail-labels-title {
+        display: flex;
+        align-items: center;
+        flex-shrink: 0;
+        margin: 0 4px;
+        padding-left: 12px;
+        border-left: 1px solid #DADCE0;
+        font-size: 12px;
+        color: #5E5E5E;
+    }
+
+    .mail-unread-count {
+        margin-left: 4px;
+    }
+
+    .mail-panel {
+        grid-column: 1;
+        min-height: 0;
+        border-radius: 12px;
+    }
+
+    .mail-list-page > h1 {
+        padding: 0 150px 0 16px;
+        font-size: 17px;
+    }
+
+    .mail-list-page > select {
+        right: 10px;
+        font-size: 12px;
+    }
+
+    /* Compose becomes a floating button */
+    .add-mail > .compose-trigger {
+        position: fixed;
+        top: auto;
+        left: auto;
+        right: 16px;
+        bottom: 16px;
+        z-index: 30;
+        height: 52px;
+    }
+
+    .mail-add-form {
+        right: 0;
+        width: 100%;
+        max-width: none;
+        height: 90dvh;
+        max-height: none;
     }
 }

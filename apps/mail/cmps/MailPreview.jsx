@@ -2,13 +2,8 @@
 import { LongTxt } from '../../../cmps/LongTxt.jsx'
 
 export function MailPreview({ mail }) {
-    const mailStyle = {
-        backgroundColor: mail.isRead ? '#f2f6fc' : '#fff',
-        fontWeight: mail.isRead ? 'normal' : 'bold'
-    }
-
     return (
-        <section style={mailStyle} className="mail-preview">
+        <section className={`mail-preview ${mail.isRead ? 'is-read' : 'is-unread'}`}>
             <p>{mail.from}</p>
 
             <LongTxt txt={mail.subject} length={40} />

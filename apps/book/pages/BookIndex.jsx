@@ -1,3 +1,4 @@
+import { AppTopbar } from '../../../cmps/AppTopbar.jsx'
 import { bookService } from "../services/book-service.js"
 import { BookFilter } from '../cmps/BookFilter.jsx'
 import { BookList } from '../cmps/BookList.jsx'
@@ -47,7 +48,9 @@ export function BookIndex() {
 
     if (!books) return 'Loading...'
     return (
-        <section className="book-index">
+        <section className="book-index book-page app--books">
+            <AppTopbar app="books" title="Books" icon="menu_book" />
+
             <h1>Books Index</h1>
             <React.Fragment>
                 <BookFilter filterBy={filterBy} onSetFilterBy={setFilterBy} />

@@ -4,8 +4,8 @@
 .mail-details {
     min-height: 100%;
     background-color: #fff;
-    color: #202124;
-    font-family: Arial, sans-serif;
+    color: #1F1F1F;
+    font-family: 'Google Sans', Roboto, Arial, sans-serif;
 }
 
 
@@ -33,10 +33,15 @@
     border: none;
     border-radius: 50%;
     background: transparent;
-    color: #5f6368;
+    color: #444746;
 
     text-decoration: none;
     cursor: pointer;
+}
+
+.details-action-btn:focus-visible {
+    outline: 2px solid #1F1F1F;
+    outline-offset: 1px;
 }
 
 .details-action-btn:hover {
@@ -111,7 +116,7 @@
     height: 18px;
     margin: 0;
     flex-shrink: 0;
-    accent-color: #0b57d0;
+    accent-color: var(--accent);
     cursor: pointer;
 }
 
@@ -172,8 +177,8 @@
     height: 36px;
 
     border-radius: 50%;
-    background-color: #00897b;
-    color: #fff;
+    background-color: var(--accent-soft);
+    color: var(--accent-ink);
 
     font-size: 17px;
     font-weight: 500;
@@ -186,7 +191,7 @@
 
 .mail-sender {
     font-size: 14px;
-    font-weight: 600;
+    font-weight: 700;
     overflow-wrap: anywhere;
 }
 

@@ -32,7 +32,6 @@ export function AppHeader() {
                     <NavLink to="/mail" onClick={onCloseMenu}>Mail</NavLink>
                     <NavLink to="/book" onClick={onCloseMenu}>Books</NavLink>
 
-                    <NavLink to="/about" onClick={onCloseMenu}>About</NavLink>
                 </nav>
             </div>
         </header>

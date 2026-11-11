@@ -1,0 +1,288 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+/* =========================
+   APP SHELL
+   Shared top bar, search and side menu for
+   Keep, Mail and Books. Each app sets its
+   own accent with an .app--{name} class.
+========================= */
+
+.app--keep {
+    --accent: #FBBC04;
+    --accent-on: #3D2E00;
+    --accent-soft: #FEEFC3;
+    --accent-ink: #5C4600;
+}
+
+.app--mail {
+    --accent: #C4432B;
+    --accent-on: #FFFFFF;
+    --accent-soft: #FCE8E3;
+    --accent-ink: #8F2A17;
+}
+
+.app--books {
+    --accent: #6B4BCF;
+    --accent-on: #FFFFFF;
+    --accent-soft: #EEE8FD;
+    --accent-ink: #4A2DA8;
+}
+
+/* =========================
+   TOP BAR
+========================= */
+
+.app-topbar {
+    position: sticky;
+    top: 0;
+    z-index: 30;
+
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    height: 64px;
+    box-sizing: border-box;
+    /* right padding leaves room for the fixed apps launcher */
+    padding: 0 76px 0 16px;
+
+    border-bottom: 1px solid #E9EBEE;
+    background-color: #FFFFFF;
+    color: #1F1F1F;
+    font-family: 'Google Sans', Roboto, Arial, sans-serif;
+}
+
+.app-topbar-menu-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+
+    width: 44px;
+    height: 44px;
+    padding: 0;
+
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    color: #444746;
+    cursor: pointer;
+}
+
+.app-topbar-menu-btn:hover {
+    background-color: #F1F3F4;
+}
+
+.app-topbar-menu-btn .material-symbols-outlined {
+    font-size: 24px;
+}
+
+.app-topbar-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: none;
+    min-width: 140px;
+}
+
+.app-topbar-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 30px;
+    height: 30px;
+    border-radius: 9px;
+
+    background-color: var(--accent);
+    color: var(--accent-on);
+    font-size: 18px;
+}
+
+.app-topbar-title {
+    font-size: 18px;
+    color: #1F1F1F;
+}
+
+.app-topbar-search {
+    flex: 1;
+    min-width: 0;
+    max-width: 720px;
+}
+
+.app-topbar :focus-visible {
+    outline: 2px solid #1F1F1F;
+    outline-offset: 2px;
+}
+
+/* =========================
+   SEARCH
+========================= */
+
+.app-search {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    height: 48px;
+    margin: 0;
+    padding: 0 16px;
+    box-sizing: border-box;
+
+    border-radius: 24px;
+    background-color: #F1F3F6;
+    color: #444746;
+    transition: background-color .2s ease, box-shadow .2s ease;
+}
+
+.app-search:focus-within {
+    background-color: #FFFFFF;
+    box-shadow: 0 1px 2px rgba(60, 64, 67, .3), 0 2px 6px 2px rgba(60, 64, 67, .15);
+}
+
+.app-search .material-symbols-outlined {
+    flex: none;
+    font-size: 22px;
+}
+
+.app-search input {
+    flex: 1;
+    min-width: 0;
+    height: 100%;
+    padding: 0;
+
+    border: 0;
+    outline: none;
+    background: transparent;
+    color: #1F1F1F;
+    font: inherit;
+    font-size: 16px;
+}
+
+.app-search input::placeholder {
+    color: #5E5E5E;
+}
+
+.app-search input::-webkit-search-cancel-button {
+    cursor: pointer;
+}
+
+/* =========================
+   SIDE MENU
+========================= */
+
+.app-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    box-sizing: border-box;
+    font-family: 'Google Sans', Roboto, Arial, sans-serif;
+}
+
+.app-sidebar-item {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    flex-shrink: 0;
+
+    height: 44px;
+    padding: 0 16px 0 24px;
+    box-sizing: border-box;
+
+    border: 0;
+    border-radius: 0 22px 22px 0;
+    background: transparent;
+    color: #1F1F1F;
+
+    font: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    text-align: left;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background-color .15s ease;
+}
+
+.app-sidebar-item:hover {
+    background-color: #F1F3F4;
+}
+
+.app-sidebar-item.is-active {
+    background-color: var(--accent-soft);
+    color: var(--accent-ink);
+    font-weight: 700;
+}
+
+.app-sidebar-item .material-symbols-outlined {
+    flex: none;
+    font-size: 22px;
+}
+
+.app-sidebar-item.is-active .material-symbols-outlined {
+    font-variation-settings: 'FILL' 1;
+}
+
+.app-sidebar-item:focus-visible {
+    outline: 2px solid #1F1F1F;
+    outline-offset: -2px;
+}
+
+.app-sidebar-heading {
+    margin: 16px 0 6px 24px;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: .6px;
+    text-transform: uppercase;
+    color: #5E5E5E;
+    white-space: nowrap;
+}
+
+/* =========================
+   APPS LAUNCHER
+   (global AppHeader, restyled while an app shell is shown)
+========================= */
+
+.root-cmp:has(.app-topbar) .app-header {
+    top: 10px;
+    right: 16px;
+}
+
+.root-cmp:has(.app-topbar) .app-header .apps-btn {
+    border: 0;
+    border-radius: 50%;
+    background-color: #F1F3F4;
+    color: #444746;
+    box-shadow: none;
+}
+
+.root-cmp:has(.app-topbar) .app-header .apps-btn:hover {
+    background-color: #E8EAED;
+    transform: none;
+    box-shadow: none;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 760px) {
+    .app-topbar {
+        gap: 8px;
+        padding: 0 68px 0 8px;
+    }
+
+    .app-topbar-brand {
+        min-width: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .app-topbar-title {
+        display: none;
+    }
+
+    .app-search {
+        height: 44px;
+        padding: 0 12px;
+    }
+}

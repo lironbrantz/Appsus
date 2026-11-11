@@ -6,11 +6,13 @@
 @import './cmps/home.css';
 @import './cmps/user-msg.css';
 @import './cmps/app-header.css';
+@import './cmps/app-shell.css';
 
 @import './apps/note/note-index.css';
 @import './apps/note/note-list.css';
 @import './apps/mail/mail-index.css';
 @import './apps/mail/mail-list.css';
+@import './apps/mail/mail-details.css';
 
 /* Books */
 @import './apps/book/book-index.css';

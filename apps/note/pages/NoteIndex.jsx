@@ -3,9 +3,17 @@ import { NoteAdd } from "../cmps/NoteAdd.jsx"
 import { noteService } from "../services/note.service.js"
 import { NoteFilter } from "../cmps/NoteFilter.jsx"
 import { showErrorMsg } from "../../../services/event-bus.service.js"
+import { AppTopbar } from "../../../cmps/AppTopbar.jsx"
 
 const { useEffect, useState } = React
 const { useSearchParams } = ReactRouterDOM
+
+const NOTE_TYPES = [
+    { type: 'NoteTxt', label: 'Text', icon: 'notes' },
+    { type: 'NoteImg', label: 'Images', icon: 'image' },
+    { type: 'NoteVideo', label: 'Videos', icon: 'smart_display' },
+    { type: 'NoteTodos', label: 'Lists', icon: 'check_box' }
+]
 
 export function NoteIndex() {
 
@@ -46,6 +54,14 @@ export function NoteIndex() {
         setFilterBy(filterByToEdit)
     }
 
+    function onSetType(type) {
+        setFilterBy(prevFilterBy => ({ ...prevFilterBy, type }))
+    }
+
+    function getSidebarItemClass(type) {
+        return `app-sidebar-item ${filterBy.type === type ? 'is-active' : ''}`
+    }
+
     function onUpdateNote(note) {
         return noteService.save(note)
             .then(savedNote => {
@@ -71,59 +87,51 @@ export function NoteIndex() {
 
 
     return (
-        <section className={`notes-app ${isSidebarOpen ? 'sidebar-expanded' : ''}`}>
-            <header className="notes-header">
-                <div className="notes-brand">
-                    <button
-                        type="button"
-                        className="notes-menu-btn"
-                        onClick={() => setIsSidebarOpen(prev => !prev)}
-                        aria-label="Toggle sidebar"
-                        aria-expanded={isSidebarOpen}
-                    >
-                        <span className="material-symbols-outlined">menu</span>
-                    </button>
-                    <span className="material-symbols-outlined keep-logo">lightbulb</span>
-                    <span>Keep</span>
-                </div>
-
+        <section className={`notes-app app--keep ${isSidebarOpen ? 'sidebar-expanded' : ''}`}>
+            <AppTopbar
+                app="keep"
+                title="Keep"
+                icon="lightbulb"
+                onToggleMenu={() => setIsSidebarOpen(prev => !prev)}
+                isMenuOpen={isSidebarOpen}
+            >
                 <NoteFilter
                     filterBy={filterBy}
                     onSetFilterBy={onsetFilterBy}
                 />
-            </header>
+            </AppTopbar>
 
-
-            <aside
-                className="notes-sidebar"
+            <nav
+                className="app-sidebar notes-sidebar"
+                aria-label="Note types"
                 onMouseEnter={() => setIsSidebarOpen(true)}
                 onMouseLeave={() => setIsSidebarOpen(false)}
             >
                 <button
                     type="button"
-                    className="notes-sidebar-active"
+                    className={getSidebarItemClass('')}
                     onClick={() => setFilterBy({ search: '', type: '' })}
+                    aria-pressed={filterBy.type === ''}
                 >
-                    <span className="material-symbols-outlined">lightbulb</span>
-                    <span className="sidebar-label">Notes</span>
+                    <span className="material-symbols-outlined" aria-hidden="true">lightbulb</span>
+                    <span className="app-sidebar-label">Notes</span>
                 </button>
 
-                <button type="button" disabled>
-                    <span className="material-symbols-outlined">notifications</span>
-                    <span className="sidebar-label">Reminders</span>
-                </button>
+                <p className="app-sidebar-heading">Type</p>
 
-                <button type="button" disabled>
-                    <span className="material-symbols-outlined">archive</span>
-                    <span className="sidebar-label">Archive</span>
-                </button>
-
-                <button type="button" disabled>
-                    <span className="material-symbols-outlined">delete</span>
-                    <span className="sidebar-label">Trash</span>
-                </button>
-            </aside>
-
+                {NOTE_TYPES.map(({ type, label, icon }) => (
+                    <button
+                        key={type}
+                        type="button"
+                        className={getSidebarItemClass(type)}
+                        onClick={() => onSetType(type)}
+                        aria-pressed={filterBy.type === type}
+                    >
+                        <span className="material-symbols-outlined" aria-hidden="true">{icon}</span>
+                        <span className="app-sidebar-label">{label}</span>
+                    </button>
+                ))}
+            </nav>
 
             <NoteAdd onAddNote={onAddNote} txt={txt} title={title} />
 

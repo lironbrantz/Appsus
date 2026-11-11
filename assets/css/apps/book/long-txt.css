@@ -1,25 +1,30 @@
-.long-txt {
-    margin: 1.2em 0;
+/* LongTxt inside Books only */
+
+.app--books .long-txt {
+    margin: 18px 0 0;
 }
 
-.long-txt p {
-    margin-bottom: .4em;
-
-    color: #4c4c4c;
+.app--books .long-txt p {
+    margin: 0 0 6px;
+    font-size: 15px;
     line-height: 1.7;
+    color: var(--ink-2);
 }
 
-.long-txt button {
+.app--books .long-txt button {
     margin: 0;
     padding: 0;
 
+    border: 0;
     background: none;
-    color: var(--clr2);
+    color: var(--accent-ink);
 
-    font-weight: 700;
+    font: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
 }
 
-.long-txt button:hover {
-    background: none;
-    color: var(--clr1);
+.app--books .long-txt button:hover {
+    text-decoration: underline;
 }

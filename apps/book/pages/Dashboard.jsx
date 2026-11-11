@@ -1,3 +1,4 @@
+import { AppTopbar } from '../../../cmps/AppTopbar.jsx'
 import { bookService } from "../services/book-service.js"
 import { BookChart } from "../cmps/BookChart.jsx"
 const { useState, useEffect } = React
@@ -12,7 +13,9 @@ export function Dashboard() {
     }, [])
 
     return (
-        <section className="dashboard">
+        <section className="dashboard book-page app--books">
+            <AppTopbar app="books" title="Books" icon="menu_book" />
+
             <h1>Books Dashboard</h1>
             <BookChart data={categoryStats} />
         </section>

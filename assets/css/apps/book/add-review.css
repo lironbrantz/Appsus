@@ -1,55 +1,82 @@
+/* =========================
+   ADD REVIEW
+========================= */
+
 .add-review {
-    margin-top: 2em;
-    padding-top: 1.5em;
-    border-top: 1px solid #ddd;
+    margin-top: 24px;
+    padding: 24px;
+
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    background-color: #FFFFFF;
+    box-shadow: var(--card-shadow);
 }
 
 .add-review h2 {
-    margin-bottom: 1em;
+    margin: 0 0 18px;
+    font-size: 18px;
+    font-weight: 500;
 }
 
 .add-review form {
-    display: grid;
-    gap: 0.8em;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 18px;
+    max-width: 360px;
 }
 
-.add-review label {
-    font-weight: 600;
+/* field labels and fields take a full line; the three
+   "rate by" radio labels sit together on one line */
+.add-review label[for],
+.add-review form > input,
+.add-review form > select,
+.add-review form > div {
+    flex: 1 1 100%;
 }
 
-.add-review input,
-.add-review select {
-    width: 100%;
-    padding: 0.7em;
-
-    border: 1px solid #ccc;
-    border-radius: 5px;
-
-    font: inherit;
+.add-review label[for] {
+    margin-top: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ink-3);
 }
 
-.add-review input:focus,
-.add-review select:focus {
-    outline: none;
-    border-color: var(--clr1);
-}
-
-.add-review button {
-    justify-self: start;
-
-    margin-top: 0.5em;
-    padding: 0.7em 1.2em;
-
-    border: 0;
-    border-radius: 5px;
-
-    background-color: var(--clr1);
-    color: white;
-
-    font-weight: 600;
+.add-review label:not([for]) {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    color: var(--ink);
     cursor: pointer;
 }
 
-.add-review button:hover {
-    opacity: 0.9;
+.add-review form > button {
+    margin-top: 12px;
+}
+
+/* Stars rating */
+
+.add-review form > div {
+    display: flex;
+    gap: 2px;
+}
+
+.add-review form > div > button {
+    width: 36px;
+    height: 36px;
+    padding: 0;
+
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    color: var(--accent);
+
+    font-size: 24px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.add-review form > div > button:hover {
+    background-color: var(--accent-soft);
 }

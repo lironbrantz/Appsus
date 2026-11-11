@@ -7,7 +7,6 @@ export function NoteList({ notes, onRemoveNote, onUpdateNote, onAddNote }) {
 
     return (
         <section>
-            <h2>Note List:</h2>
             <ul className="note-list">
                 {sortedNotes.map(note =>
                     <li key={note.id}>

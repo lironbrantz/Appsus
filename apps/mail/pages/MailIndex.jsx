@@ -6,6 +6,7 @@ import { MailFolderList } from '../cmps/MailFolderList.jsx'
 import { MailFilter } from '../cmps/MailFilter.jsx'
 import { MailCompose } from '../cmps/MailCompose.jsx'
 import { MailDetails } from './MailDetails.jsx'
+import { AppTopbar } from '../../../cmps/AppTopbar.jsx'
 
 const { useState, useEffect } = React
 const { useParams, useSearchParams, useNavigate } = ReactRouterDOM
@@ -104,13 +105,15 @@ export function MailIndex() {
     if (!mails) return <div>Loading...</div>
 
     return (
-        <section className="mail-index">
-            <div className="mail-content">
-
+        <section className="mail-index app--mail">
+            <AppTopbar app="mail" title="Mail" icon="mail">
                 <MailFilter
                     filterBy={filterBy}
                     onSetFilterBy={onSetFilterBy}
                 />
+            </AppTopbar>
+
+            <div className="mail-content">
 
                 <MailFolderList
                     onSetFolder={onSetFolder}

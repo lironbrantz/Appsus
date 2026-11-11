@@ -13,8 +13,19 @@ export function BookChart({ data }) {
                     labels: data.map(item => item.title),
                     datasets: [{
                         label: 'Books (%)',
-                        data: data.map(item => item.value)
+                        data: data.map(item => item.value),
+                        backgroundColor: '#6B4BCF',
+                        borderRadius: 6,
+                        maxBarThickness: 48
                     }]
+                },
+                options: {
+                    layout: { padding: 8 },
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { grid: { display: false } },
+                        y: { grid: { color: '#F1F3F4' } }
+                    }
                 }
             }
         )

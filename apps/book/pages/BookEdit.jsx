@@ -1,3 +1,4 @@
+import { AppTopbar } from '../../../cmps/AppTopbar.jsx'
 import { bookService } from '../services/book-service.js'
 import { BookAdd } from '../cmps/BookAdd.jsx'
 import { showSuccessMsg, showErrorMsg } from '../../../services/event-bus.service.js'
@@ -100,7 +101,9 @@ export function BookEdit() {
     const { amount, isOnSale } = listPrice
 
     return (
-        <section className="book-edit">
+        <section className="book-edit book-page app--books">
+            <AppTopbar app="books" title="Books" icon="menu_book" />
+
             <h2>{bookId ? 'Edit Book' : 'Add Book'}</h2>
             {!bookId && <BookAdd />}
             <form onSubmit={onSaveBook}>

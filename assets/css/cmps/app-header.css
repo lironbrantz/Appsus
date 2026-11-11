@@ -1,44 +1,35 @@
 /* =========================
    APP HEADER
+   A floating launcher in the top-right corner,
+   shown on every screen (Home, Keep, Mail).
 ========================= */
 
 .app-header {
     position: fixed;
     top: 8px;
     right: 12px;
-    z-index: 100;
+    /* above every app layer (Mail compose uses 100, Keep sidebar 90) */
+    z-index: var(--z-header);
 
     display: flex;
     align-items: center;
     justify-content: flex-end;
 
-    width: auto;
     height: 48px;
-    box-sizing: border-box;
     padding: 0;
+    box-sizing: border-box;
 
     background: transparent;
-    border: none;
-    box-shadow: none;
-
-    font-family: 'Google Sans Flex', Arial, sans-serif;
-}
-
-/* Hide the Appsus label. Only the launcher should be visible. */
-.app-header h3 {
-    display: none;
+    font-family: var(--font-body);
 }
 
 /* =========================
-   APP LAUNCHER
+   LAUNCHER BUTTON
 ========================= */
 
 .app-header .app-launcher {
     position: relative;
-    margin-left: auto;
 }
-
-/* Apps button */
 
 .app-header .apps-btn {
     display: flex;
@@ -49,76 +40,81 @@
     height: 44px;
     padding: 0;
 
-    border: none;
-    border-radius: 50%;
-
-    background: transparent;
-    color: #5f6368;
+    border: 1px solid var(--clr-border);
+    border-radius: var(--radius-md);
+    background-color: var(--clr-surface);
+    color: var(--clr-ink);
+    box-shadow: var(--shadow-sm);
 
     font-family: 'Material Symbols Outlined';
-    font-size: 25px;
+    font-size: 24px;
     font-weight: normal;
     line-height: 1;
     font-feature-settings: 'liga';
 
     cursor: pointer;
-    transition: background 0.2s;
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease,
+        background-color .2s ease,
+        color .2s ease;
 }
 
 .app-header .apps-btn:hover {
-    background: #f1f3f4;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 22px rgba(42, 38, 48, .14);
 }
 
 .app-header .apps-btn[aria-expanded="true"] {
-    background: #e8eaed;
+    border-color: var(--clr-dark);
+    background-color: var(--clr-dark);
+    color: var(--clr-on-dark);
+    transform: none;
 }
 
 /* =========================
-   APPS MENU
+   MENU
 ========================= */
 
 .app-header .app-nav {
     position: absolute;
-    top: calc(100% + 12px);
+    top: calc(100% + 10px);
     right: 0;
-    z-index: 110;
 
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 8px;
 
     width: 280px;
+    padding: 12px;
     box-sizing: border-box;
-    padding: 20px;
 
-    border: 1px solid #e8eaed;
-    border-radius: 24px;
-
-    background: #fff;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    border: 1px solid var(--clr-border);
+    border-radius: var(--radius-xl);
+    background-color: var(--clr-surface);
+    box-shadow: var(--shadow-lg);
 
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
-    transform: translateY(-8px);
+    transform: translateY(-6px) scale(.97);
+    transform-origin: top right;
 
     transition:
-        opacity 0.2s,
-        transform 0.2s,
-        visibility 0.2s;
+        opacity .2s ease,
+        transform .2s ease,
+        visibility .2s;
 }
-
-/* Open menu */
 
 .app-header .app-nav.open {
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
-    transform: translateY(0);
+    transform: none;
 }
 
 /* =========================
-   NAVIGATION LINKS
+   MENU LINKS
 ========================= */
 
 .app-header .app-nav a {
@@ -128,40 +124,35 @@
     justify-content: center;
     gap: 10px;
 
-    width: 100%;
-    min-height: 105px;
-    box-sizing: border-box;
-    margin: 0;
+    min-height: 96px;
     padding: 12px 8px;
+    box-sizing: border-box;
 
-    border-radius: 16px;
-
-    background: transparent;
-    color: #3c4043;
+    border: 1px solid transparent;
+    border-radius: var(--radius-lg);
+    background-color: transparent;
+    color: var(--clr-ink);
 
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 600;
     text-align: center;
     text-decoration: none;
 
-    transition: background 0.2s;
+    transition: background-color .2s ease, border-color .2s ease;
 }
 
 .app-header .app-nav a:hover {
-    background: #f1f3f4;
+    background-color: var(--clr-bg);
 }
 
-/* Active app */
-
 .app-header .app-nav a.active {
-    background: #fff8e1;
-    color: #202124;
-    font-weight: 600;
-    text-decoration: none;
+    border-color: var(--clr-border);
+    background-color: var(--clr-bg);
 }
 
 /* =========================
-   APP ICONS
+   MENU ICONS
+   (drawn with ::before, so the JSX stays as it is)
 ========================= */
 
 .app-header .app-nav a::before {
@@ -169,55 +160,51 @@
     align-items: center;
     justify-content: center;
 
-    width: 56px;
-    height: 56px;
-    border-radius: 16px;
+    width: 52px;
+    height: 52px;
+    border-radius: var(--radius-md);
 
     font-family: 'Material Symbols Outlined';
-    font-size: 30px;
+    font-size: 26px;
     font-weight: normal;
     font-style: normal;
     line-height: 1;
     font-feature-settings: 'liga';
     font-variation-settings: 'FILL' 0;
+
+    transition: transform .2s ease;
 }
 
-/* Home */
-
-.app-header .app-nav a[href="#/"]::before {
-    content: 'home';
-    background: #e8f0fe;
-    color: #1a73e8;
+.app-header .app-nav a:hover::before {
+    transform: translateY(-2px);
 }
-
-/* Keep */
-
-.app-header .app-nav a[href="#/note"]::before {
-    content: 'lightbulb';
-    background: #fff3c4;
-    color: #e5a000;
-}
-
-/* Mail */
-
-.app-header .app-nav a[href="#/mail"]::before {
-    content: 'mail';
-    background: #fce8e6;
-    color: #d93025;
-}
-
-/* About */
-
-.app-header .app-nav a[href="#/about"]::before {
-    content: 'info';
-    background: #e6f4ea;
-    color: #188038;
-}
-
-/* Filled icon on active app */
 
 .app-header .app-nav a.active::before {
     font-variation-settings: 'FILL' 1;
+}
+
+.app-header .app-nav a[href="#/"]::before {
+    content: 'home';
+    background-color: var(--clr-dark);
+    color: var(--clr-on-dark);
+}
+
+.app-header .app-nav a[href="#/note"]::before {
+    content: 'lightbulb';
+    background-color: var(--clr-keep-soft);
+    color: var(--clr-keep-ink);
+}
+
+.app-header .app-nav a[href="#/mail"]::before {
+    content: 'mail';
+    background-color: var(--clr-mail-soft);
+    color: var(--clr-mail-ink);
+}
+
+.app-header .app-nav a[href="#/book"]::before {
+    content: 'menu_book';
+    background-color: var(--clr-books-soft);
+    color: var(--clr-books-ink);
 }
 
 /* =========================
@@ -226,8 +213,16 @@
 
 .app-header button:focus-visible,
 .app-header a:focus-visible {
-    outline: 2px solid #1a73e8;
+    outline: 2px solid var(--clr-ink);
     outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .app-header .apps-btn,
+    .app-header .app-nav,
+    .app-header .app-nav a::before {
+        transition: none;
+    }
 }
 
 /* =========================
@@ -240,11 +235,11 @@
     }
 
     .app-header .app-nav {
-        width: min(280px, calc(100vw - 24px));
-        padding: 14px;
+        width: min(280px, calc(100vw - 16px));
+        padding: 10px;
     }
 
     .app-header .app-nav a {
-        min-height: 95px;
+        min-height: 88px;
     }
 }

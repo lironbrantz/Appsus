@@ -1,119 +1,29 @@
-/* Page and header */
+/* =========================
+   PAGE
+   Top bar, search and side menu items come from app-shell.css
+========================= */
 
 .notes-app {
     display: grid;
-    grid-template-columns: 64px minmax(0, 1fr);
+    grid-template-columns: 72px minmax(0, 1fr);
     grid-template-rows: 64px auto minmax(0, 1fr);
     min-height: 100vh;
     background: #fff;
-    color: #202124;
-    font-family: 'Google Sans Flex', Arial, sans-serif;
-    font-optical-sizing: auto;
+    color: #1F1F1F;
+    font-family: 'Google Sans', Roboto, Arial, sans-serif;
 }
 
-.notes-app h1,
-.notes-app h2 {
-    display: none;
-}
-
-/* Top bar */
-.notes-header {
-    position: sticky;
-    top: 0;
-    z-index: 30;
+.notes-app > .app-topbar {
     grid-column: 1 / -1;
     grid-row: 1;
-    display: grid;
-    grid-template-columns: 200px minmax(0, 720px) 1fr;
-    align-items: center;
-    gap: 16px;
-    padding: 0 76px 0 20px;
-    border-bottom: 1px solid #e0e0e0;
-    background: #fff;
 }
 
-.notes-brand {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    color: #3c4043;
-    font-size: 22px;
-    white-space: nowrap;
-}
+/* =========================
+   SIDE MENU
+   An icon rail that expands OVER the notes,
+   without moving the grid
+========================= */
 
-.notes-brand .material-symbols-outlined {
-    font-size: 26px;
-    color: #5f6368;
-}
-
-.notes-brand .keep-logo {
-    color: #fbbc04;
-    font-size: 32px;
-    font-variation-settings: 'FILL' 1;
-}
-
-.notes-menu-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    width: 40px;
-    height: 40px;
-    padding: 0;
-    border: none;
-    border-radius: 50%;
-    background: transparent;
-    cursor: pointer;
-}
-
-.notes-menu-btn:hover {
-    background: #f1f3f4;
-}
-
-.notes-menu-btn:focus-visible,
-.notes-sidebar button:focus-visible {
-    outline: 2px solid #1a73e8;
-    outline-offset: 2px;
-}
-
-/* Search in the top bar */
-.note-filter {
-    width: 100%;
-    min-width: 0;
-    max-width: 720px;
-    margin: 0;
-}
-
-.note-filter form {
-    width: 100%;
-}
-
-.note-filter input {
-    display: block;
-    box-sizing: border-box;
-    width: 100%;
-    height: 46px;
-    padding: 0 18px;
-    border: 1px solid transparent;
-    border-radius: 8px;
-    outline: none;
-    background: #f1f3f4;
-    color: #202124;
-    font: inherit;
-    font-size: 16px;
-    transition: background 0.2s, box-shadow 0.2s;
-}
-
-.note-filter input:focus {
-    background: #fff;
-    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
-}
-
-.note-filter input::placeholder {
-    color: #5f6368;
-}
-
-/* Sidebar: opens OVER the notes, without moving the grid */
 .notes-sidebar {
     position: sticky;
     top: 64px;
@@ -121,77 +31,49 @@
     grid-column: 1;
     grid-row: 2 / 4;
     align-self: start;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    box-sizing: border-box;
-    width: 64px;
+
+    width: 72px;
     height: calc(100vh - 64px);
     padding: 8px 8px 0 0;
     overflow: hidden;
+
     background: #fff;
-    transition: width 0.16s ease;
+    transition: width .16s ease, box-shadow .16s ease;
 }
 
-.notes-sidebar button {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    flex-shrink: 0;
-    box-sizing: border-box;
+.notes-sidebar .app-sidebar-item {
     width: 48px;
-    min-width: 48px;
-    height: 40px;
-    padding: 0 12px;
-    border: none;
-    border-radius: 0 24px 24px 0;
-    background: transparent;
-    color: #3c4043;
-    font: inherit;
-    font-size: 14px;
-    text-align: left;
-    cursor: pointer;
+    margin-left: 12px;
+    padding: 0 13px;
+    border-radius: 24px;
 }
 
-.notes-sidebar .material-symbols-outlined {
-    flex-shrink: 0;
-    font-size: 22px;
-}
-
-.notes-sidebar button.notes-sidebar-active {
-    background: #feefc3;
-    color: #202124;
-}
-
-.notes-sidebar button:not(:disabled):hover {
-    background: #f1f3f4;
-}
-
-.notes-sidebar button.notes-sidebar-active:hover {
-    background: #feefc3;
-}
-
-.notes-sidebar button:disabled {
-    cursor: default;
-}
-
-.sidebar-label {
+.notes-sidebar .app-sidebar-label {
     display: none;
-    white-space: nowrap;
+}
+
+.notes-sidebar .app-sidebar-heading {
+    visibility: hidden;
 }
 
 .notes-app.sidebar-expanded .notes-sidebar {
-    width: 232px;
-    box-shadow: 2px 5px 12px rgba(0, 0, 0, 0.08);
+    width: 264px;
+    box-shadow: 2px 0 12px rgba(60, 64, 67, .12);
 }
 
-.notes-app.sidebar-expanded .notes-sidebar button {
+.notes-app.sidebar-expanded .notes-sidebar .app-sidebar-item {
     width: 100%;
-    padding-left: 20px;
+    margin-left: 0;
+    padding: 0 16px 0 24px;
+    border-radius: 0 22px 22px 0;
 }
 
-.notes-app.sidebar-expanded .sidebar-label {
+.notes-app.sidebar-expanded .notes-sidebar .app-sidebar-label {
     display: inline;
+}
+
+.notes-app.sidebar-expanded .notes-sidebar .app-sidebar-heading {
+    visibility: visible;
 }
 
 /* Add note: same form and behavior as before */
@@ -199,8 +81,8 @@
     grid-column: 2;
     grid-row: 2;
     width: calc(100% - 40px);
-    max-width: 480px;
-    margin: 24px auto 28px;
+    max-width: 600px;
+    margin: 32px auto 40px;
 }
 
 /* Masonry content area */
@@ -224,15 +106,15 @@
     width: 100%;
     min-height: 130px;
     padding: 12px 16px 8px;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
+    border: 0;
+    border-radius: 12px;
     background: #fff;
-    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 1px 2px rgba(60, 64, 67, .3), 0 2px 6px 2px rgba(60, 64, 67, .15);
     transition: box-shadow 0.2s;
 }
 
 .note-add-form:focus-within {
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.24);
+    box-shadow: 0 1px 3px rgba(60, 64, 67, .3), 0 4px 8px 3px rgba(60, 64, 67, .15);
 }
 
 /* Form fields */
@@ -253,7 +135,7 @@
     min-height: 32px;
     padding: 4px 0;
     border: none;
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 500;
     line-height: 1.4;
 }
@@ -289,7 +171,7 @@
 }
 
 .note-add-form input[name="url"]:focus {
-    border-color: #1a73e8;
+    border-color: #1F1F1F;
 }
 
 
@@ -481,12 +363,12 @@
     min-width: 70px;
     height: 36px;
     margin-left: auto;
-    padding: 0 14px;
+    padding: 0 22px;
 
     border: none;
-    border-radius: 6px;
-    background: transparent;
-    color: #202124;
+    border-radius: 18px;
+    background: var(--accent);
+    color: var(--accent-on);
 
     font-family: inherit;
     font-size: 14px;
@@ -495,7 +377,8 @@
 }
 
 .note-add-toolbar > button[type="submit"]:hover {
-    background: rgba(95, 99, 104, 0.1);
+    filter: brightness(.95);
+    box-shadow: 0 1px 2px rgba(60, 64, 67, .3), 0 1px 3px 1px rgba(60, 64, 67, .15);
 }
 
 /* Delete note button */
@@ -654,9 +537,9 @@
 .note-todos .todo-item {
     display: flex;
     align-items: center;
-    gap: 12px;
-    min-height: 32px;
-    padding: 4px 0;
+    gap: 10px;
+    min-height: 28px;
+    padding: 2px 0;
     cursor: pointer;
 }
 
@@ -711,30 +594,9 @@
 
 /* Responsive */
 
-@media (max-width: 1050px) {
-    .notes-header {
-        grid-template-columns: 170px minmax(0, 1fr);
-    }
-}
-
 @media (max-width: 700px) {
     .notes-app {
         grid-template-columns: minmax(0, 1fr);
-    }
-
-    .notes-header {
-        grid-template-columns: 140px minmax(0, 1fr);
-        gap: 8px;
-        padding: 0 68px 0 12px;
-    }
-
-    .notes-brand {
-        gap: 6px;
-        font-size: 18px;
-    }
-
-    .notes-brand .keep-logo {
-        font-size: 26px;
     }
 
     .notes-sidebar {
@@ -748,7 +610,7 @@
         left: 0;
         z-index: 90;
         display: flex;
-        width: min(232px, 85vw);
+        width: min(264px, 85vw);
         height: auto;
         overflow-y: auto;
         background: #fff;
@@ -792,16 +654,6 @@
     }
 }
 
-@media (max-width: 440px) {
-    .notes-header {
-        grid-template-columns: 76px minmax(0, 1fr);
-    }
-
-    .notes-brand > span:last-child {
-        display: none;
-    }
-}
-
 /* Touch devices */
 @media (hover: none) {
     .notes-app .note-preview > .note-pin-btn,
@@ -809,4 +661,29 @@
     .note-add-preview > .remove-media-btn {
         opacity: 1;
     }
+}
+
+/* "Send as email" is a Link: match the other toolbar buttons */
+
+.notes-app .note-preview-toolbar > a.note-action-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    color: #5f6368;
+    transition: background 0.15s;
+}
+
+.notes-app .note-preview-toolbar > a.note-action-btn:hover {
+    background: rgba(95, 99, 104, 0.12);
+}
+
+.notes-app .note-preview-toolbar > a.note-action-btn .material-symbols-outlined {
+    font-size: 20px;
+    font-weight: normal;
+    font-variation-settings: 'FILL' 0;
 }

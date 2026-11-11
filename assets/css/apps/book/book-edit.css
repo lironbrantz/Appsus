@@ -1,45 +1,58 @@
-.book-edit {
-    max-width: 600px;
-    margin: 40px auto;
-    padding: 30px;
-    background-color: white;
-    border-radius: 8px;
+/* =========================
+   ADD / EDIT BOOK
+========================= */
+
+.book-edit > h2 {
+    margin: 32px 0 20px;
+    font-size: 28px;
+    font-weight: 400;
+    letter-spacing: -0.3px;
 }
 
-.book-edit h2 {
-    margin-bottom: 25px;
-}
-
-.book-edit form {
+.book-edit > form {
     display: flex;
-    flex-direction: column;
-    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 12px;
+    max-width: 640px;
+    padding: 28px;
+    box-sizing: border-box;
+
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    background-color: #FFFFFF;
+    box-shadow: var(--card-shadow);
 }
 
-.book-edit label {
-    font-weight: bold;
-    margin-top: 10px;
+.book-edit > form > label,
+.book-edit > form > input:not([type="checkbox"]),
+.book-edit > form > textarea {
+    flex: 1 1 100%;
 }
 
-.book-edit input,
-.book-edit textarea {
-    padding: 10px;
-    font-size: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+.book-edit > form > label {
+    margin-top: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ink-3);
 }
 
-.book-edit textarea {
-    min-height: 100px;
-    resize: vertical;
+.book-edit > form > label:first-child {
+    margin-top: 0;
 }
 
-.book-edit input[type="checkbox"] {
-    width: fit-content;
+/* "On Sale" label and its checkbox stay on one line */
+.book-edit > form > label[for="isOnSale"] {
+    flex: 0 0 auto;
+    margin-top: 12px;
 }
 
-.book-edit button {
+.book-edit > form > input[type="checkbox"] {
+    margin-top: 12px;
+    margin-right: calc(100% - 120px); /* push Save to its own line */
+}
+
+.book-edit > form > button {
+    flex: 0 0 auto;
     margin-top: 20px;
-    padding: 10px 20px;
-    cursor: pointer;
 }

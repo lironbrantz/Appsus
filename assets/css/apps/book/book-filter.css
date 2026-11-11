@@ -1,48 +1,50 @@
+/* =========================
+   FILTER (under the top bar)
+========================= */
+
 .book-filter {
-    margin-bottom: 2.5em;
-    padding: 1.5em;
-
-    background-color: var(--surface);
-
-    border: 1px solid var(--border);
-    border-radius: 8px;
-
-    box-shadow: 0 4px 14px rgba(0, 0, 0, .04);
-}
-
-.book-filter h2 {
-    margin-top: 0;
-    margin-bottom: 1em;
-    font-size: 1.5rem;
+    padding: 16px 20px;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    background-color: #F8FAFD;
 }
 
 .book-filter form {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    gap: .7em;
+    gap: 10px 12px;
 }
 
 .book-filter label {
-    font-weight: 600;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ink-3);
 }
 
 .book-filter input {
-    width: 145px;
-    margin-right: .6em;
+    width: 150px;
+    margin-right: 8px;
 }
 
 .book-filter button {
-    margin: 0;
+    margin-left: auto;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 760px) {
     .book-filter form {
         display: grid;
+        grid-template-columns: max-content minmax(0, 1fr);
+        align-items: center;
     }
 
     .book-filter input {
         width: 100%;
         margin: 0;
+    }
+
+    .book-filter button {
+        grid-column: 1 / -1;
+        margin: 4px 0 0;
     }
 }

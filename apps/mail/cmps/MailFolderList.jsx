@@ -11,12 +11,6 @@ const folders = [
 ]
 
 
-const activeStyle = {
-    backgroundColor: '#d3e3fd',
-    color: '#001d35',
-    fontWeight: 600
-}
-
 export function MailFolderList({
     onSetFolder,
     activeFolder,
@@ -27,15 +21,15 @@ export function MailFolderList({
     const labels = utilService.getLabels()
 
     return (
-        <nav className="mail-folder-list">
+        <nav className="app-sidebar mail-folder-list" aria-label="Mail folders">
             {folders.map(folder => (
                 <button
                     key={folder.id}
                     type="button"
+                    className={`app-sidebar-item ${!activeLabel && activeFolder === folder.id ? 'is-active' : ''}`}
                     onClick={() => onSetFolder(folder.id)}
-                    style={!activeLabel && activeFolder === folder.id ? activeStyle : undefined}
                 >
-                    <span className="material-symbols-outlined">
+                    <span className="material-symbols-outlined" aria-hidden="true">
                         {folder.icon}
                     </span>
                     {folder.label}
@@ -49,16 +43,16 @@ export function MailFolderList({
                 </button>
             ))}
 
-            <p className="mail-labels-title">Labels</p>
+            <p className="app-sidebar-heading mail-labels-title">Labels</p>
 
             {labels.map(label => (
                 <button
                     key={label}
                     type="button"
+                    className={`app-sidebar-item ${activeLabel === label ? 'is-active' : ''}`}
                     onClick={() => onSetLabel(label)}
-                    style={activeLabel === label ? activeStyle : undefined}
                 >
-                    <span className="material-symbols-outlined">
+                    <span className="material-symbols-outlined" aria-hidden="true">
                         label
                     </span>
                     {label}

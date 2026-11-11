@@ -1,13 +1,54 @@
-:root {
-    --bg1: lightblue;
-    --bg2: rgb(50, 160, 204);
-    --bg3: rgb(89, 134, 206);
-    
-    --color1: rgb(26, 115, 232);
-    --color2: rgb(24, 128, 56);
-    --color3: rgb(197, 34, 31);
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=DM+Sans:wght@400;500;600;700&family=Caveat:wght@600;700&display=swap');
 
-    --gray2: #aaa;
-    --gray2: #888;
-    --gray2: #333;
+:root {
+    /* Base */
+    --clr-bg: #F6F1EA;
+    --clr-surface: #FFFFFF;
+    --clr-ink: #2A2630;
+    --clr-ink-muted: #4F4857;
+    --clr-ink-soft: #6E6676;
+    --clr-border: #E6DCCD;
+
+    /* Dark surfaces */
+    --clr-dark: #2A2630;
+    --clr-dark-raised: #3A3642;
+    --clr-on-dark: #F6F1EA;
+    --clr-on-dark-muted: #DDD6E3;
+    --clr-on-dark-soft: #CFC6D8;
+
+    /* Keep */
+    --clr-keep: #F4C542;
+    --clr-keep-soft: #FBF0CC;
+    --clr-keep-ink: #5C4A12;
+
+    /* Mail */
+    --clr-mail: #EE8A74;
+    --clr-mail-soft: #FBE2DA;
+    --clr-mail-ink: #7A2F1F;
+    --clr-mail-strong: #C2452B;
+
+    /* Books */
+    --clr-books: #A991EE;
+    --clr-books-soft: #ECE5FA;
+    --clr-books-ink: #4A3399;
+    --clr-shelf: #C9A77C;
+
+    /* Shape */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 14px;
+    --radius-xl: 20px;
+
+    --shadow-sm: 0 8px 22px rgba(60, 40, 20, .08);
+    --shadow-md: 0 14px 34px rgba(60, 40, 20, .12);
+
+    /* Type */
+    --font-display: 'Fraunces', Georgia, serif;
+    --font-body: 'DM Sans', system-ui, sans-serif;
+    --font-hand: 'Caveat', cursive;
+
+    /* Shared UI (header, menus) */
+    --clr-neutral-soft: #EDE6DA;
+    --shadow-lg: 0 18px 48px rgba(42, 38, 48, .18);
+    --z-header: 1000;
 }
