@@ -1,4 +1,3 @@
-
 @import './basics/vars.css';
 @import './basics/base.css';
 @import './basics/helpers.css';
@@ -12,4 +11,15 @@
 @import './apps/note/note-list.css';
 @import './apps/mail/mail-index.css';
 @import './apps/mail/mail-list.css';
-@import './apps/mail/mail-details.css'
+
+/* Books */
+@import './apps/book/book-index.css';
+@import './apps/book/book-filter.css';
+@import './apps/book/book-list.css';
+@import './apps/book/book-details.css';
+@import './apps/book/book-edit.css';
+@import './apps/book/book-add.css';
+@import './apps/book/add-review.css';
+@import './apps/book/long-txt.css';
+@import './apps/book/chart.css';
+@import './apps/book/dashboard.css';

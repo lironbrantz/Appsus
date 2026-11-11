@@ -30,6 +30,8 @@ export function AppHeader() {
                     <NavLink to="/" end onClick={onCloseMenu}>Home</NavLink>
                     <NavLink to="/note" onClick={onCloseMenu}>Keep</NavLink>
                     <NavLink to="/mail" onClick={onCloseMenu}>Mail</NavLink>
+                    <NavLink to="/book" onClick={onCloseMenu}>Books</NavLink>
+
                     <NavLink to="/about" onClick={onCloseMenu}>About</NavLink>
                 </nav>
             </div>
