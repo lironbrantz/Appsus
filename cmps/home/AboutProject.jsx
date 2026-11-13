@@ -4,13 +4,19 @@ export function AboutProject() {
             className="home-developer"
             aria-labelledby="home-developer-title"
         >
+            <img
+                className="home-developer-photo"
+                src="assets/img/about/liron.jpg"
+                alt="Liron Brantz"
+            />
+
             <div className="home-developer-content">
                 <h2 id="home-developer-title">
                     Liron Brantz
                 </h2>
 
                 <p className="home-developer-role">
-                    Full-Stack Developer
+                    Full-Stack Developer with an interest in both front-end and back-end development
                 </p>
 
                 <p className="home-developer-project">

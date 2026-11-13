@@ -460,13 +460,20 @@
 .home-developer {
     display: flex;
     align-items: center;
-    gap: 48px;
+    gap: 32px;
     margin-top: 48px;
     padding: 32px 36px;
     border: 1px solid var(--home-line);
     border-radius: var(--home-radius);
     background-color: #FFFFFF;
     box-shadow: var(--home-shadow);
+}
+
+.home-developer-photo {
+    flex: 0 0 auto;
+    width: 180px;
+    height: auto;
+    border-radius: 16px;
 }
 
 .home-developer-content {
@@ -491,8 +498,8 @@
 .home-developer-role {
     margin: 2px 0 12px;
     font-size: 15px;
-    font-weight: 500;
-    color: var(--home-ink-3);
+    font-weight: 600;
+    color: var(--home-ink);
 }
 
 .home-developer-description {
@@ -522,7 +529,7 @@
     flex-direction: column;
     gap: 10px;
     flex: none;
-    width: 250px;
+    width: 232px;
 }
 
 .home-developer-links a {
@@ -594,6 +601,11 @@
         align-items: stretch;
         gap: 24px;
         padding: 24px;
+    }
+
+    .home-developer-photo {
+        width: min(100%, 260px);
+        align-self: center;
     }
 
     .home-developer-links {
